@@ -1,5 +1,6 @@
 package com.adriencadet.wanderer;
 
+import com.adriencadet.wanderer.models.serializers.SerializerFactory;
 import com.adriencadet.wanderer.models.services.wanderer.WandererServiceFactory;
 import com.adriencadet.wanderer.models.services.wanderer.api.WandererAPIFactory;
 import com.adriencadet.wanderer.models.services.wanderer.jobs.WandererServerJobFactory;
@@ -17,7 +18,8 @@ import dagger.Component;
     ApplicationModule.class,
     WandererAPIFactory.class,
     WandererServerJobFactory.class,
-    WandererServiceFactory.class
+    WandererServiceFactory.class,
+    SerializerFactory.class
 })
 public interface ApplicationComponent {
 
