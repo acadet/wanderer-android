@@ -12,7 +12,6 @@ import rx.Observable;
  * <p>
  */
 public interface IWandererServer {
-
     Observable<List<PlaceWandererServerDTO>> listPlacesByVisitDateDescJob();
 
     Observable<List<PictureWandererServerDTO>> listPicturesForPlaceJob(int placeID);
