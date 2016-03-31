@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    style="@style/AdapterPlaceList"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <ImageView
+        android:id="@+id/adapter_place_list_background"
+        style="@style/MatchParent"
+        />
+
+
+    <TextView
+        android:id="@+id/adapter_place_list_name"
+        android:layout_centerInParent="true"
+        style="@style/AdapterPlaceListName"
+        tools:text="Name"
+        />
+
+    <RelativeLayout
+        android:layout_alignParentBottom="true"
+        style="@style/MatchParentWrapContent"
+        >
+
+        <TextView
+            android:id="@+id/adapter_place_list_date"
+            style="@style/AdapterPlaceListDetailsLabel"
+            tools:text="Mar 2016"
+            />
+
+        <TextView
+            android:id="@+id/adapter_place_list_country"
+            android:layout_alignParentRight="true"
+            style="@style/AdapterPlaceListDetailsLabel"
+            tools:text="USA"
+            />
+
+    </RelativeLayout>
+
+</RelativeLayout>
