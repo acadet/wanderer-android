@@ -5,6 +5,9 @@ import com.adriencadet.wanderer.models.serializers.SerializerFactory;
 import com.adriencadet.wanderer.models.services.wanderer.WandererServiceFactory;
 import com.adriencadet.wanderer.models.services.wanderer.api.WandererAPIFactory;
 import com.adriencadet.wanderer.models.services.wanderer.jobs.WandererServerJobFactory;
+import com.adriencadet.wanderer.ui.activities.BaseActivity;
+import com.adriencadet.wanderer.ui.events.EventBusFactory;
+import com.adriencadet.wanderer.ui.routers.RouterFactory;
 
 import javax.inject.Singleton;
 
@@ -21,8 +24,10 @@ import dagger.Component;
     WandererServerJobFactory.class,
     WandererServiceFactory.class,
     SerializerFactory.class,
-    BLLJobFactory.class
+    BLLJobFactory.class,
+    EventBusFactory.class,
+    RouterFactory.class
 })
 public interface ApplicationComponent {
-
+    void inject(BaseActivity baseActivity);
 }

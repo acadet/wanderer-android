@@ -1,7 +1,7 @@
-package com.adriencadet.wanderer.ui;
+package com.adriencadet.wanderer.ui.activities;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import com.adriencadet.wanderer.R;
 

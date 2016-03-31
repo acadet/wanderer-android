@@ -5,6 +5,9 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="ProgressBar" parent="android:Theme.Holo.Light.NoActionBar.Fullscreen">
+    </style>
+
     <style name="MatchParentWrapContent">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
