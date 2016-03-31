@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    style="@style/MatchParent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+
+    <com.adriencadet.wanderer.ui.components.MainUIContainer
+        android:id="@+id/main_ui_container"
+        style="@style/MatchParent"
+        />
+
+</FrameLayout>
