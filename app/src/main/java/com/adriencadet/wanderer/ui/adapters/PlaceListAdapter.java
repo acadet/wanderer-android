@@ -52,7 +52,7 @@ public class PlaceListAdapter extends BaseAdapter<PlaceBLLDTO> {
         }
     }
 
-    PlaceListAdapter(Context context, List<PlaceBLLDTO> items) {
+    public PlaceListAdapter(Context context, List<PlaceBLLDTO> items) {
         super(context, items);
 
         WandererApplication.getApplicationComponent().inject(this);
