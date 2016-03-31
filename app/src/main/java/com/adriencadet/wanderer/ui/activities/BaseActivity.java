@@ -64,6 +64,10 @@ public abstract class BaseActivity extends Activity {
         Crouton.cancelAllCroutons();
     }
 
+    protected void showSpinnerImmediately() {
+        spinner.show(false);
+    }
+
     @Override
     public void onBackPressed() {
         finish();
@@ -99,7 +103,7 @@ public abstract class BaseActivity extends Activity {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onSpinnerShowImmediately(SpinnerEvents.ShowImmediately e) {
-        spinner.show(false);
+        showSpinnerImmediately();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

@@ -20,6 +20,9 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        showSpinnerImmediately();
+
         setContentView(R.layout.activity_main);
 
         rootScoop = new Scoop.Builder("root").build();
@@ -29,10 +32,10 @@ public class MainActivity extends BaseActivity {
         appRouter.goTo(new PlaceListScreen());
     }
 
-    //    @Override
-    //    public void onBackPressed() {
-    //        if (!appRouter.goBack()) {
-    //            finish();
-    //        }
-    //    }
+    @Override
+    public void onBackPressed() {
+        if (!appRouter.goBack()) {
+            finish();
+        }
+    }
 }
