@@ -1,5 +1,6 @@
 package com.adriencadet.wanderer;
 
+import com.adriencadet.wanderer.models.bll.BLLFactory;
 import com.adriencadet.wanderer.models.bll.jobs.BLLJobFactory;
 import com.adriencadet.wanderer.models.serializers.SerializerFactory;
 import com.adriencadet.wanderer.models.services.wanderer.WandererServiceFactory;
@@ -27,8 +28,9 @@ import dagger.Component;
     WandererServiceFactory.class,
     SerializerFactory.class,
     BLLJobFactory.class,
+    BLLFactory.class,
     EventBusFactory.class,
-    RouterFactory.class
+    RouterFactory.class,
 })
 public interface ApplicationComponent {
     void inject(BaseActivity baseActivity);
