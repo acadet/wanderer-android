@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    style="@style/MatchParent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <ListView
+        android:id="@+id/place_list_menu_listview"
+        android:visibility="gone"
+        style="@style/MatchParentWrapContent"
+        tools:visibility="visible"
+        />
+
+    <TextView
+        android:id="@+id/place_list_menu_no_content_label"
+        android:layout_centerInParent="true"
+        android:text="@string/place_list_no_content_label"
+        android:visibility="gone"
+        style="@style/PlaceListNoContentLabel"
+        tools:visibility="visible"
+        />
+
+    <ImageView
+        android:id="@+id/place_list_menu_icon"
+        style="@style/PlaceListMenuIcon"
+        />
+
+</RelativeLayout>

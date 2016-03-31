@@ -6,6 +6,8 @@ import com.adriencadet.wanderer.models.services.wanderer.WandererServiceFactory;
 import com.adriencadet.wanderer.models.services.wanderer.api.WandererAPIFactory;
 import com.adriencadet.wanderer.models.services.wanderer.jobs.WandererServerJobFactory;
 import com.adriencadet.wanderer.ui.activities.BaseActivity;
+import com.adriencadet.wanderer.ui.components.MainUIContainer;
+import com.adriencadet.wanderer.ui.controllers.BaseController;
 import com.adriencadet.wanderer.ui.events.EventBusFactory;
 import com.adriencadet.wanderer.ui.routers.RouterFactory;
 
@@ -30,4 +32,8 @@ import dagger.Component;
 })
 public interface ApplicationComponent {
     void inject(BaseActivity baseActivity);
+
+    void inject(BaseController baseController);
+
+    void inject(MainUIContainer container);
 }
