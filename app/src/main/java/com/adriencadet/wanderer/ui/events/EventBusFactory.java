@@ -44,4 +44,11 @@ public class EventBusFactory {
     public EventBus provideSpinnerBus() {
         return buildBus();
     }
+
+    @Provides
+    @Singleton
+    @Named("segue")
+    public EventBus provideSegueBus() {
+        return buildBus();
+    }
 }

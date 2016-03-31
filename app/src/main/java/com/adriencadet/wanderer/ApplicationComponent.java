@@ -7,6 +7,7 @@ import com.adriencadet.wanderer.models.services.wanderer.WandererServiceFactory;
 import com.adriencadet.wanderer.models.services.wanderer.api.WandererAPIFactory;
 import com.adriencadet.wanderer.models.services.wanderer.jobs.WandererServerJobFactory;
 import com.adriencadet.wanderer.ui.activities.BaseActivity;
+import com.adriencadet.wanderer.ui.adapters.PlaceListAdapter;
 import com.adriencadet.wanderer.ui.components.MainUIContainer;
 import com.adriencadet.wanderer.ui.controllers.BaseController;
 import com.adriencadet.wanderer.ui.events.EventBusFactory;
@@ -38,4 +39,6 @@ public interface ApplicationComponent {
     void inject(BaseController baseController);
 
     void inject(MainUIContainer container);
+
+    void inject(PlaceListAdapter adapter);
 }

@@ -7,12 +7,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.adriencadet.wanderer.R;
+import com.adriencadet.wanderer.WandererApplication;
 import com.adriencadet.wanderer.models.bll.dto.PlaceBLLDTO;
+import com.adriencadet.wanderer.ui.events.SegueEvents;
 import com.squareup.picasso.Picasso;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
+
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -22,6 +29,10 @@ import butterknife.ButterKnife;
  * <p>
  */
 public class PlaceListAdapter extends BaseAdapter<PlaceBLLDTO> {
+
+    @Inject
+    @Named("segue")
+    EventBus segueBus;
 
     static class ViewHolder {
         @Bind(R.id.adapter_place_list_background)
@@ -43,6 +54,8 @@ public class PlaceListAdapter extends BaseAdapter<PlaceBLLDTO> {
 
     PlaceListAdapter(Context context, List<PlaceBLLDTO> items) {
         super(context, items);
+
+        WandererApplication.getApplicationComponent().inject(this);
     }
 
     private String userFriendlyVisitDate(PlaceBLLDTO item) {
@@ -72,6 +85,10 @@ public class PlaceListAdapter extends BaseAdapter<PlaceBLLDTO> {
         holder.name.setText(item.getName());
         holder.country.setText(item.getCountry());
         holder.date.setText(userFriendlyVisitDate(item));
+
+        view.setOnClickListener((v) -> {
+            segueBus.post(new SegueEvents.ShowPlaceInsight(item));
+        });
 
         return view;
     }
