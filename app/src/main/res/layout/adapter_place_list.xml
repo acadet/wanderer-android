@@ -7,7 +7,7 @@
 
     <ImageView
         android:id="@+id/adapter_place_list_background"
-        style="@style/MatchParent"
+        style="@style/AdapterPlaceListBackground"
         />
 
 

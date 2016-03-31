@@ -78,8 +78,6 @@ public class PlaceListAdapter extends BaseAdapter<PlaceBLLDTO> {
         Picasso
             .with(getContext())
             .load(item.getMainPicture().getUrl())
-            .centerCrop()
-            //.placeholder(R.drawable.placeholder)
             .into(holder.background);
 
         holder.name.setText(item.getName());

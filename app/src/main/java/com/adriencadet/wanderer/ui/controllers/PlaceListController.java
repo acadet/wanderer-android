@@ -5,6 +5,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.adriencadet.wanderer.R;
+import com.adriencadet.wanderer.WandererApplication;
 import com.adriencadet.wanderer.models.bll.dto.PlaceBLLDTO;
 import com.adriencadet.wanderer.ui.adapters.PlaceListAdapter;
 import com.adriencadet.wanderer.ui.events.SegueEvents;
@@ -50,6 +51,8 @@ public class PlaceListController extends BaseController {
     @Override
     public void onAttach() {
         super.onAttach();
+
+        WandererApplication.getApplicationComponent().inject(this);
 
         segueBus.register(this);
 
