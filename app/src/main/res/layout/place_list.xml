@@ -7,6 +7,8 @@
 
     <ListView
         android:id="@+id/place_list_menu_listview"
+        android:divider="@null"
+        android:dividerHeight="0dp"
         android:visibility="gone"
         style="@style/MatchParentWrapContent"
         tools:visibility="visible"
@@ -24,7 +26,7 @@
     <ImageView
         android:id="@+id/place_list_menu_icon"
         android:src="@drawable/abc_ic_menu_moreoverflow_mtrl_alpha"
-        style="@style/PlaceListMenuIcon"
+        style="@style/TopRightCornerIcon"
         />
 
 </RelativeLayout>

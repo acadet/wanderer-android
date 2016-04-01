@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="PlaceInsight" parent="MatchParent">
+        <item name="android:background">@color/black</item>
+    </style>
+
+    <style name="PlaceInsightName" parent="MatchParentWrapContent">
+
+    </style>
+
+    <style name="PlaceInsightLabel" parent="WrapContent">
+
+    </style>
+
+    <style name="PlaceInsightDescription" parent="MatchParentWrapContent">
+
+    </style>
+</resources>

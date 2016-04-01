@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    style="@style/MatchParent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+
+    <ScrollView
+        style="@style/PlaceInsight"
+        >
+
+        <LinearLayout
+            style="@style/MatchParentWrapContent.Vertical"
+            >
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                />
+
+            <TextView
+                android:id="@+id/place_insight_name"
+                style="@style/PlaceInsightName"
+                />
+
+            <RelativeLayout
+                style="@style/MatchParentWrapContent"
+                >
+
+                <TextView
+                    android:id="@+id/place_insight_country"
+                    android:layout_alignParentLeft="true"
+                    style="@style/PlaceInsightLabel"
+                    />
+
+
+                <TextView
+                    android:id="@+id/place_insight_date"
+                    android:layout_alignParentRight="true"
+                    style="@style/PlaceInsightLabel"
+                    />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/place_insight_description"
+                style="@style/PlaceInsightDescription"
+                />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <ImageView
+        android:id="@+id/place_insight_close_icon"
+        android:src="@drawable/abc_ic_clear_mtrl_alpha"
+        style="@style/TopRightCornerIcon"
+        />
+
+    <!-- TODO: likes -->
+
+</RelativeLayout>

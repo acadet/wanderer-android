@@ -9,6 +9,7 @@ import com.adriencadet.wanderer.WandererApplication;
 import com.adriencadet.wanderer.models.bll.dto.PlaceBLLDTO;
 import com.adriencadet.wanderer.ui.adapters.PlaceListAdapter;
 import com.adriencadet.wanderer.ui.events.SegueEvents;
+import com.adriencadet.wanderer.ui.screens.PlaceInsightScreen;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 
@@ -107,6 +108,6 @@ public class PlaceListController extends BaseController {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onShowPlaceInsight(SegueEvents.ShowPlaceInsight event) {
-        //appRouter.goTo(new PlaceInsightScreen());
+        appRouter.goTo(new PlaceInsightScreen(event.place));
     }
 }
