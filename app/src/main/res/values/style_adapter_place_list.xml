@@ -2,7 +2,7 @@
 <resources>
 
     <style name="AdapterPlaceListBackground" parent="MatchParent">
-        <item name="android:background">@color/brown</item>
+        <item name="android:background">@color/yellow</item>
         <item name="android:scaleType">centerCrop</item>
     </style>
 

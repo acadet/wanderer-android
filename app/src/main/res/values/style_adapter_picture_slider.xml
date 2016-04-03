@@ -2,7 +2,7 @@
 <resources>
 
     <style name="AdapterPictureSliderEmbedded" parent="MatchParent">
-        <item name="android:background">@color/beige</item>
+        <item name="android:background">@color/grey</item>
         <item name="android:scaleType">centerCrop</item>
     </style>
 </resources>
