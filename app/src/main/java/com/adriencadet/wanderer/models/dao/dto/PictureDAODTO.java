@@ -1,5 +1,7 @@
 package com.adriencadet.wanderer.models.dao.dto;
 
+import java.util.Date;
+
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
@@ -11,6 +13,8 @@ public class PictureDAODTO extends RealmObject {
     @PrimaryKey
     private int    id;
     private String url;
+    private int    placeID;
+    private Date   updatedAt;
 
     public int getId() {
         return id;
@@ -26,5 +30,21 @@ public class PictureDAODTO extends RealmObject {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public int getPlaceID() {
+        return placeID;
+    }
+
+    public void setPlaceID(int placeID) {
+        this.placeID = placeID;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }

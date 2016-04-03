@@ -2,6 +2,7 @@ package com.adriencadet.wanderer;
 
 import com.adriencadet.wanderer.models.bll.BLLFactory;
 import com.adriencadet.wanderer.models.bll.jobs.BLLJobFactory;
+import com.adriencadet.wanderer.models.dao.DAOFactory;
 import com.adriencadet.wanderer.models.serializers.SerializerFactory;
 import com.adriencadet.wanderer.models.services.wanderer.WandererServiceFactory;
 import com.adriencadet.wanderer.models.services.wanderer.api.WandererAPIFactory;
@@ -33,10 +34,11 @@ import dagger.Component;
     WandererServerJobFactory.class,
     WandererServiceFactory.class,
     SerializerFactory.class,
+    DAOFactory.class,
     BLLJobFactory.class,
     BLLFactory.class,
     EventBusFactory.class,
-    RouterFactory.class,
+    RouterFactory.class
 })
 public interface ApplicationComponent {
     IFragmentComponent fragmentComponent(FragmentModule fragmentModule);
