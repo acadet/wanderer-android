@@ -1,10 +1,12 @@
 package com.adriencadet.wanderer.ui.controllers;
 
+import android.support.v4.view.ViewPager;
 import android.widget.TextView;
 
 import com.adriencadet.wanderer.R;
 import com.adriencadet.wanderer.models.bll.dto.PictureBLLDTO;
 import com.adriencadet.wanderer.models.bll.dto.PlaceBLLDTO;
+import com.adriencadet.wanderer.ui.adapters.PictureSliderAdapter;
 import com.adriencadet.wanderer.ui.screens.PlaceInsightScreen;
 import com.lyft.scoop.Screen;
 
@@ -21,6 +23,9 @@ import rx.android.schedulers.AndroidSchedulers;
  * <p>
  */
 public class PlaceInsightController extends BaseController {
+
+    @Bind(R.id.place_insight_slider)
+    ViewPager sliderView;
 
     @Bind(R.id.place_insight_name)
     TextView nameView;
@@ -70,7 +75,7 @@ public class PlaceInsightController extends BaseController {
 
                 @Override
                 public void onNext(List<PictureBLLDTO> pictureBLLDTOs) {
-                    //TODO
+                    sliderView.setAdapter(new PictureSliderAdapter(context, pictureBLLDTOs));
                 }
             });
     }

@@ -5,5 +5,5 @@ package com.adriencadet.wanderer;
  * <p>
  */
 public class ApplicationConfiguration {
-    public final String WANDERER_SERVER_ENDPOINT = "http://www43151.coshx.com/";
+    public final String WANDERER_SERVER_ENDPOINT = "http://www40506.coshx.com/";
 }

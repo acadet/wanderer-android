@@ -12,9 +12,9 @@
             style="@style/MatchParentWrapContent.Vertical"
             >
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="400dp"
+            <android.support.v4.view.ViewPager
+                android:id="@+id/place_insight_slider"
+                style="@style/PlaceInsightSlider"
                 />
 
             <TextView

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+             style="@style/MatchParent">
+
+    <ImageView
+        android:id="@+id/adapter_picture_slider_embedded"
+        style="@style/AdapterPictureSliderEmbedded"
+        />
+
+</FrameLayout>
