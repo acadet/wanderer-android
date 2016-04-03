@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <style name="PlaceList" parent="MatchParent">
+        <item name="android:background">@color/black</item>
+    </style>
+
     <style name="PlaceListNoContentLabel" parent="WrapContent">
     </style>
 </resources>

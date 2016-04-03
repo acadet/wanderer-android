@@ -4,6 +4,7 @@ import android.support.v4.view.ViewPager;
 import android.widget.TextView;
 
 import com.adriencadet.wanderer.R;
+import com.adriencadet.wanderer.WandererApplication;
 import com.adriencadet.wanderer.models.bll.dto.PictureBLLDTO;
 import com.adriencadet.wanderer.models.bll.dto.PlaceBLLDTO;
 import com.adriencadet.wanderer.ui.adapters.PictureSliderAdapter;
@@ -12,7 +13,12 @@ import com.adriencadet.wanderer.ui.helpers.DateFormatterHelper;
 import com.adriencadet.wanderer.ui.screens.PlaceInsightScreen;
 import com.lyft.scoop.Screen;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.List;
+
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -25,6 +31,10 @@ import rx.android.schedulers.AndroidSchedulers;
  */
 public class PlaceInsightController extends BaseController {
     private Subscription listPicturesForPlaceSubscription;
+
+    @Inject
+    @Named("segue")
+    EventBus segueBus;
 
     @Bind(R.id.place_insight_slider)
     ViewPager sliderView;
@@ -50,6 +60,7 @@ public class PlaceInsightController extends BaseController {
     public void onAttach() {
         super.onAttach();
 
+        WandererApplication.getApplicationComponent().inject(this);
         PlaceInsightScreen screen = Screen.fromController(this);
         PlaceBLLDTO place = screen.place;
 

@@ -52,10 +52,6 @@ public abstract class BaseController extends ViewController {
     EventBus spinnerBus;
 
     @Inject
-    @Named("segue")
-    EventBus segueBus;
-
-    @Inject
     IDataReadingBLL dataReadingBLL;
 
     @Override
@@ -63,15 +59,6 @@ public abstract class BaseController extends ViewController {
         super.onAttach();
         WandererApplication.getApplicationComponent().inject(this);
         ButterKnife.bind(this, getView());
-
-        segueBus.register(this);
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-
-        segueBus.unregister(this);
     }
 
     public void inform(String message) {

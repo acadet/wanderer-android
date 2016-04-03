@@ -5,6 +5,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.adriencadet.wanderer.R;
+import com.adriencadet.wanderer.WandererApplication;
 import com.adriencadet.wanderer.models.bll.dto.PlaceBLLDTO;
 import com.adriencadet.wanderer.ui.adapters.PlaceListAdapter;
 import com.adriencadet.wanderer.ui.events.SegueEvents;
@@ -12,15 +13,18 @@ import com.adriencadet.wanderer.ui.screens.PlaceInsightScreen;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import butterknife.Bind;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
 
 /**
  * PlaceListController
@@ -29,11 +33,23 @@ import rx.functions.Action1;
 public class PlaceListController extends BaseController {
     private Subscription listPlacesSubscription;
 
+    @Inject
+    @Named("segue")
+    EventBus segueBus;
+
     @Bind(R.id.place_list_menu_listview)
     ListView listView;
 
     @Bind(R.id.place_list_menu_no_content_label)
     TextView noContentLabelView;
+
+    private void fadeIn(View view) {
+        view.setVisibility(View.VISIBLE);
+        YoYo
+            .with(Techniques.FadeIn)
+            .duration(300)
+            .playOn(view);
+    }
 
     @Override
     protected int layoutId() {
@@ -43,6 +59,9 @@ public class PlaceListController extends BaseController {
     @Override
     public void onAttach() {
         super.onAttach();
+
+        WandererApplication.getApplicationComponent().inject(this);
+        segueBus.register(this);
 
         showSpinner();
         listPlacesSubscription = dataReadingBLL
@@ -57,26 +76,22 @@ public class PlaceListController extends BaseController {
                 @Override
                 public void onError(Throwable e) {
                     super.onError(e);
+
                     hideSpinner();
+                    listView.setVisibility(View.GONE);
+                    fadeIn(noContentLabelView);
                 }
 
                 @Override
                 public void onNext(List<PlaceBLLDTO> placeBLLDTOs) {
-                    Action1<View> showView = (v) -> {
-                        v.setVisibility(View.VISIBLE);
-                        YoYo
-                            .with(Techniques.FadeIn)
-                            .duration(300)
-                            .playOn(v);
-                    };
 
                     if (placeBLLDTOs.isEmpty()) {
                         listView.setVisibility(View.GONE);
-                        showView.call(noContentLabelView);
+                        fadeIn(noContentLabelView);
                     } else {
                         listView.setAdapter(new PlaceListAdapter(context, placeBLLDTOs));
                         noContentLabelView.setVisibility(View.GONE);
-                        showView.call(listView);
+                        fadeIn(listView);
                     }
                 }
             });
@@ -89,6 +104,8 @@ public class PlaceListController extends BaseController {
         if (listPlacesSubscription != null) {
             listPlacesSubscription.unsubscribe();
         }
+
+        segueBus.unregister(this);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

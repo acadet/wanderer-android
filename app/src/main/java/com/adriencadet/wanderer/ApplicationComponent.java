@@ -13,6 +13,8 @@ import com.adriencadet.wanderer.ui.activities.MainActivity;
 import com.adriencadet.wanderer.ui.adapters.PlaceListAdapter;
 import com.adriencadet.wanderer.ui.components.MainUIContainer;
 import com.adriencadet.wanderer.ui.controllers.BaseController;
+import com.adriencadet.wanderer.ui.controllers.PlaceInsightController;
+import com.adriencadet.wanderer.ui.controllers.PlaceListController;
 import com.adriencadet.wanderer.ui.events.EventBusFactory;
 import com.adriencadet.wanderer.ui.routers.RouterFactory;
 
@@ -44,6 +46,10 @@ public interface ApplicationComponent {
     void inject(MainActivity mainActivity);
 
     void inject(BaseController baseController);
+
+    void inject(PlaceListController placeListController);
+
+    void inject(PlaceInsightController placeInsightController);
 
     void inject(MainUIContainer container);
 
