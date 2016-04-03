@@ -10,12 +10,11 @@ import com.adriencadet.wanderer.R;
 import com.adriencadet.wanderer.WandererApplication;
 import com.adriencadet.wanderer.models.bll.dto.PlaceBLLDTO;
 import com.adriencadet.wanderer.ui.events.SegueEvents;
+import com.adriencadet.wanderer.ui.helpers.DateFormatterHelper;
 import com.squareup.picasso.Picasso;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -58,14 +57,6 @@ public class PlaceListAdapter extends BaseAdapter<PlaceBLLDTO> {
         WandererApplication.getApplicationComponent().inject(this);
     }
 
-    private String userFriendlyVisitDate(PlaceBLLDTO item) {
-        DateFormat format;
-
-        format = new SimpleDateFormat("MMM yyyy");
-
-        return format.format(item.getVisitDate().toDate());
-    }
-
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View view;
@@ -82,7 +73,7 @@ public class PlaceListAdapter extends BaseAdapter<PlaceBLLDTO> {
 
         holder.name.setText(item.getName());
         holder.country.setText(item.getCountry());
-        holder.date.setText(userFriendlyVisitDate(item));
+        holder.date.setText(DateFormatterHelper.userFriendy(item));
 
         view.setOnClickListener((v) -> {
             segueBus.post(new SegueEvents.ShowPlaceInsight(item));

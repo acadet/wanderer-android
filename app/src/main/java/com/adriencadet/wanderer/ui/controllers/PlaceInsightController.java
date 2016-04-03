@@ -7,11 +7,10 @@ import com.adriencadet.wanderer.R;
 import com.adriencadet.wanderer.models.bll.dto.PictureBLLDTO;
 import com.adriencadet.wanderer.models.bll.dto.PlaceBLLDTO;
 import com.adriencadet.wanderer.ui.adapters.PictureSliderAdapter;
+import com.adriencadet.wanderer.ui.helpers.DateFormatterHelper;
 import com.adriencadet.wanderer.ui.screens.PlaceInsightScreen;
 import com.lyft.scoop.Screen;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import butterknife.Bind;
@@ -41,14 +40,6 @@ public class PlaceInsightController extends BaseController {
     @Bind(R.id.place_insight_description)
     TextView description;
 
-    private String userFriendlyVisitDate(PlaceBLLDTO place) {
-        DateFormat format;
-
-        format = new SimpleDateFormat("MMM yyyy");
-
-        return format.format(place.getVisitDate().toDate());
-    }
-
     @Override
     protected int layoutId() {
         return R.layout.place_insight;
@@ -63,7 +54,7 @@ public class PlaceInsightController extends BaseController {
 
         nameView.setText(place.getName());
         countryView.setText(place.getCountry());
-        dateView.setText(userFriendlyVisitDate(place));
+        dateView.setText(DateFormatterHelper.userFriendy(place));
         description.setText(place.getDescription());
 
         listPicturesForPlaceSubscription = dataReadingBLL
