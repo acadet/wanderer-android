@@ -1,8 +1,13 @@
 package com.adriencadet.wanderer.ui.screens;
 
+import com.adriencadet.wanderer.ui.controllers.PlaceMapController;
+import com.lyft.scoop.Controller;
+import com.lyft.scoop.Screen;
+
 /**
  * PlaceMapScreen
  * <p>
  */
-public class PlaceMapScreen {
+@Controller(PlaceMapController.class)
+public class PlaceMapScreen extends Screen {
 }

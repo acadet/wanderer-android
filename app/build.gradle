@@ -63,6 +63,7 @@ dependencies {
     apt 'com.google.dagger:dagger-compiler:2.1'
     compile 'com.jakewharton.timber:timber:4.1.1'
     compile 'com.lyft:scoop:0.3.9'
+    compile 'com.google.android.gms:play-services-maps:8.4.0'
 
     // AndroidViewAnimations block
     compile 'com.nineoldandroids:library:2.4.0'

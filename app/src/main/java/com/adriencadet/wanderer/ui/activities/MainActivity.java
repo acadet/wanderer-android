@@ -5,7 +5,7 @@ import android.view.ViewGroup;
 
 import com.adriencadet.wanderer.R;
 import com.adriencadet.wanderer.ui.components.MainUIContainer;
-import com.adriencadet.wanderer.ui.screens.PlaceListScreen;
+import com.adriencadet.wanderer.ui.screens.PlaceMapScreen;
 import com.lyft.scoop.Scoop;
 
 import butterknife.Bind;
@@ -29,7 +29,7 @@ public class MainActivity extends BaseActivity {
         rootScoop.inflate(R.layout.root_layout, (ViewGroup) findViewById(R.id.main_layout), true);
         ButterKnife.bind(this);
 
-        appRouter.goTo(new PlaceListScreen());
+        appRouter.goTo(new PlaceMapScreen());
     }
 
     @Override
