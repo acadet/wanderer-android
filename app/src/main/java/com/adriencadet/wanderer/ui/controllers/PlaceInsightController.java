@@ -16,6 +16,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 
 /**
@@ -23,6 +24,7 @@ import rx.android.schedulers.AndroidSchedulers;
  * <p>
  */
 public class PlaceInsightController extends BaseController {
+    private Subscription listPicturesForPlaceSubscription;
 
     @Bind(R.id.place_insight_slider)
     ViewPager sliderView;
@@ -64,7 +66,7 @@ public class PlaceInsightController extends BaseController {
         dateView.setText(userFriendlyVisitDate(place));
         description.setText(place.getDescription());
 
-        dataReadingBLL
+        listPicturesForPlaceSubscription = dataReadingBLL
             .listPicturesForPlace(place)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(new BaseSubscriber<List<PictureBLLDTO>>() {
@@ -78,6 +80,15 @@ public class PlaceInsightController extends BaseController {
                     sliderView.setAdapter(new PictureSliderAdapter(context, pictureBLLDTOs));
                 }
             });
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+
+        if (listPicturesForPlaceSubscription != null) {
+            listPicturesForPlaceSubscription.unsubscribe();
+        }
     }
 
     @OnClick(R.id.place_insight_close_icon)
