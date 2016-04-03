@@ -26,11 +26,36 @@ class PictureDAO extends BaseDAO implements IPictureDAO {
         this.configuration = configuration;
     }
 
+    private PictureDAODTO find(Realm realm, int id) {
+        return realm.where(PictureDAODTO.class).equalTo("id", id).findFirst();
+    }
+
+    @Override
+    public PictureDAODTO find(int id) {
+        return find(getRealm(), id);
+    }
+
     @Override
     public List<PictureDAODTO> listForPlace(int placeID) {
         Realm realm = getRealm();
 
         return realm.where(PictureDAODTO.class).equalTo("placeID", placeID).findAll();
+    }
+
+    @Override
+    public void save(PictureDAODTO picture) {
+        Realm realm = getRealm();
+        PictureDAODTO existingEntry = find(realm, picture.getId());
+
+        realm.beginTransaction();
+        if (existingEntry != null) {
+            existingEntry.setUrl(picture.getUrl());
+            existingEntry.setPlaceID(picture.getPlaceID());
+            existingEntry.setUpdatedAt(DateTime.now().toDate());
+        } else {
+            realm.copyToRealm(picture);
+        }
+        realm.commitTransaction();
     }
 
     @Override
