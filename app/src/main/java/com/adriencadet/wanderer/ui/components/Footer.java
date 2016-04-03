@@ -83,7 +83,7 @@ public class Footer {
     public void onMap() {
         if (currentItemType != ItemType.MAP) {
             toggleSelection(ItemType.MAP);
-            segueBus.post(new SegueEvents.ShowPlaceMap());
+            segueBus.post(new SegueEvents.Show.PlaceMap());
         }
     }
 
@@ -91,12 +91,12 @@ public class Footer {
     public void onList() {
         if (currentItemType != ItemType.LIST) {
             toggleSelection(ItemType.LIST);
-            segueBus.post(new SegueEvents.ShowPlaceList());
+            segueBus.post(new SegueEvents.Show.PlaceList());
         }
     }
 
     @OnClick(R.id.footer_random)
     public void onRandom() {
-        segueBus.post(new SegueEvents.ShowRandomPlace());
+        segueBus.post(new SegueEvents.Show.RandomPlace());
     }
 }

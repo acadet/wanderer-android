@@ -9,6 +9,7 @@ import com.adriencadet.wanderer.WandererApplication;
 import com.adriencadet.wanderer.ui.components.Footer;
 import com.adriencadet.wanderer.ui.components.MainUIContainer;
 import com.adriencadet.wanderer.ui.events.SegueEvents;
+import com.adriencadet.wanderer.ui.screens.PlaceListScreen;
 import com.adriencadet.wanderer.ui.screens.PlaceMapScreen;
 import com.lyft.scoop.Scoop;
 
@@ -74,6 +75,16 @@ public class MainActivity extends BaseActivity {
         if (!appRouter.goBack()) {
             finish();
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onShowPlaceMap(SegueEvents.Show.PlaceMap e) {
+        appRouter.goTo(new PlaceMapScreen());
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onShowPlaceList(SegueEvents.Show.PlaceList e) {
+        appRouter.goTo(new PlaceListScreen());
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

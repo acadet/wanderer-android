@@ -76,7 +76,7 @@ public class PlaceListAdapter extends BaseAdapter<PlaceBLLDTO> {
         holder.date.setText(DateFormatterHelper.userFriendy(item));
 
         view.setOnClickListener((v) -> {
-            segueBus.post(new SegueEvents.ShowPlaceInsight(item));
+            segueBus.post(new SegueEvents.Show.PlaceInsight(item));
         });
 
         return view;
