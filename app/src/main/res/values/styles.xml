@@ -90,9 +90,9 @@
     <!-- Common styles -->
 
     <style name="TopRightCornerIcon">
-        <item name="android:layout_width">40dp</item>
-        <item name="android:layout_height">40dp</item>
-        <item name="android:padding">@dimen/layout_margin</item>
+        <item name="android:layout_width">20dp</item>
+        <item name="android:layout_height">20dp</item>
+        <item name="android:layout_margin">@dimen/layout_margin</item>
     </style>
 
 </resources>

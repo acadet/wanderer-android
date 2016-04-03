@@ -2,10 +2,14 @@ package com.adriencadet.wanderer.ui.components;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Handler;
 import android.os.Looper;
+import android.view.View;
 
 import com.adriencadet.wanderer.R;
+
+import io.saeid.fabloading.LoadingView;
 
 /**
  * Spinner
@@ -32,6 +36,14 @@ public class Spinner {
 
             progressDialog.show();
             progressDialog.setContentView(R.layout.spinner);
+
+            LoadingView spinner = (LoadingView) progressDialog.findViewById(R.id.spinner);
+            spinner.addAnimation(Color.parseColor("#F06868"), R.drawable.loading1, LoadingView.FROM_LEFT);
+            spinner.addAnimation(Color.parseColor("#FAB57A"), R.drawable.loading2, LoadingView.FROM_TOP);
+            spinner.addAnimation(Color.parseColor("#8DED8E"), R.drawable.loading3, LoadingView.FROM_RIGHT);
+            spinner.addAnimation(Color.parseColor("#80D6FF"), R.drawable.loading4, LoadingView.FROM_BOTTOM);
+            spinner.startAnimation();
+            spinner.setVisibility(View.VISIBLE);
         };
 
         delayedShowingHasBeenCancelled = false;

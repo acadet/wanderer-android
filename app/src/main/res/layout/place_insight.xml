@@ -52,7 +52,7 @@
 
     <ImageView
         android:id="@+id/place_insight_close_icon"
-        android:src="@drawable/abc_ic_clear_mtrl_alpha"
+        android:src="@drawable/ic_close"
         style="@style/TopRightCornerIcon"
         />
 
