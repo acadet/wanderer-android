@@ -20,4 +20,10 @@ public class DAOFactory {
     public IPictureDAO providePictureDAO(Context context, ApplicationConfiguration configuration) {
         return new PictureDAO(context, configuration);
     }
+
+    @Provides
+    @Singleton
+    public IPlaceDAO providePlaceDAO(Context context, ApplicationConfiguration configuration) {
+        return new PlaceDAO(context, configuration);
+    }
 }

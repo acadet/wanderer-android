@@ -11,5 +11,7 @@ import java.util.List;
 public interface IPlaceDAO {
     List<PlaceDAODTO> listPlacesByVisitDateDescJob();
 
+    void save(List<PlaceDAODTO> places);
+
     PlaceDAODTO randomEntry();
 }

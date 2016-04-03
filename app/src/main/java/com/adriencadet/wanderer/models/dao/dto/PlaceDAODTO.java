@@ -22,6 +22,8 @@ public class PlaceDAODTO extends RealmObject {
     private int    likes;
     private int    mainPictureID;
 
+    private Date updatedAt;
+
     public int getId() {
         return id;
     }
@@ -92,5 +94,13 @@ public class PlaceDAODTO extends RealmObject {
 
     public void setMainPictureID(int mainPictureID) {
         this.mainPictureID = mainPictureID;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }
