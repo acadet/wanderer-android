@@ -1,6 +1,7 @@
 package com.adriencadet.wanderer.ui.activities;
 
 import android.os.Bundle;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.adriencadet.wanderer.R;
@@ -15,6 +16,9 @@ public class MainActivity extends BaseActivity {
     @Bind(R.id.main_ui_container)
     MainUIContainer container;
 
+    @Bind(R.id.footer)
+    View footer;
+
     private Scoop rootScoop;
 
     @Override
@@ -28,6 +32,7 @@ public class MainActivity extends BaseActivity {
         rootScoop = new Scoop.Builder("root").build();
         rootScoop.inflate(R.layout.root_layout, (ViewGroup) findViewById(R.id.main_layout), true);
         ButterKnife.bind(this);
+        footer.bringToFront();
 
         appRouter.goTo(new PlaceMapScreen());
     }
