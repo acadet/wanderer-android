@@ -50,6 +50,7 @@ public class PlaceMapController extends BaseController implements OnMapReadyCall
 
         BaseActivity.getFragmentComponent().inject(this);
 
+        showSpinner();
         GoogleMapOptions mapOptions = new GoogleMapOptions()
             .compassEnabled(false)
             .rotateGesturesEnabled(false);
@@ -83,7 +84,13 @@ public class PlaceMapController extends BaseController implements OnMapReadyCall
             .subscribe(new BaseSubscriber<List<PlaceBLLDTO>>() {
                 @Override
                 public void onCompleted() {
+                    hideSpinner();
+                }
 
+                @Override
+                public void onError(Throwable e) {
+                    super.onError(e);
+                    hideSpinner();
                 }
 
                 @Override

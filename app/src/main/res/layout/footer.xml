@@ -1,9 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     android:id="@+id/footer"
-    style="@style/MatchParentWrapContent.Horizontal"
+    style="@style/Footer"
     xmlns:android="http://schemas.android.com/apk/res/android"
     >
+
+    <FrameLayout
+        android:id="@+id/footer_map"
+        style="@style/HorizontalStretchable"
+        >
+
+        <ImageView
+            android:src="@drawable/ic_globe_primary"
+            style="@style/FooterIcon"
+            />
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/footer_list"
+        style="@style/HorizontalStretchable"
+        >
+
+        <ImageView
+            android:src="@drawable/ic_list_primary"
+            style="@style/FooterIcon"
+            />
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/footer_random"
+        style="@style/HorizontalStretchable"
+        >
+
+        <ImageView
+            android:src="@drawable/ic_random_primary"
+            style="@style/FooterIcon"
+            />
+
+    </FrameLayout>
 
 
 </LinearLayout>
