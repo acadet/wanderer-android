@@ -10,11 +10,34 @@ public class SegueEvents {
     private SegueEvents() {
     }
 
-    public static class ShowPlaceInsight {
-        public PlaceBLLDTO place;
+    public static class Show {
+        private Show() {
+        }
 
-        public ShowPlaceInsight(PlaceBLLDTO place) {
-            this.place = place;
+        public static class PlaceInsight {
+            public PlaceBLLDTO place;
+
+            public PlaceInsight(PlaceBLLDTO place) {
+                this.place = place;
+            }
+        }
+
+        public static class PlaceMap {
+        }
+
+        public static class PlaceList {
+        }
+
+        public static class RandomPlace {
+        }
+    }
+
+    public static class Exit {
+        private Exit() {
+        }
+
+        public static class PlaceInsight {
+
         }
     }
 }

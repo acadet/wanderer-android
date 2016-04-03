@@ -7,6 +7,7 @@ import com.adriencadet.wanderer.R;
 import com.adriencadet.wanderer.models.bll.dto.PictureBLLDTO;
 import com.adriencadet.wanderer.models.bll.dto.PlaceBLLDTO;
 import com.adriencadet.wanderer.ui.adapters.PictureSliderAdapter;
+import com.adriencadet.wanderer.ui.events.SegueEvents;
 import com.adriencadet.wanderer.ui.helpers.DateFormatterHelper;
 import com.adriencadet.wanderer.ui.screens.PlaceInsightScreen;
 import com.lyft.scoop.Screen;
@@ -80,6 +81,8 @@ public class PlaceInsightController extends BaseController {
         if (listPicturesForPlaceSubscription != null) {
             listPicturesForPlaceSubscription.unsubscribe();
         }
+
+        segueBus.post(new SegueEvents.Exit.PlaceInsight());
     }
 
     @OnClick(R.id.place_insight_close_icon)

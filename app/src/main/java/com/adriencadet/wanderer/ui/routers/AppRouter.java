@@ -4,25 +4,29 @@ import com.lyft.scoop.RouteChange;
 import com.lyft.scoop.Router;
 import com.lyft.scoop.ScreenScooper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * AppRouter
  * <p>
  */
 public class AppRouter extends Router {
-    private IRouterObserver observer;
+    private List<IRouterObserver> observers;
 
     public AppRouter(ScreenScooper screenScooper) {
         super(screenScooper);
+        observers = new ArrayList<>();
     }
 
     @Override
     protected void onScoopChanged(RouteChange routeChange) {
-        if (observer != null) {
-            observer.onScoopChanged(routeChange);
+        for (IRouterObserver o : observers) {
+            o.onScoopChanged(routeChange);
         }
     }
 
     public void observe(IRouterObserver observer) {
-        this.observer = observer;
+        observers.add(observer);
     }
 }
