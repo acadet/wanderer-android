@@ -40,7 +40,7 @@ public class ListPlacesByVisitDateDescJob extends BLLJob {
 
                             @Override
                             public void onNext(List<PlaceWandererServerDTO> placeWandererServerDTOs) {
-                                subscriber.onNext(serializer.serialize(placeWandererServerDTOs));
+                                subscriber.onNext(serializer.fromWandererServer(placeWandererServerDTOs));
                             }
                         });
                 }

@@ -1,6 +1,8 @@
 package com.adriencadet.wanderer.models.serializers;
 
+import com.adriencadet.wanderer.models.bll.dto.PictureBLLDTO;
 import com.adriencadet.wanderer.models.bll.dto.PlaceBLLDTO;
+import com.adriencadet.wanderer.models.dao.dto.PlaceDAODTO;
 import com.adriencadet.wanderer.models.services.wanderer.dto.PlaceWandererServerDTO;
 import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
@@ -21,7 +23,7 @@ class PlaceSerializer implements IPlaceSerializer {
     }
 
     @Override
-    public PlaceBLLDTO serialize(PlaceWandererServerDTO source) {
+    public PlaceBLLDTO fromWandererServer(PlaceWandererServerDTO source) {
         return new PlaceBLLDTO()
             .setId(source.id)
             .setCountry(source.country)
@@ -35,7 +37,48 @@ class PlaceSerializer implements IPlaceSerializer {
     }
 
     @Override
-    public List<PlaceBLLDTO> serialize(List<PlaceWandererServerDTO> source) {
-        return Stream.of(source).map(this::serialize).collect(Collectors.toList());
+    public List<PlaceBLLDTO> fromWandererServer(List<PlaceWandererServerDTO> source) {
+        return Stream.of(source).map(this::fromWandererServer).collect(Collectors.toList());
+    }
+
+    @Override
+    public PlaceBLLDTO fromDAO(PlaceDAODTO source) {
+        return new PlaceBLLDTO()
+            .setId(source.getId())
+            .setMainPicture(new PictureBLLDTO().setId(source.getId()))
+            .setLatitude(source.getLatitude())
+            .setLongitude(source.getLongitude())
+            .setDescription(source.getDescription())
+            .setVisitDate(new DateTime(source.getVisitDate()))
+            .setName(source.getName())
+            .setLikes(source.getLikes())
+            .setCountry(source.getCountry());
+    }
+
+    @Override
+    public List<PlaceBLLDTO> fromDAO(List<PlaceDAODTO> source) {
+        return Stream.of(source).map(this::fromDAO).collect(Collectors.toList());
+    }
+
+    @Override
+    public PlaceDAODTO toDAO(PlaceBLLDTO source) {
+        PlaceDAODTO outcome = new PlaceDAODTO();
+
+        outcome.setId(source.getId());
+        outcome.setVisitDate(source.getVisitDate().toDate());
+        outcome.setLatitude(source.getLatitude());
+        outcome.setLongitude(source.getLongitude());
+        outcome.setDescription(source.getDescription());
+        outcome.setMainPictureID(source.getMainPicture().getId());
+        outcome.setCountry(source.getCountry());
+        outcome.setName(source.getName());
+        outcome.setLikes(source.getLikes());
+
+        return outcome;
+    }
+
+    @Override
+    public List<PlaceDAODTO> toDAO(List<PlaceBLLDTO> source) {
+        return Stream.of(source).map(this::toDAO).collect(Collectors.toList());
     }
 }
