@@ -1,5 +1,7 @@
 package com.adriencadet.wanderer.models.bll.jobs;
 
+import com.adriencadet.wanderer.ApplicationConfiguration;
+import com.adriencadet.wanderer.models.dao.IPictureDAO;
 import com.adriencadet.wanderer.models.serializers.IPictureSerializer;
 import com.adriencadet.wanderer.models.serializers.IPlaceSerializer;
 import com.adriencadet.wanderer.models.services.wanderer.IWandererServer;
@@ -17,8 +19,8 @@ import dagger.Provides;
 public class BLLJobFactory {
     @Provides
     @Singleton
-    public ListPicturesForPlaceJob listPicturesForPlaceJob(IWandererServer server, IPictureSerializer serializer) {
-        return new ListPicturesForPlaceJob(server, serializer);
+    public ListPicturesForPlaceJob listPicturesForPlaceJob(ApplicationConfiguration configuration, IWandererServer server, IPictureSerializer serializer, IPictureDAO pictureDAO) {
+        return new ListPicturesForPlaceJob(configuration, server, serializer, pictureDAO);
     }
 
     @Provides

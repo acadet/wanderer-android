@@ -31,7 +31,7 @@ class PlaceSerializer implements IPlaceSerializer {
             .setLikes(source.likes)
             .setName(source.name)
             .setVisitDate(new DateTime(source.visit_date))
-            .setMainPicture(pictureSerializer.serialize(source.main_picture));
+            .setMainPicture(pictureSerializer.fromWandererServer(source.main_picture));
     }
 
     @Override
