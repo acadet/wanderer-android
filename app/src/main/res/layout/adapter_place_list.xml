@@ -10,7 +10,6 @@
         style="@style/AdapterPlaceListBackground"
         />
 
-
     <TextView
         android:id="@+id/adapter_place_list_name"
         android:layout_centerInParent="true"
@@ -18,24 +17,47 @@
         tools:text="Name"
         />
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_alignParentBottom="true"
-        style="@style/MatchParentWrapContent"
+        style="@style/MatchParentWrapContent.Horizontal"
         >
 
-        <TextView
-            android:id="@+id/adapter_place_list_date"
-            style="@style/AdapterPlaceListDetailsLabel"
-            tools:text="Mar 2016"
-            />
+        <LinearLayout
+            android:gravity="center|left"
+            style="@style/AdapterPlaceListFooterBlock"
+            >
 
-        <TextView
-            android:id="@+id/adapter_place_list_country"
-            android:layout_alignParentRight="true"
-            style="@style/AdapterPlaceListDetailsLabel"
-            tools:text="USA"
-            />
+            <ImageView
+                android:src="@drawable/ic_calendar"
+                style="@style/AdapterPlaceListDetailsIcon"
+                />
 
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/adapter_place_list_date"
+                style="@style/AdapterPlaceListDetailsLabel"
+                tools:text="Mar 2016"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:gravity="center|right"
+            style="@style/AdapterPlaceListFooterBlock"
+            >
+
+            <TextView
+                android:id="@+id/adapter_place_list_country"
+                style="@style/AdapterPlaceListDetailsLabel"
+                tools:text="USA"
+                />
+
+            <ImageView
+                android:src="@drawable/ic_marker"
+                style="@style/AdapterPlaceListDetailsIcon"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </RelativeLayout>
