@@ -31,6 +31,7 @@ class PlaceSerializer implements IPlaceSerializer {
             .setLatitude(source.latitude)
             .setLongitude(source.longitude)
             .setLikes(source.likes)
+            .setLiking(source.is_liking)
             .setName(source.name)
             .setVisitDate(new DateTime(source.visit_date))
             .setMainPicture(pictureSerializer.fromWandererServer(source.main_picture));
@@ -51,6 +52,7 @@ class PlaceSerializer implements IPlaceSerializer {
             .setDescription(source.getDescription())
             .setVisitDate(new DateTime(source.getVisitDate()))
             .setName(source.getName())
+            .setLiking(source.isLiking())
             .setLikes(source.getLikes())
             .setCountry(source.getCountry());
     }
@@ -72,6 +74,7 @@ class PlaceSerializer implements IPlaceSerializer {
         outcome.setMainPictureID(source.getMainPicture().getId());
         outcome.setCountry(source.getCountry());
         outcome.setName(source.getName());
+        outcome.setLiking(source.isLiking());
         outcome.setLikes(source.getLikes());
 
         return outcome;

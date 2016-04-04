@@ -13,5 +13,6 @@ public class PlaceWandererServerDTO {
     public String                   description;
     public String                   visit_date;
     public int                      likes;
+    public boolean                  is_liking;
     public PictureWandererServerDTO main_picture;
 }

@@ -14,6 +14,7 @@ public class PlaceBLLDTO {
     private double        longitude;
     private String        description;
     private DateTime      visitDate;
+    private boolean       isLiking;
     private int           likes;
     private PictureBLLDTO mainPicture;
 
@@ -77,6 +78,15 @@ public class PlaceBLLDTO {
 
     public PlaceBLLDTO setVisitDate(DateTime visitDate) {
         this.visitDate = visitDate;
+        return this;
+    }
+
+    public boolean isLiking() {
+        return isLiking;
+    }
+
+    public PlaceBLLDTO setLiking(boolean liking) {
+        isLiking = liking;
         return this;
     }
 

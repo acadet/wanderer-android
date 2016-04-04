@@ -16,5 +16,5 @@ public interface IWandererServer {
 
     Observable<List<PictureWandererServerDTO>> listPicturesForPlaceJob(int placeID);
 
-    Observable<Void> toggleLikeJob(int placeID, String deviceToken);
+    Observable<Void> toggleLikeJob(int placeID);
 }

@@ -40,7 +40,7 @@ class WandererServer implements IWandererServer {
     }
 
     @Override
-    public Observable<Void> toggleLikeJob(int placeID, String deviceToken) {
-        return toggleLikeJob.create(placeID, deviceToken);
+    public Observable<Void> toggleLikeJob(int placeID) {
+        return toggleLikeJob.create(placeID);
     }
 }

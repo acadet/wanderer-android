@@ -13,14 +13,15 @@ public class PlaceDAODTO extends RealmObject {
     @PrimaryKey
     private int id;
 
-    private String name;
-    private String country;
-    private double latitude;
-    private double longitude;
-    private String description;
-    private Date   visitDate;
-    private int    likes;
-    private int    mainPictureID;
+    private String  name;
+    private String  country;
+    private double  latitude;
+    private double  longitude;
+    private String  description;
+    private Date    visitDate;
+    private boolean isLiking;
+    private int     likes;
+    private int     mainPictureID;
 
     private Date updatedAt;
 
@@ -78,6 +79,14 @@ public class PlaceDAODTO extends RealmObject {
 
     public void setVisitDate(Date visitDate) {
         this.visitDate = visitDate;
+    }
+
+    public boolean isLiking() {
+        return isLiking;
+    }
+
+    public void setLiking(boolean liking) {
+        isLiking = liking;
     }
 
     public int getLikes() {

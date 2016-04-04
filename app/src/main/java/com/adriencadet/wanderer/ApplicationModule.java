@@ -3,6 +3,8 @@ package com.adriencadet.wanderer;
 import android.app.Application;
 import android.content.Context;
 
+import com.adriencadet.wanderer.models.structs.AndroidDevice;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -36,5 +38,11 @@ public class ApplicationModule {
     @Singleton
     public SecretApplicationConfiguration provideSecretConfiguration() {
         return new SecretApplicationConfiguration();
+    }
+
+    @Provides
+    @Singleton
+    public AndroidDevice provideAndroidDevice() {
+        return new AndroidDevice();
     }
 }

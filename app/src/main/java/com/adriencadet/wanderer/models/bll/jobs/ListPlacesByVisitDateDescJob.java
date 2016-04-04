@@ -34,6 +34,7 @@ public class ListPlacesByVisitDateDescJob extends BLLJob {
         IPlaceSerializer serializer, IPictureSerializer pictureSerializer,
         IPlaceDAO placeDAO, IPictureDAO pictureDAO) {
 
+        // TODO: Generate observable by capturing the vars
         observable = Observable
             .create(new Observable.OnSubscribe<List<PlaceBLLDTO>>() {
                 @Override

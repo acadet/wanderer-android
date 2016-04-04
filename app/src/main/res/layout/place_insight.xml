@@ -99,19 +99,30 @@
 
     </ScrollView>
 
-    <ImageView
+    <FrameLayout
         android:id="@+id/place_insight_close_icon"
-        android:src="@drawable/ic_close"
-        style="@style/TopLeftCornerIcon"
-        />
+        style="@style/WrapContent"
+        >
 
-    <ImageView
+        <ImageView
+            android:src="@drawable/ic_close"
+            style="@style/TopLeftCornerIcon"
+            />
+    </FrameLayout>
+
+    <FrameLayout
         android:id="@+id/place_insight_random_icon"
         android:layout_alignParentRight="true"
-        android:src="@drawable/ic_random_white"
         android:visibility="gone"
-        style="@style/TopRightCornerIcon"
-        />
+        style="@style/WrapContent"
+        >
+
+        <ImageView
+            android:src="@drawable/ic_random_white"
+            style="@style/TopRightCornerIcon"
+            />
+
+    </FrameLayout>
 
     <!-- TODO: likes -->
 

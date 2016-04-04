@@ -2,7 +2,6 @@ package com.adriencadet.wanderer.models.services.wanderer.jobs;
 
 import com.adriencadet.wanderer.models.services.RetrofitJob;
 import com.adriencadet.wanderer.models.services.wanderer.api.IWandererAPI;
-import com.adriencadet.wanderer.models.services.wanderer.api.structs.ToggleLikeRequest;
 
 import retrofit.RetrofitError;
 import rx.Observable;
@@ -16,7 +15,6 @@ import rx.schedulers.Schedulers;
 public class ToggleLikeJob extends RetrofitJob {
     private Observable<Void> observable;
     private int              placeID;
-    private String           deviceToken;
 
     ToggleLikeJob(IWandererAPI api) {
         observable = Observable
@@ -24,12 +22,7 @@ public class ToggleLikeJob extends RetrofitJob {
                 @Override
                 public void call(Subscriber<? super Void> subscriber) {
                     try {
-                        ToggleLikeRequest request = new ToggleLikeRequest();
-
-                        request.like = new ToggleLikeRequest.Like();
-                        request.like.deviceToken = deviceToken;
-
-                        api.toggleLike(placeID, request);
+                        api.toggleLike(placeID);
 
                         subscriber.onNext(null);
                         subscriber.onCompleted();
@@ -41,9 +34,8 @@ public class ToggleLikeJob extends RetrofitJob {
             .subscribeOn(Schedulers.newThread());
     }
 
-    public Observable<Void> create(int placeID, String deviceToken) {
+    public Observable<Void> create(int placeID) {
         this.placeID = placeID;
-        this.deviceToken = deviceToken;
 
         return observable;
     }
