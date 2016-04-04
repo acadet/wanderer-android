@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="AdapterPlaceWindowName" parent="WrapContent">
+    <style name="AdapterPlaceWindow" parent="WrapContent.Vertical">
+        <item name="android:padding">10dp</item>
+    </style>
 
+    <style name="AdapterPlaceWindowName" parent="WrapContent">
+        <item name="android:layout_marginBottom">5dp</item>
+
+        <item name="android:textSize">@dimen/subhead</item>
+        <item name="android:textColor">@color/yellow</item>
     </style>
 
     <style name="AdapterPlaceWindowDate" parent="WrapContent">
-
+        <item name="android:textSize">@dimen/caption</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 </resources>
