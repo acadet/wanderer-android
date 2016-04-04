@@ -11,10 +11,14 @@ import rx.schedulers.Schedulers;
  * <p>
  */
 public class CanUseRandomPlaceJob {
-    private Observable<Boolean> observable;
+    private IPlaceDAO placeDAO;
 
     CanUseRandomPlaceJob(IPlaceDAO placeDAO) {
-        observable = Observable
+        this.placeDAO = placeDAO;
+    }
+
+    public Observable<Boolean> create() {
+        return Observable
             .create(new Observable.OnSubscribe<Boolean>() {
                 @Override
                 public void call(Subscriber<? super Boolean> subscriber) {
@@ -23,9 +27,5 @@ public class CanUseRandomPlaceJob {
                 }
             })
             .subscribeOn(Schedulers.newThread());
-    }
-
-    public Observable<Boolean> create() {
-        return observable;
     }
 }

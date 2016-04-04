@@ -9,6 +9,7 @@ import com.adriencadet.wanderer.models.serializers.IPictureSerializer;
 import com.adriencadet.wanderer.models.serializers.IPlaceSerializer;
 import com.adriencadet.wanderer.models.services.wanderer.IWandererServer;
 import com.adriencadet.wanderer.models.services.wanderer.dto.PlaceWandererServerDTO;
+import com.adriencadet.wanderer.models.structs.FinalWrapper;
 import com.annimon.stream.Stream;
 
 import org.joda.time.DateTime;
@@ -25,23 +26,59 @@ import rx.schedulers.Schedulers;
  * <p>
  */
 public class ListPlacesByVisitDateDescJob extends BLLJob {
-    private Observable<List<PlaceBLLDTO>> observable;
-    private DateTime                      latestFetch;
+    private static final Object latestFetchLock = new Object();
+
+    private DateTime                 latestFetch;
+    private ApplicationConfiguration configuration;
+    private IWandererServer          wandererServer;
+    private IPlaceSerializer         placeSerializer;
+    private IPictureSerializer       pictureSerializer;
+    private IPlaceDAO                placeDAO;
+    private IPictureDAO              pictureDAO;
 
     ListPlacesByVisitDateDescJob(
         ApplicationConfiguration configuration,
         IWandererServer wandererServer,
-        IPlaceSerializer serializer, IPictureSerializer pictureSerializer,
+        IPlaceSerializer placeSerializer, IPictureSerializer pictureSerializer,
         IPlaceDAO placeDAO, IPictureDAO pictureDAO) {
 
-        // TODO: Generate observable by capturing the vars
-        observable = Observable
+        this.configuration = configuration;
+        this.wandererServer = wandererServer;
+        this.placeSerializer = placeSerializer;
+        this.pictureSerializer = pictureSerializer;
+        this.placeDAO = placeDAO;
+        this.pictureDAO = pictureDAO;
+    }
+
+    private void updateCache(List<PlaceBLLDTO> places) {
+        DateTime fetchDate = DateTime.now();
+
+        if (latestFetch != null && latestFetch.isAfter(fetchDate)) {
+            return;
+        }
+
+        synchronized (latestFetchLock) {
+            if (latestFetch != null && latestFetch.isAfter(fetchDate)) {
+                return;
+            }
+
+            latestFetch = fetchDate;
+            placeDAO.save(placeSerializer.toDAO(places));
+            Stream
+                .of(places)
+                .forEach((e) -> pictureDAO.save(pictureSerializer.toDAO(e.getMainPicture())));
+        }
+    }
+
+    public Observable<List<PlaceBLLDTO>> create() {
+        return Observable
             .create(new Observable.OnSubscribe<List<PlaceBLLDTO>>() {
                 @Override
                 public void call(Subscriber<? super List<PlaceBLLDTO>> subscriber) {
                     if (latestFetch != null
                         && latestFetch.plusMinutes(configuration.PLACE_CACHING_DURATION_MINS).isAfterNow()) {
-                        List<PlaceBLLDTO> list = serializer.fromDAO(placeDAO.listPlacesByVisitDateDescJob());
+
+                        List<PlaceBLLDTO> list = placeSerializer.fromDAO(placeDAO.listPlacesByVisitDateDescJob());
                         boolean wasInterrupted = false;
 
                         for (PlaceBLLDTO p : list) {
@@ -50,6 +87,7 @@ public class ListPlacesByVisitDateDescJob extends BLLJob {
                             if (pic != null) {
                                 p.getMainPicture().setUrl(pic.getUrl());
                             } else {
+                                // Missing picture in cache, server has to be fetched
                                 wasInterrupted = true;
                                 break;
                             }
@@ -60,8 +98,9 @@ public class ListPlacesByVisitDateDescJob extends BLLJob {
                             subscriber.onCompleted();
                             return;
                         }
-                        // Missing picture in cache, server has to be fetched
                     }
+
+                    FinalWrapper<List<PlaceBLLDTO>> list = new FinalWrapper<>();
 
                     wandererServer
                         .listPlacesByVisitDateDescJob()
@@ -70,7 +109,8 @@ public class ListPlacesByVisitDateDescJob extends BLLJob {
                             @Override
                             public void onCompleted() {
                                 subscriber.onCompleted();
-                                latestFetch = DateTime.now();
+
+                                updateCache(list.get());
                             }
 
                             @Override
@@ -80,23 +120,13 @@ public class ListPlacesByVisitDateDescJob extends BLLJob {
 
                             @Override
                             public void onNext(List<PlaceWandererServerDTO> placeWandererServerDTOs) {
-                                List<PlaceBLLDTO> list = serializer.fromWandererServer(placeWandererServerDTOs);
+                                list.set(placeSerializer.fromWandererServer(placeWandererServerDTOs));
 
-                                subscriber.onNext(list);
-
-                                // TODO: ditto than pics
-                                placeDAO.save(serializer.toDAO(list));
-                                Stream
-                                    .of(list)
-                                    .forEach((e) -> pictureDAO.save(pictureSerializer.toDAO(e.getMainPicture())));
+                                subscriber.onNext(list.get());
                             }
                         });
                 }
             })
             .subscribeOn(Schedulers.newThread());
-    }
-
-    public Observable<List<PlaceBLLDTO>> create() {
-        return observable;
     }
 }

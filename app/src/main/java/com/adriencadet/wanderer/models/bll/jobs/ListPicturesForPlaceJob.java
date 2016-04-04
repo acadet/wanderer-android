@@ -8,6 +8,7 @@ import com.adriencadet.wanderer.models.dao.dto.PictureDAODTO;
 import com.adriencadet.wanderer.models.serializers.IPictureSerializer;
 import com.adriencadet.wanderer.models.services.wanderer.IWandererServer;
 import com.adriencadet.wanderer.models.services.wanderer.dto.PictureWandererServerDTO;
+import com.adriencadet.wanderer.models.structs.FinalWrapper;
 import com.annimon.stream.Stream;
 
 import org.joda.time.DateTime;
@@ -26,21 +27,55 @@ import rx.schedulers.Schedulers;
  * <p>
  */
 public class ListPicturesForPlaceJob extends BLLJob {
-    private Observable<List<PictureBLLDTO>> observable;
-    private Map<Integer, DateTime>          latestFetches;
-    private PlaceBLLDTO                     place;
+    private static final Object latestFetchesLock = new Object();
+
+    private ApplicationConfiguration configuration;
+    private IWandererServer          server;
+    private IPictureSerializer       serializer;
+    private IPictureDAO              pictureDAO;
+    private Map<Integer, DateTime>   latestFetches;
 
     ListPicturesForPlaceJob(
         ApplicationConfiguration configuration, IWandererServer server, IPictureSerializer serializer, IPictureDAO pictureDAO) {
-
+        this.configuration = configuration;
+        this.server = server;
+        this.serializer = serializer;
+        this.pictureDAO = pictureDAO;
         latestFetches = new HashMap<>();
+    }
 
-        observable = Observable
+    private void updateCache(PlaceBLLDTO place, List<PictureBLLDTO> pictures) {
+        int key = place.getId();
+        DateTime fetchDate = DateTime.now();
+
+        if (latestFetches.containsKey(key) && latestFetches.get(key).isAfter(fetchDate)) {
+            return;
+        }
+
+        synchronized (latestFetchesLock) {
+            List<PictureDAODTO> daos;
+
+            if (latestFetches.containsKey(key) && latestFetches.get(key).isAfter(fetchDate)) {
+                return;
+            }
+
+            latestFetches.put(place.getId(), fetchDate);
+            daos = serializer.toDAO(pictures);
+            Stream.of(daos).forEach((e) -> e.setPlaceID(place.getId()));
+            pictureDAO.save(daos);
+        }
+    }
+
+    public Observable<List<PictureBLLDTO>> create(PlaceBLLDTO place) {
+        return Observable
             .create(new Observable.OnSubscribe<List<PictureBLLDTO>>() {
                 @Override
                 public void call(Subscriber<? super List<PictureBLLDTO>> subscriber) {
                     if (!latestFetches.containsKey(place.getId())
                         || latestFetches.get(place.getId()).plusMinutes(configuration.PICTURE_CACHING_DURATION_MINS).isBeforeNow()) {
+
+                        final FinalWrapper<List<PictureBLLDTO>> list = new FinalWrapper<>();
+
                         server
                             .listPicturesForPlaceJob(place.getId())
                             .observeOn(Schedulers.newThread())
@@ -48,6 +83,8 @@ public class ListPicturesForPlaceJob extends BLLJob {
                                 @Override
                                 public void onCompleted() {
                                     subscriber.onCompleted();
+
+                                    updateCache(place, list.get());
                                 }
 
                                 @Override
@@ -57,17 +94,8 @@ public class ListPicturesForPlaceJob extends BLLJob {
 
                                 @Override
                                 public void onNext(List<PictureWandererServerDTO> pictureWandererServerDTOs) {
-                                    List<PictureBLLDTO> list = serializer.fromWandererServer(pictureWandererServerDTOs);
-                                    List<PictureDAODTO> daos;
-
-                                    subscriber.onNext(list);
-
-                                    // TODO: moves computations to onCompleted
-                                    // Maybe useful to have different instances of jobs instead of a singleton
-                                    latestFetches.put(place.getId(), DateTime.now());
-                                    daos = serializer.toDAO(list);
-                                    Stream.of(daos).forEach((e) -> e.setPlaceID(place.getId()));
-                                    pictureDAO.save(daos);
+                                    list.set(serializer.fromWandererServer(pictureWandererServerDTOs));
+                                    subscriber.onNext(list.get());
                                 }
                             });
                     } else {
@@ -77,10 +105,5 @@ public class ListPicturesForPlaceJob extends BLLJob {
                 }
             })
             .subscribeOn(Schedulers.newThread());
-    }
-
-    public Observable<List<PictureBLLDTO>> create(PlaceBLLDTO place) {
-        this.place = place;
-        return observable;
     }
 }

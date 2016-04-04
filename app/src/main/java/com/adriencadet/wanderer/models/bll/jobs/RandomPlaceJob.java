@@ -13,10 +13,16 @@ import rx.schedulers.Schedulers;
  * <p>
  */
 public class RandomPlaceJob {
-    private Observable<PlaceBLLDTO> observable;
+    private IPlaceSerializer placeSerializer;
+    private IPlaceDAO        placeDAO;
 
     RandomPlaceJob(IPlaceSerializer placeSerializer, IPlaceDAO placeDAO) {
-        observable = Observable
+        this.placeSerializer = placeSerializer;
+        this.placeDAO = placeDAO;
+    }
+
+    public Observable<PlaceBLLDTO> create() {
+        return Observable
             .create(new Observable.OnSubscribe<PlaceBLLDTO>() {
                 @Override
                 public void call(Subscriber<? super PlaceBLLDTO> subscriber) {
@@ -27,9 +33,5 @@ public class RandomPlaceJob {
                 }
             })
             .subscribeOn(Schedulers.newThread());
-    }
-
-    public Observable<PlaceBLLDTO> create() {
-        return observable;
     }
 }
