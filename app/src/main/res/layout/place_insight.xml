@@ -2,6 +2,7 @@
 <RelativeLayout
     style="@style/MatchParent"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     >
 
     <ScrollView
@@ -17,34 +18,70 @@
                 style="@style/PlaceInsightSlider"
                 />
 
-            <TextView
-                android:id="@+id/place_insight_name"
-                style="@style/PlaceInsightName"
-                />
-
-            <RelativeLayout
-                style="@style/MatchParentWrapContent"
+            <LinearLayout
+                style="@style/PlaceInsightContentWrapper"
                 >
 
                 <TextView
-                    android:id="@+id/place_insight_country"
-                    android:layout_alignParentLeft="true"
-                    style="@style/PlaceInsightLabel"
+                    android:id="@+id/place_insight_name"
+                    style="@style/PlaceInsightName"
+                    tools:text="Bordeaux"
                     />
 
+                <ImageView
+                    style="@style/PlaceInsightSeparator"
+                    />
+
+                <LinearLayout
+                    style="@style/MatchParentWrapContent.Horizontal"
+                    >
+
+                    <LinearLayout
+                        android:gravity="left|center"
+                        style="@style/PlaceInsightBlock"
+                        >
+
+                        <ImageView
+                            android:src="@drawable/ic_calendar"
+                            style="@style/PlaceInsightIcon"
+                            />
+
+                        <TextView
+                            android:id="@+id/place_insight_date"
+                            android:layout_alignParentRight="true"
+                            style="@style/PlaceInsightLabel"
+                            tools:text="Forever"
+                            />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:gravity="right|center"
+                        style="@style/PlaceInsightBlock"
+                        >
+
+                        <TextView
+                            android:id="@+id/place_insight_country"
+                            style="@style/PlaceInsightLabel"
+                            tools:text="France"
+                            />
+
+                        <ImageView
+                            android:src="@drawable/ic_marker"
+                            style="@style/PlaceInsightIcon"
+                            />
+
+                    </LinearLayout>
+
+                </LinearLayout>
 
                 <TextView
-                    android:id="@+id/place_insight_date"
-                    android:layout_alignParentRight="true"
-                    style="@style/PlaceInsightLabel"
+                    android:id="@+id/place_insight_description"
+                    style="@style/PlaceInsightDescription"
+                    tools:text="Blah blah blah"
                     />
 
-            </RelativeLayout>
-
-            <TextView
-                android:id="@+id/place_insight_description"
-                style="@style/PlaceInsightDescription"
-                />
+            </LinearLayout>
 
         </LinearLayout>
 

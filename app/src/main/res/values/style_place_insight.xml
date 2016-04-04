@@ -4,22 +4,54 @@
     <style name="PlaceInsightSlider">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">300dp</item>
-        <item name="android:background">@color/grey</item>
+        <item name="android:background">@color/yellow</item>
     </style>
 
     <style name="PlaceInsight" parent="MatchParent">
         <item name="android:background">@color/black</item>
     </style>
 
-    <style name="PlaceInsightName" parent="MatchParentWrapContent">
+    <style name="PlaceInsightContentWrapper" parent="MatchParentWrapContent.Vertical">
+        <item name="android:layout_margin">@dimen/layout_margin</item>
+    </style>
 
+    <style name="PlaceInsightName" parent="MatchParentWrapContent">
+        <item name="android:layout_marginBottom">5dp</item>
+
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/headline</item>
+        <item name="android:textColor">@color/yellow</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="PlaceInsightSeparator">
+        <item name="android:layout_width">200dp</item>
+        <item name="android:layout_height">3dp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_marginBottom">@dimen/layout_margin</item>
+
+        <item name="android:background">@color/yellow</item>
+    </style>
+
+    <style name="PlaceInsightBlock" parent="HorizontalStretchable">
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="PlaceInsightIcon">
+        <item name="android:layout_width">20dp</item>
+        <item name="android:layout_height">20dp</item>
+        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:layout_marginRight">5dp</item>
     </style>
 
     <style name="PlaceInsightLabel" parent="WrapContent">
-
+        <item name="android:textColor">@color/grey</item>
+        <item name="android:textSize">@dimen/subhead</item>
     </style>
 
     <style name="PlaceInsightDescription" parent="MatchParentWrapContent">
-
+        <item name="android:layout_marginTop">@dimen/layout_margin</item>
+        <item name="android:textColor">@color/grey</item>
+        <item name="android:textSize">@dimen/body</item>
     </style>
 </resources>
