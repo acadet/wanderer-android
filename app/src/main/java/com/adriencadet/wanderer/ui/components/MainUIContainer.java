@@ -23,4 +23,10 @@ public class MainUIContainer extends UiContainer {
         WandererApplication.getApplicationComponent().inject(this);
         appRouter.observe(this::goTo);
     }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        appRouter.unobserve(this::goTo);
+    }
 }

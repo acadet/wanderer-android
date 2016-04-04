@@ -41,7 +41,15 @@ public class AppRouter extends Router {
         routerScoopChangedObservers.add(observer);
     }
 
+    public void unobserve(IRouterScoopChangedObserver observer) {
+        routerGoBackObservers.remove(observer);
+    }
+
     public void observe(IRouterGoBackObserver observer) {
         routerGoBackObservers.add(observer);
+    }
+
+    public void unobserve(IRouterGoBackObserver observer) {
+        routerGoBackObservers.remove(observer);
     }
 }

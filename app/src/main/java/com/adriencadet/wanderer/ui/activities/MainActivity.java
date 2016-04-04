@@ -72,6 +72,13 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        appRouter.unobserve(footer);
+    }
+
+    @Override
     public void onBackPressed() {
         if (!appRouter.goBack()) {
             finish();
