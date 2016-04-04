@@ -3,9 +3,9 @@ package com.adriencadet.wanderer.ui.routers;
 import com.lyft.scoop.RouteChange;
 
 /**
- * IRouterObserver
+ * IRouterScoopChangedObserver
  * <p>
  */
-public interface IRouterObserver {
+public interface IRouterScoopChangedObserver {
     void onScoopChanged(RouteChange routeChange);
 }

@@ -6,11 +6,13 @@ import android.widget.ImageView;
 
 import com.adriencadet.wanderer.R;
 import com.adriencadet.wanderer.ui.events.SegueEvents;
+import com.adriencadet.wanderer.ui.routers.IRouterGoBackObserver;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 import butterknife.BindColor;
 import butterknife.ButterKnife;
@@ -20,18 +22,18 @@ import butterknife.OnClick;
  * Footer
  * <p>
  */
-public class Footer {
-    private enum ItemType {
+public class Footer implements IRouterGoBackObserver {
+    private enum Section {
         MAP, LIST
     }
 
     private class Item {
-        public ItemType type;
-        public int      layoutID;
-        public int      primarySrcID;
-        public int      whiteSrcID;
+        public Section type;
+        public int     layoutID;
+        public int     primarySrcID;
+        public int     whiteSrcID;
 
-        Item(ItemType type, int layoutID, int primarySrcID, int whiteSrcID) {
+        Item(Section type, int layoutID, int primarySrcID, int whiteSrcID) {
             this.type = type;
             this.layoutID = layoutID;
             this.primarySrcID = primarySrcID;
@@ -39,10 +41,11 @@ public class Footer {
         }
     }
 
-    private EventBus   segueBus;
-    private ItemType   currentItemType;
-    private View       motherView;
-    private List<Item> groups;
+    private boolean        isActive;
+    private EventBus       segueBus;
+    private Stack<Section> sectionHistory;
+    private View           motherView;
+    private List<Item>     groups;
 
     @BindColor(R.color.blue)
     int primaryColor;
@@ -50,7 +53,21 @@ public class Footer {
     @BindColor(R.color.white)
     int whiteColor;
 
-    private void toggleSelection(ItemType selection) {
+    public Footer(View view, EventBus segueBus) {
+        this.isActive = true;
+        this.motherView = view;
+        this.segueBus = segueBus;
+        this.groups = new ArrayList<>();
+        this.sectionHistory = new Stack<>();
+
+        groups.add(new Item(Section.MAP, R.id.footer_map, R.drawable.ic_globe_primary, R.drawable.ic_globe_white));
+        groups.add(new Item(Section.LIST, R.id.footer_list, R.drawable.ic_list_primary, R.drawable.ic_list_white));
+
+        ButterKnife.bind(this, view);
+        toggleSelection(Section.MAP);
+    }
+
+    public void toggleSelection(Section selection) {
         for (Item item : groups) {
             ViewGroup group = (ViewGroup) motherView.findViewById(item.layoutID);
             ImageView img = (ImageView) group.getChildAt(0);
@@ -64,33 +81,31 @@ public class Footer {
             }
         }
 
-        currentItemType = selection;
+        sectionHistory.add(selection);
     }
 
-    public Footer(View view, EventBus segueBus) {
-        this.motherView = view;
-        this.segueBus = segueBus;
-        this.groups = new ArrayList<>();
+    public void show() {
+        isActive = true;
+        motherView.setVisibility(View.VISIBLE);
+    }
 
-        groups.add(new Item(ItemType.MAP, R.id.footer_map, R.drawable.ic_globe_primary, R.drawable.ic_globe_white));
-        groups.add(new Item(ItemType.LIST, R.id.footer_list, R.drawable.ic_list_primary, R.drawable.ic_list_white));
-
-        ButterKnife.bind(this, view);
-        toggleSelection(ItemType.MAP);
+    public void hide() {
+        isActive = false;
+        motherView.setVisibility(View.GONE);
     }
 
     @OnClick(R.id.footer_map)
     public void onMap() {
-        if (currentItemType != ItemType.MAP) {
-            toggleSelection(ItemType.MAP);
+        if (sectionHistory.peek() != Section.MAP) {
+            toggleSelection(Section.MAP);
             segueBus.post(new SegueEvents.Show.PlaceMap());
         }
     }
 
     @OnClick(R.id.footer_list)
     public void onList() {
-        if (currentItemType != ItemType.LIST) {
-            toggleSelection(ItemType.LIST);
+        if (sectionHistory.peek() != Section.LIST) {
+            toggleSelection(Section.LIST);
             segueBus.post(new SegueEvents.Show.PlaceList());
         }
     }
@@ -98,5 +113,18 @@ public class Footer {
     @OnClick(R.id.footer_random)
     public void onRandom() {
         segueBus.post(new SegueEvents.Show.RandomPlace());
+    }
+
+    @Override
+    public void onGoingBack() {
+        if (!isActive) {
+            // Ignore events because footer is hidden so no new screen was stacked
+            return;
+        }
+
+        sectionHistory.pop();
+        if (!sectionHistory.isEmpty()) {
+            toggleSelection(sectionHistory.pop());
+        }
     }
 }

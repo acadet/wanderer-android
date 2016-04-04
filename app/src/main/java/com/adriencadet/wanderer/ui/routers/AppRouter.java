@@ -1,5 +1,6 @@
 package com.adriencadet.wanderer.ui.routers;
 
+import com.annimon.stream.Stream;
 import com.lyft.scoop.RouteChange;
 import com.lyft.scoop.Router;
 import com.lyft.scoop.ScreenScooper;
@@ -12,21 +13,35 @@ import java.util.List;
  * <p>
  */
 public class AppRouter extends Router {
-    private List<IRouterObserver> observers;
+    private List<IRouterScoopChangedObserver> routerScoopChangedObservers;
+    private List<IRouterGoBackObserver>       routerGoBackObservers;
 
     public AppRouter(ScreenScooper screenScooper) {
         super(screenScooper);
-        observers = new ArrayList<>();
+
+        this.routerScoopChangedObservers = new ArrayList<>();
+        this.routerGoBackObservers = new ArrayList<>();
     }
 
     @Override
     protected void onScoopChanged(RouteChange routeChange) {
-        for (IRouterObserver o : observers) {
-            o.onScoopChanged(routeChange);
-        }
+        Stream.of(routerScoopChangedObservers).forEach((e) -> e.onScoopChanged(routeChange));
     }
 
-    public void observe(IRouterObserver observer) {
-        observers.add(observer);
+    @Override
+    public boolean goBack() {
+        boolean hasElements = super.goBack();
+
+        Stream.of(routerGoBackObservers).forEach((e) -> e.onGoingBack());
+
+        return hasElements;
+    }
+
+    public void observe(IRouterScoopChangedObserver observer) {
+        routerScoopChangedObservers.add(observer);
+    }
+
+    public void observe(IRouterGoBackObserver observer) {
+        routerGoBackObservers.add(observer);
     }
 }

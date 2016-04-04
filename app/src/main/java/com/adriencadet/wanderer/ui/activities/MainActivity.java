@@ -51,6 +51,7 @@ public class MainActivity extends BaseActivity {
         ButterKnife.bind(this);
 
         footer = new Footer(footerView, segueBus);
+        appRouter.observe(footer);
         footerView.bringToFront();
 
         appRouter.goTo(new PlaceMapScreen());
@@ -88,12 +89,17 @@ public class MainActivity extends BaseActivity {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onShowPlaceInsight(SegueEvents.Show.PlaceInsight e) {
+        footer.hide();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
     public void onShowRandomPlace(SegueEvents.Show.RandomPlace e) {
-        footerView.setVisibility(View.GONE);
+        footer.hide();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onExitPlaceInsight(SegueEvents.Exit.PlaceInsight e) {
-        footerView.setVisibility(View.VISIBLE);
+        footer.show();
     }
 }
