@@ -43,6 +43,9 @@ public class PlaceListAdapter extends BaseAdapter<PlaceBLLDTO> {
         @Bind(R.id.adapter_place_list_country)
         TextView country;
 
+        @Bind(R.id.adapter_place_list_like)
+        View like;
+
         @Bind(R.id.adapter_place_list_date)
         TextView date;
 
@@ -74,6 +77,12 @@ public class PlaceListAdapter extends BaseAdapter<PlaceBLLDTO> {
         holder.name.setText(item.getName());
         holder.country.setText(item.getCountry());
         holder.date.setText(DateFormatterHelper.userFriendy(item));
+
+        if (item.isLiking()) {
+            holder.like.setVisibility(View.VISIBLE);
+        } else {
+            holder.like.setVisibility(View.GONE);
+        }
 
         view.setOnClickListener((v) -> {
             segueBus.post(new SegueEvents.Show.PlaceInsight(item));

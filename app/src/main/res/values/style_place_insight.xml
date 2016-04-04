@@ -19,7 +19,10 @@
     </style>
 
     <style name="PlaceInsightContentWrapper" parent="MatchParentWrapContent.Vertical">
-        <item name="android:layout_margin">@dimen/layout_margin</item>
+        <item name="android:layout_marginTop">@dimen/layout_margin</item>
+        <item name="android:layout_marginRight">@dimen/layout_margin</item>
+        <item name="android:layout_marginBottom">32dp</item>
+        <item name="android:layout_marginLeft">@dimen/layout_margin</item>
     </style>
 
     <style name="PlaceInsightName" parent="MatchParentWrapContent">
@@ -60,5 +63,22 @@
         <item name="android:layout_marginTop">@dimen/layout_margin</item>
         <item name="android:textColor">@color/grey</item>
         <item name="android:textSize">@dimen/body</item>
+    </style>
+
+    <style name="PlaceInsightLikeWrapper" parent="WrapContent.Horizontal">
+        <item name="android:gravity">center|right</item>
+        <item name="android:layout_margin">@dimen/layout_margin</item>
+    </style>
+
+    <style name="PlaceInsightLikeIcon">
+        <item name="android:layout_width">20dp</item>
+        <item name="android:layout_height">20dp</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:layout_marginRight">10dp</item>
+    </style>
+
+    <style name="PlaceInsightLikeLabel" parent="WrapContent">
+        <item name="android:textColor">@color/blue</item>
+        <item name="android:textSize">@dimen/subhead</item>
     </style>
 </resources>

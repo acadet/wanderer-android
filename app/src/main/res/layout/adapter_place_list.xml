@@ -41,6 +41,19 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/adapter_place_list_like"
+            android:gravity="center"
+            android:visibility="gone"
+            style="@style/AdapterPlaceListFooterBlock"
+            >
+
+            <ImageView
+                style="@style/AdapterPlaceListDetailsIcon"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:gravity="center|right"
             style="@style/AdapterPlaceListFooterBlock"
             >

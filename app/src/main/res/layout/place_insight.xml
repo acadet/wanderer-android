@@ -115,6 +115,7 @@
         android:layout_alignParentRight="true"
         android:visibility="gone"
         style="@style/WrapContent"
+        tools:visibility="visible"
         >
 
         <ImageView
@@ -124,6 +125,25 @@
 
     </FrameLayout>
 
-    <!-- TODO: likes -->
+    <LinearLayout
+        android:id="@+id/place_insight_like_wrapper"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        style="@style/PlaceInsightLikeWrapper"
+        >
+
+        <ImageView
+            android:id="@+id/place_insight_like_icon"
+            style="@style/PlaceInsightLikeIcon"
+            tools:src="@drawable/ic_liked"
+            />
+
+        <TextView
+            android:id="@+id/place_insight_like_label"
+            style="@style/PlaceInsightLikeLabel"
+            tools:text="25K"
+            />
+
+    </LinearLayout>
 
 </RelativeLayout>

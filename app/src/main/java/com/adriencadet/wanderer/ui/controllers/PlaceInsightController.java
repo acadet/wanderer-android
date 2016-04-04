@@ -1,7 +1,9 @@
 package com.adriencadet.wanderer.ui.controllers;
 
+import android.graphics.drawable.Drawable;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.adriencadet.wanderer.R;
@@ -11,6 +13,7 @@ import com.adriencadet.wanderer.models.bll.dto.PlaceBLLDTO;
 import com.adriencadet.wanderer.ui.adapters.PictureSliderAdapter;
 import com.adriencadet.wanderer.ui.events.SegueEvents;
 import com.adriencadet.wanderer.ui.helpers.DateFormatterHelper;
+import com.adriencadet.wanderer.ui.helpers.IntFormatterHelper;
 import com.adriencadet.wanderer.ui.screens.PlaceInsightScreen;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
@@ -25,6 +28,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import butterknife.Bind;
+import butterknife.BindDrawable;
 import butterknife.OnClick;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -34,6 +38,7 @@ import rx.android.schedulers.AndroidSchedulers;
  * <p>
  */
 public class PlaceInsightController extends BaseController {
+    private PlaceBLLDTO  currentPlace;
     private Subscription listPicturesForPlaceSubscription;
     private Subscription randomPlaceSubscription;
 
@@ -62,11 +67,35 @@ public class PlaceInsightController extends BaseController {
     @Bind(R.id.place_insight_random_icon)
     View randomIconView;
 
+    @Bind(R.id.place_insight_like_icon)
+    ImageView likeIconView;
+
+    @BindDrawable(R.drawable.ic_liked)
+    Drawable likedIcon;
+
+    @BindDrawable(R.drawable.ic_unliked)
+    Drawable unlikedIcon;
+
+    @Bind(R.id.place_insight_like_label)
+    TextView likeLabelView;
+
+    private void toggleLikeButton() {
+        if (currentPlace.isLiking()) {
+            likeIconView.setImageDrawable(likedIcon);
+        } else {
+            likeIconView.setImageDrawable(unlikedIcon);
+        }
+        likeLabelView.setText(IntFormatterHelper.userFriendly(currentPlace.getLikes()));
+    }
+
     private void setContent(PlaceBLLDTO place, boolean mustHideSpinner) {
+        currentPlace = place;
+
         nameView.setText(place.getName());
         countryView.setText(place.getCountry());
         dateView.setText(DateFormatterHelper.userFriendy(place));
         descriptionView.setText(place.getDescription());
+        toggleLikeButton();
 
         if (listPicturesForPlaceSubscription != null) {
             listPicturesForPlaceSubscription.unsubscribe();
@@ -179,5 +208,11 @@ public class PlaceInsightController extends BaseController {
     @OnClick(R.id.place_insight_random_icon)
     public void onRandom() {
         setRandomContent(true);
+    }
+
+    @OnClick(R.id.place_insight_like_wrapper)
+    public void onLikeToggle() {
+        currentPlace.toggleLike();
+        toggleLikeButton();
     }
 }
