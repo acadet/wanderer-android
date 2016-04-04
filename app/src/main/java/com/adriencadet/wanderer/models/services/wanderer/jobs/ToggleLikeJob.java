@@ -13,11 +13,14 @@ import rx.schedulers.Schedulers;
  * <p>
  */
 public class ToggleLikeJob extends RetrofitJob {
-    private Observable<Void> observable;
-    private int              placeID;
+    private IWandererAPI api;
 
     ToggleLikeJob(IWandererAPI api) {
-        observable = Observable
+        this.api = api;
+    }
+
+    public Observable<Void> create(int placeID) {
+        return Observable
             .create(new Observable.OnSubscribe<Void>() {
                 @Override
                 public void call(Subscriber<? super Void> subscriber) {
@@ -32,11 +35,5 @@ public class ToggleLikeJob extends RetrofitJob {
                 }
             })
             .subscribeOn(Schedulers.newThread());
-    }
-
-    public Observable<Void> create(int placeID) {
-        this.placeID = placeID;
-
-        return observable;
     }
 }

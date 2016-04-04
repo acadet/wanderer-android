@@ -16,10 +16,14 @@ import rx.schedulers.Schedulers;
  * <p>
  */
 public class ListPlacesByVisitDateDescJob extends RetrofitJob {
-    private Observable<List<PlaceWandererServerDTO>> observable;
+    private IWandererAPI api;
 
     ListPlacesByVisitDateDescJob(IWandererAPI api) {
-        observable = Observable
+        this.api = api;
+    }
+
+    public Observable<List<PlaceWandererServerDTO>> create() {
+        return Observable
             .create(new Observable.OnSubscribe<List<PlaceWandererServerDTO>>() {
                 @Override
                 public void call(Subscriber<? super List<PlaceWandererServerDTO>> subscriber) {
@@ -34,9 +38,5 @@ public class ListPlacesByVisitDateDescJob extends RetrofitJob {
                 }
             })
             .subscribeOn(Schedulers.newThread());
-    }
-
-    public Observable<List<PlaceWandererServerDTO>> create() {
-        return observable;
     }
 }

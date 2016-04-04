@@ -16,12 +16,14 @@ import rx.schedulers.Schedulers;
  * <p>
  */
 public class ListPicturesForPlaceJob extends RetrofitJob {
-    private Observable<List<PictureWandererServerDTO>> observable;
-
-    private int placeID;
+    private IWandererAPI api;
 
     ListPicturesForPlaceJob(IWandererAPI api) {
-        observable = Observable
+        this.api = api;
+    }
+
+    public Observable<List<PictureWandererServerDTO>> create(int placeID) {
+        return Observable
             .create(new Observable.OnSubscribe<List<PictureWandererServerDTO>>() {
                 @Override
                 public void call(Subscriber<? super List<PictureWandererServerDTO>> subscriber) {
@@ -36,10 +38,5 @@ public class ListPicturesForPlaceJob extends RetrofitJob {
                 }
             })
             .subscribeOn(Schedulers.newThread());
-    }
-
-    public Observable<List<PictureWandererServerDTO>> create(int placeID) {
-        this.placeID = placeID;
-        return observable;
     }
 }
