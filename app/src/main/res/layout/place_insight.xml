@@ -13,10 +13,22 @@
             style="@style/MatchParentWrapContent.Vertical"
             >
 
-            <android.support.v4.view.ViewPager
-                android:id="@+id/place_insight_slider"
-                style="@style/PlaceInsightSlider"
-                />
+            <RelativeLayout
+                style="@style/MatchParentWrapContent"
+                >
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/place_insight_slider"
+                    style="@style/PlaceInsightSlider"
+                    />
+
+                <com.viewpagerindicator.CirclePageIndicator
+                    android:id="@+id/place_insight_slider_indicators"
+                    android:layout_alignParentBottom="true"
+                    style="@style/PlaceInsightSliderIndicators"
+                    />
+
+            </RelativeLayout>
 
             <LinearLayout
                 style="@style/PlaceInsightContentWrapper"

@@ -15,6 +15,7 @@ import com.adriencadet.wanderer.ui.screens.PlaceInsightScreen;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.lyft.scoop.Screen;
+import com.viewpagerindicator.PageIndicator;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -42,6 +43,9 @@ public class PlaceInsightController extends BaseController {
 
     @Bind(R.id.place_insight_slider)
     ViewPager sliderView;
+
+    @Bind(R.id.place_insight_slider_indicators)
+    PageIndicator pageIndicatorView;
 
     @Bind(R.id.place_insight_name)
     TextView nameView;
@@ -90,6 +94,7 @@ public class PlaceInsightController extends BaseController {
                 @Override
                 public void onNext(List<PictureBLLDTO> pictureBLLDTOs) {
                     sliderView.setAdapter(new PictureSliderAdapter(context, pictureBLLDTOs));
+                    pageIndicatorView.setViewPager(sliderView);
                 }
             });
     }
