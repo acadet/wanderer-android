@@ -6,9 +6,11 @@ import android.view.ViewGroup;
 
 import com.adriencadet.wanderer.R;
 import com.adriencadet.wanderer.WandererApplication;
+import com.adriencadet.wanderer.models.bll.IDataReadingBLL;
 import com.adriencadet.wanderer.ui.components.Footer;
 import com.adriencadet.wanderer.ui.components.MainUIContainer;
 import com.adriencadet.wanderer.ui.events.SegueEvents;
+import com.adriencadet.wanderer.ui.screens.PlaceInsightScreen;
 import com.adriencadet.wanderer.ui.screens.PlaceListScreen;
 import com.adriencadet.wanderer.ui.screens.PlaceMapScreen;
 import com.lyft.scoop.Scoop;
@@ -22,10 +24,14 @@ import javax.inject.Named;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import rx.Observer;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
 
 public class MainActivity extends BaseActivity {
-    private Scoop  rootScoop;
-    private Footer footer;
+    private Scoop        rootScoop;
+    private Footer       footer;
+    private Subscription canUseRandomPlaceSubscription;
 
     @Bind(R.id.main_ui_container)
     MainUIContainer container;
@@ -36,6 +42,9 @@ public class MainActivity extends BaseActivity {
     @Inject
     @Named("segue")
     EventBus segueBus;
+
+    @Inject
+    IDataReadingBLL dataReadingBLL;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,13 +77,11 @@ public class MainActivity extends BaseActivity {
     protected void onPause() {
         super.onPause();
 
+        if (canUseRandomPlaceSubscription != null) {
+            canUseRandomPlaceSubscription.unsubscribe();
+        }
+
         segueBus.unregister(this);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
         appRouter.unobserve(footer);
     }
 
@@ -102,7 +109,34 @@ public class MainActivity extends BaseActivity {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onShowRandomPlace(SegueEvents.Show.RandomPlace e) {
-        footer.hide();
+        if (canUseRandomPlaceSubscription != null) {
+            canUseRandomPlaceSubscription.unsubscribe();
+        }
+
+        canUseRandomPlaceSubscription = dataReadingBLL
+            .canUseRandomPlace()
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(new Observer<Boolean>() {
+                @Override
+                public void onCompleted() {
+
+                }
+
+                @Override
+                public void onError(Throwable e) {
+
+                }
+
+                @Override
+                public void onNext(Boolean canUse) {
+                    if (canUse) {
+                        footer.hide();
+                        appRouter.goTo(new PlaceInsightScreen());
+                    } else {
+                        alert(getString(R.string.cannot_use_random));
+                    }
+                }
+            });
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

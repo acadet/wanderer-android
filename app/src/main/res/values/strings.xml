@@ -1,8 +1,11 @@
 <resources>
     <string name="app_name">Wanderer</string>
 
+    <!-- Errors -->
     <string name="no_connection_error">We are experiencing troubles with your connection</string>
     <string name="internal_server_error">Our server is experiencing some troubles. Please try again.</string>
+    <string name="cannot_use_random">There is no enough place to use this feature</string>
+    <!-- End of Errors -->
 
     <string name="place_list_no_content_label">No place :(</string>
 </resources>

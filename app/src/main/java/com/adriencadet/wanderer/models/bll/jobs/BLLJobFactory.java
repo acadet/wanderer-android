@@ -20,13 +20,25 @@ import dagger.Provides;
 public class BLLJobFactory {
     @Provides
     @Singleton
-    public ListPicturesForPlaceJob listPicturesForPlaceJob(ApplicationConfiguration configuration, IWandererServer server, IPictureSerializer serializer, IPictureDAO pictureDAO) {
+    public ListPicturesForPlaceJob provideListPicturesForPlaceJob(ApplicationConfiguration configuration, IWandererServer server, IPictureSerializer serializer, IPictureDAO pictureDAO) {
         return new ListPicturesForPlaceJob(configuration, server, serializer, pictureDAO);
     }
 
     @Provides
     @Singleton
-    public ListPlacesByVisitDateDescJob listPlacesByVisitDateDescJob(ApplicationConfiguration configuration, IWandererServer server, IPlaceSerializer serializer, IPictureSerializer pictureSerializer, IPictureDAO pictureDAO, IPlaceDAO placeDAO) {
+    public ListPlacesByVisitDateDescJob provideListPlacesByVisitDateDescJob(ApplicationConfiguration configuration, IWandererServer server, IPlaceSerializer serializer, IPictureSerializer pictureSerializer, IPictureDAO pictureDAO, IPlaceDAO placeDAO) {
         return new ListPlacesByVisitDateDescJob(configuration, server, serializer, pictureSerializer, placeDAO, pictureDAO);
+    }
+
+    @Provides
+    @Singleton
+    public RandomPlaceJob provideRandomPlaceJob(IPlaceSerializer placeSerializer, IPlaceDAO placeDAO) {
+        return new RandomPlaceJob(placeSerializer, placeDAO);
+    }
+
+    @Provides
+    @Singleton
+    public CanUseRandomPlaceJob provideCanUseRandomPlaceJob(IPlaceDAO placeDAO) {
+        return new CanUseRandomPlaceJob(placeDAO);
     }
 }

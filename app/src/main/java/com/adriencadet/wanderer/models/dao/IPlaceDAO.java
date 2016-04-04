@@ -13,5 +13,7 @@ public interface IPlaceDAO {
 
     void save(List<PlaceDAODTO> places);
 
+    boolean hasEntries();
+
     PlaceDAODTO randomEntry();
 }

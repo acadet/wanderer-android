@@ -53,6 +53,14 @@
     <ImageView
         android:id="@+id/place_insight_close_icon"
         android:src="@drawable/ic_close"
+        style="@style/TopLeftCornerIcon"
+        />
+
+    <ImageView
+        android:id="@+id/place_insight_random_icon"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/ic_random_white"
+        android:visibility="gone"
         style="@style/TopRightCornerIcon"
         />
 

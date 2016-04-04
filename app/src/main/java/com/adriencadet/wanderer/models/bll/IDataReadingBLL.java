@@ -15,4 +15,8 @@ public interface IDataReadingBLL {
     Observable<List<PlaceBLLDTO>> listPlacesByVisitDateDesc();
 
     Observable<List<PictureBLLDTO>> listPicturesForPlace(PlaceBLLDTO place);
+
+    Observable<Boolean> canUseRandomPlace();
+
+    Observable<PlaceBLLDTO> randomPlace();
 }

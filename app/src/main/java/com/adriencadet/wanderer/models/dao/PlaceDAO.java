@@ -93,6 +93,11 @@ class PlaceDAO extends BaseDAO implements IPlaceDAO {
     }
 
     @Override
+    public boolean hasEntries() {
+        return getRealm().allObjects(PlaceDAODTO.class).size() > 0;
+    }
+
+    @Override
     public PlaceDAODTO randomEntry() {
         List<PlaceDAODTO> source = getRealm().allObjects(PlaceDAODTO.class);
 

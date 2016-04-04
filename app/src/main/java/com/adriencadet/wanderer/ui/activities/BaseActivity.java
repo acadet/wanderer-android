@@ -78,6 +78,11 @@ public abstract class BaseActivity extends Activity {
         spinner.show(false);
     }
 
+    protected void alert(String message) {
+        Crouton.cancelAllCroutons();
+        Crouton.makeText(this, message, Style.ALERT).show();
+    }
+
     @Override
     public void onBackPressed() {
         finish();
@@ -97,8 +102,7 @@ public abstract class BaseActivity extends Activity {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onAlertPopup(PopupEvents.Alert e) {
-        Crouton.cancelAllCroutons();
-        Crouton.makeText(this, e.message, Style.ALERT).show();
+        alert(e.message);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

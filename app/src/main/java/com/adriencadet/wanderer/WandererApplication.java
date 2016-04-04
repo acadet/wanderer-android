@@ -2,6 +2,8 @@ package com.adriencadet.wanderer;
 
 import android.app.Application;
 
+import timber.log.Timber;
+
 /**
  * WandererApplication
  * <p>
@@ -20,6 +22,8 @@ public class WandererApplication extends Application {
             .builder()
             .applicationModule(new ApplicationModule(this))
             .build();
+
+        Timber.plant(new Timber.DebugTree());
     }
 
     public static ApplicationComponent getApplicationComponent() {

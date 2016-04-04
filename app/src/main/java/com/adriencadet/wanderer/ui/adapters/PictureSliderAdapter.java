@@ -62,9 +62,9 @@ public class PictureSliderAdapter extends PagerAdapter {
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
         if (inflatedViews.containsKey(position)) {
+            container.removeView(inflatedViews.get(position));
             inflatedViews.remove(position);
         }
-        container.removeView((View) object);
     }
 
     @Override

@@ -19,8 +19,16 @@ import com.lyft.scoop.transitions.UpwardSlideTransition;
 public class PlaceInsightScreen extends Screen {
     public PlaceBLLDTO place;
 
-    public PlaceInsightScreen(PlaceBLLDTO place) {
+    public PlaceInsightScreen() {
         super();
+    }
+
+    public PlaceInsightScreen(PlaceBLLDTO place) {
+        this();
         this.place = place;
+    }
+
+    public boolean hasPlace() {
+        return place != null;
     }
 }

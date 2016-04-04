@@ -18,6 +18,7 @@ import javax.inject.Named;
 
 import butterknife.ButterKnife;
 import rx.Subscriber;
+import timber.log.Timber;
 
 /**
  * BaseController
@@ -33,6 +34,7 @@ public abstract class BaseController extends ViewController {
                 inform(context.getString(R.string.internal_server_error));
             } else {
                 alert(e.getMessage());
+                Timber.e(e, "Unhandled error");
             }
         }
     }
@@ -79,6 +81,10 @@ public abstract class BaseController extends ViewController {
 
     public void showSpinner() {
         spinnerBus.post(new SpinnerEvents.Show());
+    }
+
+    public void showSpinnerImmediately() {
+        spinnerBus.post(new SpinnerEvents.ShowImmediately());
     }
 
     public void hideSpinner() {
