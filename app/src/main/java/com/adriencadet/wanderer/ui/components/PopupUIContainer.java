@@ -5,7 +5,6 @@ import android.util.AttributeSet;
 
 import com.adriencadet.wanderer.WandererApplication;
 import com.adriencadet.wanderer.ui.routers.PopupRouter;
-import com.lyft.scoop.Screen;
 import com.lyft.scoop.UiContainer;
 
 import javax.inject.Inject;
@@ -22,10 +21,6 @@ public class PopupUIContainer extends UiContainer {
         super(context, attrs);
 
         WandererApplication.getApplicationComponent().inject(this);
-        popupRouter.observe((change) -> {
-            Screen notification = change.next;
-
-
-        });
+        popupRouter.observe(this::goTo);
     }
 }

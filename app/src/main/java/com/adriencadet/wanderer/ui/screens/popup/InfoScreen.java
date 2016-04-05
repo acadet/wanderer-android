@@ -5,14 +5,14 @@ import com.lyft.scoop.Controller;
 import com.lyft.scoop.Screen;
 
 /**
- * AlertScreen
+ * InfoScreen
  * <p>
  */
 @Controller(PopupController.class)
-public class AlertScreen extends Screen {
+public class InfoScreen extends Screen {
     public String message;
 
-    public AlertScreen(String message) {
+    public InfoScreen(String message) {
         super();
         this.message = message;
     }
