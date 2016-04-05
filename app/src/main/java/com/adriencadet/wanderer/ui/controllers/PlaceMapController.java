@@ -56,7 +56,7 @@ public class PlaceMapController extends BaseController implements OnMapReadyCall
     public void onAttach() {
         super.onAttach();
 
-        BaseActivity.getFragmentComponent().inject(this);
+        BaseActivity.getActivityComponent().inject(this);
 
         showSpinner();
         GoogleMapOptions mapOptions = new GoogleMapOptions()

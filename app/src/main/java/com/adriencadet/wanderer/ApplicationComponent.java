@@ -7,8 +7,8 @@ import com.adriencadet.wanderer.models.serializers.SerializerFactory;
 import com.adriencadet.wanderer.models.services.wanderer.WandererServiceFactory;
 import com.adriencadet.wanderer.models.services.wanderer.api.WandererAPIFactory;
 import com.adriencadet.wanderer.models.services.wanderer.jobs.WandererServerJobFactory;
-import com.adriencadet.wanderer.ui.FragmentModule;
-import com.adriencadet.wanderer.ui.IFragmentComponent;
+import com.adriencadet.wanderer.ui.ActivityComponent;
+import com.adriencadet.wanderer.ui.ActivityModule;
 import com.adriencadet.wanderer.ui.activities.BaseActivity;
 import com.adriencadet.wanderer.ui.activities.MainActivity;
 import com.adriencadet.wanderer.ui.adapters.PlaceListAdapter;
@@ -42,7 +42,7 @@ import dagger.Component;
     RouterFactory.class
 })
 public interface ApplicationComponent {
-    IFragmentComponent fragmentComponent(FragmentModule fragmentModule);
+    ActivityComponent fragmentComponent(ActivityModule activityModule);
 
     void inject(BaseActivity baseActivity);
 

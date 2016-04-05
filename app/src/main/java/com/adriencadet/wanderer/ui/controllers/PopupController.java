@@ -3,6 +3,7 @@ package com.adriencadet.wanderer.ui.controllers;
 import android.app.Activity;
 
 import com.adriencadet.wanderer.R;
+import com.adriencadet.wanderer.ui.activities.BaseActivity;
 import com.adriencadet.wanderer.ui.screens.popup.AlertScreen;
 import com.adriencadet.wanderer.ui.screens.popup.ConfirmScreen;
 import com.adriencadet.wanderer.ui.screens.popup.InfoScreen;
@@ -32,7 +33,7 @@ public class PopupController extends ViewController {
     public void onAttach() {
         super.onAttach();
 
-        //TODO: injection
+        BaseActivity.getActivityComponent().inject(this);
 
         Screen notification = Screen.fromController(this);
         String message;

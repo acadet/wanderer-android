@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.os.Bundle;
 
 import com.adriencadet.wanderer.WandererApplication;
-import com.adriencadet.wanderer.ui.FragmentModule;
-import com.adriencadet.wanderer.ui.IFragmentComponent;
+import com.adriencadet.wanderer.ui.ActivityComponent;
+import com.adriencadet.wanderer.ui.ActivityModule;
 import com.adriencadet.wanderer.ui.components.Spinner;
 import com.adriencadet.wanderer.ui.events.PopupEvents;
 import com.adriencadet.wanderer.ui.events.SpinnerEvents;
@@ -26,8 +26,8 @@ import de.keyboardsurfer.android.widget.crouton.Style;
  * <p>
  */
 public abstract class BaseActivity extends Activity {
-    private static BaseActivity       instance;
-    private        IFragmentComponent fragmentComponent;
+    private static BaseActivity      instance;
+    private        ActivityComponent activityComponent;
 
     private Spinner spinner;
 
@@ -48,10 +48,10 @@ public abstract class BaseActivity extends Activity {
 
         WandererApplication.getApplicationComponent().inject(this);
         instance = this;
-        fragmentComponent =
+        activityComponent =
             WandererApplication
                 .getApplicationComponent()
-                .fragmentComponent(new FragmentModule(this));
+                .fragmentComponent(new ActivityModule(this));
 
         spinner = new Spinner(this);
     }
@@ -125,7 +125,7 @@ public abstract class BaseActivity extends Activity {
         spinner.hide();
     }
 
-    public static IFragmentComponent getFragmentComponent() {
-        return instance.fragmentComponent;
+    public static ActivityComponent getActivityComponent() {
+        return instance.activityComponent;
     }
 }
