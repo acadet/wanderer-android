@@ -6,6 +6,7 @@ import com.adriencadet.wanderer.R;
 import com.adriencadet.wanderer.WandererApplication;
 import com.adriencadet.wanderer.models.bll.BLLErrors;
 import com.adriencadet.wanderer.models.bll.IDataReadingBLL;
+import com.adriencadet.wanderer.models.bll.IDataWritingBLL;
 import com.adriencadet.wanderer.ui.events.PopupEvents;
 import com.adriencadet.wanderer.ui.events.SpinnerEvents;
 import com.adriencadet.wanderer.ui.routers.AppRouter;
@@ -55,6 +56,9 @@ public abstract class BaseController extends ViewController {
 
     @Inject
     IDataReadingBLL dataReadingBLL;
+
+    @Inject
+    IDataWritingBLL dataWritingBLL;
 
     @Override
     public void onAttach() {

@@ -41,4 +41,10 @@ public class BLLJobFactory {
     public CanUseRandomPlaceJob provideCanUseRandomPlaceJob(IPlaceDAO placeDAO) {
         return new CanUseRandomPlaceJob(placeDAO);
     }
+
+    @Provides
+    @Singleton
+    public ToggleLikeJob provideToggleLikeJob(IWandererServer server, IPlaceSerializer placeSerializer, IPlaceDAO placeDAO) {
+        return new ToggleLikeJob(server, placeSerializer, placeDAO);
+    }
 }

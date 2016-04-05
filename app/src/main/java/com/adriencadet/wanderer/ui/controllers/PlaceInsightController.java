@@ -41,6 +41,7 @@ public class PlaceInsightController extends BaseController {
     private PlaceBLLDTO  currentPlace;
     private Subscription listPicturesForPlaceSubscription;
     private Subscription randomPlaceSubscription;
+    private Subscription toggleLikeSubscription;
 
     @Inject
     @Named("segue")
@@ -197,6 +198,10 @@ public class PlaceInsightController extends BaseController {
             randomPlaceSubscription.unsubscribe();
         }
 
+        if (toggleLikeSubscription != null) {
+            toggleLikeSubscription.unsubscribe();
+        }
+
         segueBus.post(new SegueEvents.Exit.PlaceInsight());
     }
 
@@ -212,7 +217,24 @@ public class PlaceInsightController extends BaseController {
 
     @OnClick(R.id.place_insight_like_wrapper)
     public void onLikeToggle() {
-        currentPlace.toggleLike();
-        toggleLikeButton();
+        if (toggleLikeSubscription != null) {
+            toggleLikeSubscription.unsubscribe();
+        }
+
+        toggleLikeSubscription =
+            dataWritingBLL
+                .toggleLike(currentPlace)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseSubscriber<PlaceBLLDTO>() {
+                    @Override
+                    public void onCompleted() {
+                        toggleLikeButton();
+                    }
+
+                    @Override
+                    public void onNext(PlaceBLLDTO placeBLLDTO) {
+                        currentPlace = placeBLLDTO;
+                    }
+                });
     }
 }

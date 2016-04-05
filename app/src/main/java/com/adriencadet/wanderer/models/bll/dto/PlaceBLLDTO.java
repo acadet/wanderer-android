@@ -107,13 +107,4 @@ public class PlaceBLLDTO {
         this.mainPicture = mainPicture;
         return this;
     }
-
-    public void toggleLike() {
-        if (isLiking()) {
-            likes--;
-        } else {
-            likes++;
-        }
-        isLiking = !isLiking;
-    }
 }

@@ -78,12 +78,14 @@ class PictureDAO extends BaseDAO implements IPictureDAO {
             PictureDAODTO p1 = sortedToSavePictures.get(i1), p2 = sortedSavedPictures.get(i2);
 
             if (p1.getId() == p2.getId()) { // Update
-                p2.setUrl(p1.getUrl());
-                p2.setPlaceID(p1.getPlaceID());
-                p2.setUpdatedAt(DateTime.now().toDate());
+                p2.removeFromRealm();
+
+                p1.setUpdatedAt(DateTime.now().toDate());
+                realm.copyToRealm(p1);
                 i1++;
                 i2++;
             } else if (p1.getId() < p2.getId()) { // Addition
+                p1.setUpdatedAt(DateTime.now().toDate());
                 realm.copyToRealm(p1);
                 i1++;
             } else {
@@ -95,7 +97,9 @@ class PictureDAO extends BaseDAO implements IPictureDAO {
         }
 
         while (i1 < s1) {
-            realm.copyToRealm(sortedToSavePictures.get(i1));
+            PictureDAODTO p = sortedToSavePictures.get(i1);
+            p.setUpdatedAt(DateTime.now().toDate());
+            realm.copyToRealm(p);
             i1++;
         }
 

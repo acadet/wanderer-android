@@ -48,6 +48,7 @@
             >
 
             <ImageView
+                android:src="@drawable/ic_liked"
                 style="@style/AdapterPlaceListDetailsIcon"
                 />
 

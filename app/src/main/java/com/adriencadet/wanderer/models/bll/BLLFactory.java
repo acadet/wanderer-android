@@ -4,6 +4,7 @@ import com.adriencadet.wanderer.models.bll.jobs.CanUseRandomPlaceJob;
 import com.adriencadet.wanderer.models.bll.jobs.ListPicturesForPlaceJob;
 import com.adriencadet.wanderer.models.bll.jobs.ListPlacesByVisitDateDescJob;
 import com.adriencadet.wanderer.models.bll.jobs.RandomPlaceJob;
+import com.adriencadet.wanderer.models.bll.jobs.ToggleLikeJob;
 
 import javax.inject.Singleton;
 
@@ -22,5 +23,11 @@ public class BLLFactory {
         ListPlacesByVisitDateDescJob listPlacesByVisitDateDescJob, ListPicturesForPlaceJob listPicturesForPlaceJob,
         RandomPlaceJob randomPlaceJob, CanUseRandomPlaceJob canUseRandomPlaceJob) {
         return new DataReadingBLL(listPlacesByVisitDateDescJob, listPicturesForPlaceJob, randomPlaceJob, canUseRandomPlaceJob);
+    }
+
+    @Provides
+    @Singleton
+    public IDataWritingBLL provideDataWritingBLL(ToggleLikeJob toggleLikeJob) {
+        return new DataWritingBLL(toggleLikeJob);
     }
 }

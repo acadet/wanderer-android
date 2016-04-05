@@ -27,6 +27,10 @@ class PlaceDAO extends BaseDAO implements IPlaceDAO {
         this.configuration = configuration;
     }
 
+    private PlaceDAODTO find(Realm realm, int id) {
+        return realm.where(PlaceDAODTO.class).equalTo("id", id).findFirst();
+    }
+
     @Override
     public List<PlaceDAODTO> listPlacesByVisitDateDescJob() {
         return getRealm().where(PlaceDAODTO.class).findAllSorted("visitDate", Sort.DESCENDING);
@@ -53,19 +57,14 @@ class PlaceDAO extends BaseDAO implements IPlaceDAO {
             PlaceDAODTO p1 = sortedToSavePlaces.get(i1), p2 = sortedSavedPlaces.get(i2);
 
             if (p1.getId() == p2.getId()) { // Update
-                p2.setLatitude(p1.getLatitude());
-                p2.setLongitude(p1.getLongitude());
-                p2.setDescription(p1.getDescription());
-                p2.setCountry(p1.getCountry());
-                p2.setLikes(p1.getLikes());
-                p2.setMainPictureID(p1.getMainPictureID());
-                p2.setName(p1.getName());
-                p2.setVisitDate(p1.getVisitDate());
+                p2.removeFromRealm();
 
-                p2.setUpdatedAt(DateTime.now().toDate());
+                p1.setUpdatedAt(DateTime.now().toDate());
+                realm.copyToRealm(p1);
                 i1++;
                 i2++;
             } else if (p1.getId() < p2.getId()) { // Addition
+                p1.setUpdatedAt(DateTime.now().toDate());
                 realm.copyToRealm(p1);
                 i1++;
             } else {
@@ -76,8 +75,11 @@ class PlaceDAO extends BaseDAO implements IPlaceDAO {
             }
         }
 
+
         while (i1 < s1) {
-            realm.copyToRealm(sortedToSavePlaces.get(i1));
+            PlaceDAODTO p = sortedToSavePlaces.get(i1);
+            p.setUpdatedAt(DateTime.now().toDate());
+            realm.copyToRealm(p);
             i1++;
         }
 
@@ -90,6 +92,20 @@ class PlaceDAO extends BaseDAO implements IPlaceDAO {
         }
 
         realm.commitTransaction();
+    }
+
+    @Override
+    public PlaceDAODTO toggleLike(int placeID) {
+        Realm realm = getRealm();
+        PlaceDAODTO place = find(realm, placeID);
+
+        realm.beginTransaction();
+        place.setLikes(place.isLiking() ? place.getLikes() - 1 : place.getLikes() + 1);
+        place.setLiking(!place.isLiking());
+        place.setUpdatedAt(DateTime.now().toDate());
+        realm.commitTransaction();
+
+        return place;
     }
 
     @Override
