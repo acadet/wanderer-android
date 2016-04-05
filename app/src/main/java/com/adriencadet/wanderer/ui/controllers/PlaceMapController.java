@@ -7,6 +7,7 @@ import com.adriencadet.wanderer.R;
 import com.adriencadet.wanderer.models.bll.dto.PlaceBLLDTO;
 import com.adriencadet.wanderer.ui.activities.BaseActivity;
 import com.adriencadet.wanderer.ui.adapters.PlaceWindowAdapter;
+import com.adriencadet.wanderer.ui.events.SegueEvents;
 import com.adriencadet.wanderer.ui.screens.PlaceInsightScreen;
 import com.annimon.stream.Stream;
 import com.google.android.gms.maps.GoogleMap;
@@ -17,11 +18,14 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -35,6 +39,10 @@ public class PlaceMapController extends BaseController implements OnMapReadyCall
 
     private PlaceWindowAdapter       placeWindowAdapter;
     private Map<Marker, PlaceBLLDTO> markerPlaceHash;
+
+    @Inject
+    @Named("segue")
+    EventBus segueBus;
 
     @Inject
     FragmentManager fragmentManager;
@@ -120,6 +128,9 @@ public class PlaceMapController extends BaseController implements OnMapReadyCall
 
     @Override
     public void onInfoWindowClick(Marker marker) {
-        appRouter.goTo(new PlaceInsightScreen(markerPlaceHash.get(marker)));
+        PlaceBLLDTO place = markerPlaceHash.get(marker);
+
+        appRouter.goTo(new PlaceInsightScreen(place));
+        segueBus.post(new SegueEvents.Show.PlaceInsight(place));
     }
 }
