@@ -9,7 +9,7 @@ import io.realm.annotations.PrimaryKey;
  * PlaceDAODTO
  * <p>
  */
-public class PlaceDAODTO extends RealmObject {
+public class PlaceDAODTO extends RealmObject implements ICachingDTO {
     @PrimaryKey
     private int id;
 

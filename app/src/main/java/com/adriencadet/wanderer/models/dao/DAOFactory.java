@@ -15,15 +15,22 @@ import dagger.Provides;
  */
 @Module
 public class DAOFactory {
+
     @Provides
     @Singleton
-    public IPictureDAO providePictureDAO(Context context, ApplicationConfiguration configuration) {
-        return new PictureDAO(context, configuration);
+    CachingModule provideCachingModule() {
+        return new CachingModule();
     }
 
     @Provides
     @Singleton
-    public IPlaceDAO providePlaceDAO(Context context, ApplicationConfiguration configuration) {
-        return new PlaceDAO(context, configuration);
+    public IPictureDAO providePictureDAO(Context context, ApplicationConfiguration configuration, CachingModule cachingModule) {
+        return new PictureDAO(context, configuration, cachingModule);
+    }
+
+    @Provides
+    @Singleton
+    public IPlaceDAO providePlaceDAO(Context context, ApplicationConfiguration configuration, CachingModule cachingModule) {
+        return new PlaceDAO(context, configuration, cachingModule);
     }
 }

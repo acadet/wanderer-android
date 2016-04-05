@@ -9,7 +9,7 @@ import io.realm.annotations.PrimaryKey;
  * PictureDAODTO
  * <p>
  */
-public class PictureDAODTO extends RealmObject {
+public class PictureDAODTO extends RealmObject implements ICachingDTO {
     @PrimaryKey
     private int    id;
     private String url;
