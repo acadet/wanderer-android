@@ -2,6 +2,8 @@
 
 An Android sample application using my latest skillset. Hooked with [this server](https://github.com/acadet/wanderer-server).
 
+[Download the app from the store]().
+
 ## Stack
 
 * [AndroidViewAnimations](https://github.com/daimajia/AndroidViewAnimations)
@@ -19,3 +21,7 @@ An Android sample application using my latest skillset. Hooked with [this server
 * [Stream](https://github.com/aNNiMON/Lightweight-Stream-API)
 * [Timber](https://github.com/JakeWharton/timber)
 * [ViewPageIndicator](https://github.com/JakeWharton/ViewPagerIndicator)
+
+## Credits
+
+Icons from the Noun Project and IconMonstr.
