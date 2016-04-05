@@ -19,4 +19,10 @@ public class RouterFactory {
     public AppRouter provideAppRouter() {
         return new AppRouter(new ScreenScooper());
     }
+
+    @Provides
+    @Singleton
+    public PopupRouter provideScopeRouter() {
+        return new PopupRouter(new ScreenScooper());
+    }
 }

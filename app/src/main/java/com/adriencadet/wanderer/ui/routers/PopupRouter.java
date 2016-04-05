@@ -3,11 +3,11 @@ package com.adriencadet.wanderer.ui.routers;
 import com.lyft.scoop.ScreenScooper;
 
 /**
- * AppRouter
+ * PopupRouter
  * <p>
  */
-public class AppRouter extends BaseRouter {
-    public AppRouter(ScreenScooper screenScooper) {
+public class PopupRouter extends BaseRouter {
+    public PopupRouter(ScreenScooper screenScooper) {
         super(screenScooper);
     }
 }
