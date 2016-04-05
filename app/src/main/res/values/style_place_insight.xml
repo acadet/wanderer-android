@@ -67,7 +67,7 @@
 
     <style name="PlaceInsightLikeWrapper" parent="WrapContent.Horizontal">
         <item name="android:gravity">center|right</item>
-        <item name="android:layout_margin">@dimen/layout_margin</item>
+        <item name="android:padding">@dimen/layout_margin</item>
     </style>
 
     <style name="PlaceInsightLikeIcon">
