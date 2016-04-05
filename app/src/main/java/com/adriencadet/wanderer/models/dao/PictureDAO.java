@@ -7,6 +7,8 @@ import com.adriencadet.wanderer.models.dao.dto.PictureDAODTO;
 import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
 
+import org.joda.time.DateTime;
+
 import java.util.List;
 
 import io.realm.Realm;
@@ -40,7 +42,7 @@ class PictureDAO extends BaseDAO implements IPictureDAO {
     public List<PictureDAODTO> listForPlace(int placeID) {
         Realm realm = getRealm();
 
-        return realm.where(PictureDAODTO.class).equalTo("placeID", placeID).findAll();
+        return realm.where(PictureDAODTO.class).equalTo("placeID", placeID).findAllSorted("id");
     }
 
     @Override
@@ -52,6 +54,7 @@ class PictureDAO extends BaseDAO implements IPictureDAO {
         if (existingEntry != null) {
             existingEntry.removeFromRealm();
         }
+        picture.setUpdatedAt(DateTime.now().toDate());
         realm.copyToRealm(picture);
         realm.commitTransaction();
     }
