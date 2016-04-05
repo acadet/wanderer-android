@@ -8,7 +8,7 @@ import com.adriencadet.wanderer.models.bll.dto.PlaceBLLDTO;
 import com.adriencadet.wanderer.ui.activities.BaseActivity;
 import com.adriencadet.wanderer.ui.adapters.PlaceWindowAdapter;
 import com.adriencadet.wanderer.ui.events.SegueEvents;
-import com.adriencadet.wanderer.ui.screens.PlaceInsightScreen;
+import com.adriencadet.wanderer.ui.screens.app.PlaceInsightScreen;
 import com.annimon.stream.Stream;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMapOptions;

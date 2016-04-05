@@ -10,9 +10,9 @@ import com.adriencadet.wanderer.models.bll.IDataReadingBLL;
 import com.adriencadet.wanderer.ui.components.Footer;
 import com.adriencadet.wanderer.ui.components.MainUIContainer;
 import com.adriencadet.wanderer.ui.events.SegueEvents;
-import com.adriencadet.wanderer.ui.screens.PlaceInsightScreen;
-import com.adriencadet.wanderer.ui.screens.PlaceListScreen;
-import com.adriencadet.wanderer.ui.screens.PlaceMapScreen;
+import com.adriencadet.wanderer.ui.screens.app.PlaceInsightScreen;
+import com.adriencadet.wanderer.ui.screens.app.PlaceListScreen;
+import com.adriencadet.wanderer.ui.screens.app.PlaceMapScreen;
 import com.lyft.scoop.Scoop;
 
 import org.greenrobot.eventbus.EventBus;

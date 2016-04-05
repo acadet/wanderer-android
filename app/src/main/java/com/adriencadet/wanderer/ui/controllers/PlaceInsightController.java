@@ -14,7 +14,7 @@ import com.adriencadet.wanderer.ui.adapters.PictureSliderAdapter;
 import com.adriencadet.wanderer.ui.events.SegueEvents;
 import com.adriencadet.wanderer.ui.helpers.DateFormatterHelper;
 import com.adriencadet.wanderer.ui.helpers.IntFormatterHelper;
-import com.adriencadet.wanderer.ui.screens.PlaceInsightScreen;
+import com.adriencadet.wanderer.ui.screens.app.PlaceInsightScreen;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.lyft.scoop.Screen;

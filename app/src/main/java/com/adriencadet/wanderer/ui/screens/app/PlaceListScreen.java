@@ -1,4 +1,4 @@
-package com.adriencadet.wanderer.ui.screens;
+package com.adriencadet.wanderer.ui.screens.app;
 
 import com.adriencadet.wanderer.ui.controllers.PlaceListController;
 import com.lyft.scoop.Controller;
