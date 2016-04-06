@@ -8,19 +8,10 @@ import com.adriencadet.wanderer.R;
 import com.adriencadet.wanderer.WandererApplication;
 import com.adriencadet.wanderer.models.bll.dto.PlaceBLLDTO;
 import com.adriencadet.wanderer.ui.adapters.PlaceListAdapter;
-import com.adriencadet.wanderer.ui.events.SegueEvents;
-import com.adriencadet.wanderer.ui.screens.app.PlaceInsightScreen;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-
 import java.util.List;
-
-import javax.inject.Inject;
-import javax.inject.Named;
 
 import butterknife.Bind;
 import rx.Subscription;
@@ -32,10 +23,6 @@ import rx.android.schedulers.AndroidSchedulers;
  */
 public class PlaceListController extends BaseAppController {
     private Subscription listPlacesSubscription;
-
-    @Inject
-    @Named("segue")
-    EventBus segueBus;
 
     @Bind(R.id.place_list_menu_listview)
     ListView listView;
@@ -61,7 +48,6 @@ public class PlaceListController extends BaseAppController {
         super.onAttach();
 
         WandererApplication.getApplicationComponent().inject(this);
-        segueBus.register(this);
 
         showSpinner();
         listPlacesSubscription = dataReadingBLL
@@ -89,7 +75,7 @@ public class PlaceListController extends BaseAppController {
                         listView.setVisibility(View.GONE);
                         fadeIn(noContentLabelView);
                     } else {
-                        listView.setAdapter(new PlaceListAdapter(context, placeBLLDTOs));
+                        listView.setAdapter(new PlaceListAdapter(context, placeBLLDTOs, appRouter));
                         noContentLabelView.setVisibility(View.GONE);
                         fadeIn(listView);
                     }
@@ -104,12 +90,5 @@ public class PlaceListController extends BaseAppController {
         if (listPlacesSubscription != null) {
             listPlacesSubscription.unsubscribe();
         }
-
-        segueBus.unregister(this);
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onShowPlaceInsight(SegueEvents.Show.PlaceInsight event) {
-        appRouter.goTo(new PlaceInsightScreen(event.place));
     }
 }

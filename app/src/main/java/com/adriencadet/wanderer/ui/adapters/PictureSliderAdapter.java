@@ -15,11 +15,23 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * PictureSliderAdapter
  * <p>
  */
 public class PictureSliderAdapter extends PagerAdapter {
+    static class ViewHolder {
+        @Bind(R.id.adapter_picture_slider_embedded)
+        ImageView picture;
+
+        ViewHolder(View view) {
+            ButterKnife.bind(this, view);
+        }
+    }
+
     private Context             context;
     private List<PictureBLLDTO> items;
     private Map<Integer, View>  inflatedViews;
@@ -38,21 +50,24 @@ public class PictureSliderAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         View view;
-        ImageView picture;
+        ViewHolder holder;
         PictureBLLDTO item = items.get(position);
 
         if (inflatedViews.containsKey(position)) {
             view = inflatedViews.get(position);
+            holder = (ViewHolder) view.getTag();
+            Picasso.with(context).cancelRequest(holder.picture);
         } else {
             view = LayoutInflater.from(context).inflate(R.layout.adapter_picture_slider, container, false);
             inflatedViews.put(position, view);
+            holder = new ViewHolder(view);
+            view.setTag(holder);
         }
 
-        picture = (ImageView) view.findViewById(R.id.adapter_picture_slider_embedded);
         Picasso
             .with(context)
             .load(item.getUrl())
-            .into(picture);
+            .into(holder.picture);
 
         container.addView(view);
 

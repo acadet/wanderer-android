@@ -1,24 +1,20 @@
 package com.adriencadet.wanderer.ui.adapters;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.adriencadet.wanderer.R;
-import com.adriencadet.wanderer.WandererApplication;
 import com.adriencadet.wanderer.models.bll.dto.PlaceBLLDTO;
-import com.adriencadet.wanderer.ui.events.SegueEvents;
 import com.adriencadet.wanderer.ui.helpers.DateFormatterHelper;
+import com.adriencadet.wanderer.ui.routers.IRouter;
+import com.adriencadet.wanderer.ui.screens.app.PlaceInsightScreen;
 import com.squareup.picasso.Picasso;
 
-import org.greenrobot.eventbus.EventBus;
-
 import java.util.List;
-
-import javax.inject.Inject;
-import javax.inject.Named;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -28,11 +24,6 @@ import butterknife.ButterKnife;
  * <p>
  */
 public class PlaceListAdapter extends BaseAdapter<PlaceBLLDTO> {
-
-    @Inject
-    @Named("segue")
-    EventBus segueBus;
-
     static class ViewHolder {
         @Bind(R.id.adapter_place_list_background)
         ImageView background;
@@ -54,10 +45,12 @@ public class PlaceListAdapter extends BaseAdapter<PlaceBLLDTO> {
         }
     }
 
-    public PlaceListAdapter(Context context, List<PlaceBLLDTO> items) {
+    private IRouter appRouter;
+
+    public PlaceListAdapter(Context context, List<PlaceBLLDTO> items, IRouter appRouter) {
         super(context, items);
 
-        WandererApplication.getApplicationComponent().inject(this);
+        this.appRouter = appRouter;
     }
 
     @Override
@@ -66,8 +59,15 @@ public class PlaceListAdapter extends BaseAdapter<PlaceBLLDTO> {
         ViewHolder holder;
         PlaceBLLDTO item = itemAt(position);
 
-        view = recycle(R.layout.adapter_place_list, convertView, parent);
-        holder = new ViewHolder(view);
+        if (convertView == null) {
+            view = LayoutInflater.from(getContext()).inflate(R.layout.adapter_place_list, parent, false);
+            holder = new ViewHolder(view);
+            view.setTag(holder);
+        } else {
+            view = convertView;
+            holder = (ViewHolder) convertView.getTag();
+            Picasso.with(getContext()).cancelRequest(holder.background);
+        }
 
         Picasso
             .with(getContext())
@@ -85,7 +85,7 @@ public class PlaceListAdapter extends BaseAdapter<PlaceBLLDTO> {
         }
 
         view.setOnClickListener((v) -> {
-            segueBus.post(new SegueEvents.Show.PlaceInsight(item));
+            appRouter.goTo(new PlaceInsightScreen(item));
         });
 
         return view;
