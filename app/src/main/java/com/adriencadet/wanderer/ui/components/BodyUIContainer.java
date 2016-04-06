@@ -14,21 +14,21 @@ import javax.inject.Named;
  * MainUIContainer
  * <p>
  */
-public class MainUIContainer extends UiContainer {
+public class BodyUIContainer extends UiContainer {
     @Inject
-    @Named("app")
-    IRouter appRouter;
+    @Named("body")
+    IRouter bodyRouter;
 
-    public MainUIContainer(Context context, AttributeSet attrs) {
+    public BodyUIContainer(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         WandererApplication.getApplicationComponent().inject(this);
-        appRouter.observe(this::goTo);
+        bodyRouter.observe(this::goTo);
     }
 
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        appRouter.unobserve(this::goTo);
+        bodyRouter.unobserve(this::goTo);
     }
 }

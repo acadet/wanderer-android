@@ -12,7 +12,8 @@ import com.adriencadet.wanderer.ui.ActivityModule;
 import com.adriencadet.wanderer.ui.activities.BaseActivity;
 import com.adriencadet.wanderer.ui.activities.MainActivity;
 import com.adriencadet.wanderer.ui.adapters.PlaceListAdapter;
-import com.adriencadet.wanderer.ui.components.MainUIContainer;
+import com.adriencadet.wanderer.ui.components.BodyUIContainer;
+import com.adriencadet.wanderer.ui.components.FooterUIContainer;
 import com.adriencadet.wanderer.ui.components.PopupUIContainer;
 import com.adriencadet.wanderer.ui.components.SpinnerUIContainer;
 import com.adriencadet.wanderer.ui.controllers.app.BaseAppController;
@@ -61,7 +62,9 @@ public interface ApplicationComponent {
     void inject(PlaceInsightController placeInsightController);
 
     // UIContainers
-    void inject(MainUIContainer container);
+    void inject(BodyUIContainer container);
+
+    void inject(FooterUIContainer container);
 
     void inject(PopupUIContainer container);
 
