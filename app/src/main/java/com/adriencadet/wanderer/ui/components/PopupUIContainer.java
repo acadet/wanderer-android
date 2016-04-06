@@ -4,10 +4,11 @@ import android.content.Context;
 import android.util.AttributeSet;
 
 import com.adriencadet.wanderer.WandererApplication;
-import com.adriencadet.wanderer.ui.routers.PopupRouter;
+import com.adriencadet.wanderer.ui.routers.IRouter;
 import com.lyft.scoop.UiContainer;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 /**
  * PopupUIContainer
@@ -15,7 +16,8 @@ import javax.inject.Inject;
  */
 public class PopupUIContainer extends UiContainer {
     @Inject
-    PopupRouter popupRouter;
+    @Named("popup")
+    IRouter popupRouter;
 
     public PopupUIContainer(Context context, AttributeSet attrs) {
         super(context, attrs);

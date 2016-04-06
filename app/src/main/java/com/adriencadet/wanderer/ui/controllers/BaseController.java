@@ -9,7 +9,7 @@ import com.adriencadet.wanderer.models.bll.IDataReadingBLL;
 import com.adriencadet.wanderer.models.bll.IDataWritingBLL;
 import com.adriencadet.wanderer.ui.events.PopupEvents;
 import com.adriencadet.wanderer.ui.events.SpinnerEvents;
-import com.adriencadet.wanderer.ui.routers.AppRouter;
+import com.adriencadet.wanderer.ui.routers.IRouter;
 import com.lyft.scoop.ViewController;
 
 import org.greenrobot.eventbus.EventBus;
@@ -44,7 +44,12 @@ public abstract class BaseController extends ViewController {
     Context context;
 
     @Inject
-    AppRouter appRouter;
+    @Named("app")
+    IRouter appRouter;
+
+    @Inject
+    @Named("popup")
+    IRouter popupRouter;
 
     @Inject
     @Named("popup")

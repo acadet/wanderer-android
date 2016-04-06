@@ -9,8 +9,7 @@ import com.adriencadet.wanderer.ui.ActivityModule;
 import com.adriencadet.wanderer.ui.components.Spinner;
 import com.adriencadet.wanderer.ui.events.PopupEvents;
 import com.adriencadet.wanderer.ui.events.SpinnerEvents;
-import com.adriencadet.wanderer.ui.routers.AppRouter;
-import com.adriencadet.wanderer.ui.routers.PopupRouter;
+import com.adriencadet.wanderer.ui.routers.IRouter;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -33,10 +32,12 @@ public abstract class BaseActivity extends Activity {
     private Spinner spinner;
 
     @Inject
-    AppRouter appRouter;
+    @Named("app")
+    IRouter appRouter;
 
     @Inject
-    PopupRouter popupRouter;
+    @Named("popup")
+    IRouter popupRouter;
 
     @Inject
     @Named("popup")

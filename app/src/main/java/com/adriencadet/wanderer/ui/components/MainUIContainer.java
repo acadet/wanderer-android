@@ -4,10 +4,11 @@ import android.content.Context;
 import android.util.AttributeSet;
 
 import com.adriencadet.wanderer.WandererApplication;
-import com.adriencadet.wanderer.ui.routers.AppRouter;
+import com.adriencadet.wanderer.ui.routers.IRouter;
 import com.lyft.scoop.UiContainer;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 /**
  * MainUIContainer
@@ -15,7 +16,8 @@ import javax.inject.Inject;
  */
 public class MainUIContainer extends UiContainer {
     @Inject
-    AppRouter appRouter;
+    @Named("app")
+    IRouter appRouter;
 
     public MainUIContainer(Context context, AttributeSet attrs) {
         super(context, attrs);
