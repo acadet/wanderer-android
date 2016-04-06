@@ -1,5 +1,6 @@
 package com.adriencadet.wanderer.ui.routers;
 
+import com.adriencadet.wanderer.ui.screens.app.PlaceInsightFooterScreen;
 import com.adriencadet.wanderer.ui.screens.app.PlaceInsightScreen;
 import com.adriencadet.wanderer.ui.screens.app.PlaceListFooterScreen;
 import com.adriencadet.wanderer.ui.screens.app.PlaceListScreen;
@@ -24,12 +25,10 @@ class AppRouter implements IRouter {
 
     @Override
     public void goTo(Screen screen) {
-        bodyRouter.goTo(screen);
-
         Screen forFooter = null;
 
         if (screen instanceof PlaceInsightScreen) {
-            forFooter = new PlaceInsightScreen();
+            forFooter = new PlaceInsightFooterScreen();
         } else if (screen instanceof PlaceListScreen) {
             forFooter = new PlaceListFooterScreen();
         } else if (screen instanceof PlaceMapScreen) {
@@ -39,6 +38,7 @@ class AppRouter implements IRouter {
         }
 
         footerRouter.goTo(forFooter);
+        bodyRouter.goTo(screen);
     }
 
     @Override

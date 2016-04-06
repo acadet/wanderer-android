@@ -11,7 +11,6 @@ import com.adriencadet.wanderer.WandererApplication;
 import com.adriencadet.wanderer.models.bll.dto.PictureBLLDTO;
 import com.adriencadet.wanderer.models.bll.dto.PlaceBLLDTO;
 import com.adriencadet.wanderer.ui.adapters.PictureSliderAdapter;
-import com.adriencadet.wanderer.ui.events.SegueEvents;
 import com.adriencadet.wanderer.ui.helpers.DateFormatterHelper;
 import com.adriencadet.wanderer.ui.helpers.IntFormatterHelper;
 import com.adriencadet.wanderer.ui.screens.app.PlaceInsightScreen;
@@ -20,12 +19,7 @@ import com.daimajia.androidanimations.library.YoYo;
 import com.lyft.scoop.Screen;
 import com.viewpagerindicator.PageIndicator;
 
-import org.greenrobot.eventbus.EventBus;
-
 import java.util.List;
-
-import javax.inject.Inject;
-import javax.inject.Named;
 
 import butterknife.Bind;
 import butterknife.BindDrawable;
@@ -42,10 +36,6 @@ public class PlaceInsightController extends BaseAppController {
     private Subscription listPicturesForPlaceSubscription;
     private Subscription randomPlaceSubscription;
     private Subscription toggleLikeSubscription;
-
-    @Inject
-    @Named("segue")
-    EventBus segueBus;
 
     @Bind(R.id.place_insight_slider)
     ViewPager sliderView;
@@ -201,8 +191,6 @@ public class PlaceInsightController extends BaseAppController {
         if (toggleLikeSubscription != null) {
             toggleLikeSubscription.unsubscribe();
         }
-
-        segueBus.post(new SegueEvents.Exit.PlaceInsight());
     }
 
     @OnClick(R.id.place_insight_close_icon)

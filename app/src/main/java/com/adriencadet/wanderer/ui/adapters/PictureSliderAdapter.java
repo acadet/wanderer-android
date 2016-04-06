@@ -49,6 +49,7 @@ public class PictureSliderAdapter extends PagerAdapter {
         }
 
         picture = (ImageView) view.findViewById(R.id.adapter_picture_slider_embedded);
+        
         Picasso
             .with(context)
             .load(item.getUrl())

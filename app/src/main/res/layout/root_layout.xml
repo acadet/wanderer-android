@@ -15,7 +15,7 @@
 
         <com.adriencadet.wanderer.ui.components.FooterUIContainer
             android:id="@+id/footer_ui_container"
-            style="@style/MatchParent"
+            style="@style/MatchParentWrapContent"
             />
 
     </LinearLayout>
