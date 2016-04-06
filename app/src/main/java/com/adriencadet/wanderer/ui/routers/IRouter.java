@@ -14,8 +14,4 @@ public interface IRouter {
     void observe(IRouterScoopChangedObserver observer);
 
     void unobserve(IRouterScoopChangedObserver observer);
-
-    void observe(IRouterGoBackObserver observer);
-
-    void unobserve(IRouterGoBackObserver observer);
 }
