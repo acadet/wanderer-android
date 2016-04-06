@@ -13,6 +13,7 @@ import com.adriencadet.wanderer.ui.screens.app.PlaceInsightScreen;
 import com.adriencadet.wanderer.ui.screens.app.PlaceListScreen;
 import com.adriencadet.wanderer.ui.screens.app.PlaceMapScreen;
 import com.adriencadet.wanderer.ui.screens.popup.AlertScreen;
+import com.adriencadet.wanderer.ui.screens.spinner.ShowSpinnerImmediatelyScreen;
 import com.lyft.scoop.Scoop;
 
 import org.greenrobot.eventbus.EventBus;
@@ -29,8 +30,10 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 
 public class MainActivity extends BaseActivity {
-    private Scoop        appScoop;
-    private Scoop        popupScoop;
+    private Scoop appScoop;
+    private Scoop popupScoop;
+    private Scoop spinnerScoop;
+
     private Footer       footer;
     private Subscription canUseRandomPlaceSubscription;
 
@@ -49,14 +52,18 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         WandererApplication.getApplicationComponent().inject(this);
-        showSpinnerImmediately();
-
         setContentView(R.layout.activity_main);
 
         appScoop = new Scoop.Builder("app").build();
         appScoop.inflate(R.layout.root_layout, (ViewGroup) findViewById(R.id.main_layout), true);
+
         popupScoop = new Scoop.Builder("popup").build();
         popupScoop.inflate(R.layout.root_layout, (ViewGroup) findViewById(R.id.popup_ui_container), true);
+
+        spinnerScoop = new Scoop.Builder("spinner").build();
+        spinnerScoop.inflate(R.layout.root_layout, (ViewGroup) findViewById(R.id.spinner_ui_container), true);
+
+        spinnerRouter.goTo(new ShowSpinnerImmediatelyScreen());
 
         ButterKnife.bind(this);
 
@@ -92,6 +99,7 @@ public class MainActivity extends BaseActivity {
 
         appScoop.destroy();
         popupScoop.destroy();
+        spinnerScoop.destroy();
     }
 
     @Override

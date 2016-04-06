@@ -25,7 +25,14 @@ public class RouterFactory {
     @Provides
     @Named("popup")
     @Singleton
-    public IRouter provideScopeRouter() {
+    public IRouter providePopupRouter() {
+        return new BaseRouter(new ScreenScooper());
+    }
+
+    @Provides
+    @Named("spinner")
+    @Singleton
+    public IRouter provideSpinnerRouter() {
         return new BaseRouter(new ScreenScooper());
     }
 }

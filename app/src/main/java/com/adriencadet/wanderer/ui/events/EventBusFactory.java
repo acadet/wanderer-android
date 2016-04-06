@@ -33,13 +33,6 @@ public class EventBusFactory {
 
     @Provides
     @Singleton
-    @Named("spinner")
-    public EventBus provideSpinnerBus() {
-        return buildBus();
-    }
-
-    @Provides
-    @Singleton
     @Named("segue")
     public EventBus provideSegueBus() {
         return buildBus();

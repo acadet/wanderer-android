@@ -14,6 +14,7 @@ import com.adriencadet.wanderer.ui.activities.MainActivity;
 import com.adriencadet.wanderer.ui.adapters.PlaceListAdapter;
 import com.adriencadet.wanderer.ui.components.MainUIContainer;
 import com.adriencadet.wanderer.ui.components.PopupUIContainer;
+import com.adriencadet.wanderer.ui.components.SpinnerUIContainer;
 import com.adriencadet.wanderer.ui.controllers.app.BaseAppController;
 import com.adriencadet.wanderer.ui.controllers.app.PlaceInsightController;
 import com.adriencadet.wanderer.ui.controllers.app.PlaceListController;
@@ -42,21 +43,30 @@ import dagger.Component;
     RouterFactory.class
 })
 public interface ApplicationComponent {
+    // Subcomponents
     ActivityComponent fragmentComponent(ActivityModule activityModule);
 
+    // Activities
     void inject(BaseActivity baseActivity);
 
     void inject(MainActivity mainActivity);
 
+    // Controllers
     void inject(BaseAppController baseAppController);
 
+    //TODO
     void inject(PlaceListController placeListController);
 
+    //TODO
     void inject(PlaceInsightController placeInsightController);
 
+    // UIContainers
     void inject(MainUIContainer container);
 
     void inject(PopupUIContainer container);
 
+    void inject(SpinnerUIContainer container);
+
+    //TODO
     void inject(PlaceListAdapter adapter);
 }

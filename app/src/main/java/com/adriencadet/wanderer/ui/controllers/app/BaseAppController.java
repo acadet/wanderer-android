@@ -7,14 +7,14 @@ import com.adriencadet.wanderer.WandererApplication;
 import com.adriencadet.wanderer.models.bll.BLLErrors;
 import com.adriencadet.wanderer.models.bll.IDataReadingBLL;
 import com.adriencadet.wanderer.models.bll.IDataWritingBLL;
-import com.adriencadet.wanderer.ui.events.SpinnerEvents;
 import com.adriencadet.wanderer.ui.routers.IRouter;
 import com.adriencadet.wanderer.ui.screens.popup.AlertScreen;
 import com.adriencadet.wanderer.ui.screens.popup.ConfirmScreen;
 import com.adriencadet.wanderer.ui.screens.popup.InfoScreen;
+import com.adriencadet.wanderer.ui.screens.spinner.HideSpinnerScreen;
+import com.adriencadet.wanderer.ui.screens.spinner.ShowSpinnerImmediatelyScreen;
+import com.adriencadet.wanderer.ui.screens.spinner.ShowSpinnerSreen;
 import com.lyft.scoop.ViewController;
-
-import org.greenrobot.eventbus.EventBus;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -55,7 +55,7 @@ public abstract class BaseAppController extends ViewController {
 
     @Inject
     @Named("spinner")
-    EventBus spinnerBus;
+    IRouter spinnerRouter;
 
     @Inject
     IDataReadingBLL dataReadingBLL;
@@ -83,14 +83,14 @@ public abstract class BaseAppController extends ViewController {
     }
 
     public void showSpinner() {
-        spinnerBus.post(new SpinnerEvents.Show());
+        spinnerRouter.goTo(new ShowSpinnerSreen());
     }
 
     public void showSpinnerImmediately() {
-        spinnerBus.post(new SpinnerEvents.ShowImmediately());
+        spinnerRouter.goTo(new ShowSpinnerImmediatelyScreen());
     }
 
     public void hideSpinner() {
-        spinnerBus.post(new SpinnerEvents.Hide());
+        spinnerRouter.goTo(new HideSpinnerScreen());
     }
 }
