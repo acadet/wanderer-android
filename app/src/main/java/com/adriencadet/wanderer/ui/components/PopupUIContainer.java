@@ -11,24 +11,25 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
- * MainUIContainer
+ * PopupUIContainer
  * <p>
  */
-public class MainUIContainer extends UiContainer {
+public class PopupUIContainer extends UiContainer {
     @Inject
-    @Named("app")
-    IRouter appRouter;
+    @Named("popup")
+    IRouter popupRouter;
 
-    public MainUIContainer(Context context, AttributeSet attrs) {
+    public PopupUIContainer(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         WandererApplication.getApplicationComponent().inject(this);
-        appRouter.observe(this::goTo);
+        popupRouter.observe(this::goTo);
     }
+
 
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        appRouter.unobserve(this::goTo);
+        popupRouter.unobserve(this::goTo);
     }
 }

@@ -9,14 +9,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * AppRouter
+ * BaseRouter
  * <p>
  */
-public class AppRouter extends Router {
+class BaseRouter extends Router implements IRouter {
     private List<IRouterScoopChangedObserver> routerScoopChangedObservers;
     private List<IRouterGoBackObserver>       routerGoBackObservers;
 
-    public AppRouter(ScreenScooper screenScooper) {
+    public BaseRouter(ScreenScooper screenScooper) {
         super(screenScooper);
 
         this.routerScoopChangedObservers = new ArrayList<>();
@@ -37,18 +37,22 @@ public class AppRouter extends Router {
         return hasElements;
     }
 
+    @Override
     public void observe(IRouterScoopChangedObserver observer) {
         routerScoopChangedObservers.add(observer);
     }
 
+    @Override
     public void unobserve(IRouterScoopChangedObserver observer) {
         routerGoBackObservers.remove(observer);
     }
 
+    @Override
     public void observe(IRouterGoBackObserver observer) {
         routerGoBackObservers.add(observer);
     }
 
+    @Override
     public void unobserve(IRouterGoBackObserver observer) {
         routerGoBackObservers.remove(observer);
     }

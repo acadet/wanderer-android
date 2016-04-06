@@ -4,12 +4,11 @@ import android.app.Activity;
 import android.os.Bundle;
 
 import com.adriencadet.wanderer.WandererApplication;
-import com.adriencadet.wanderer.ui.FragmentModule;
-import com.adriencadet.wanderer.ui.IFragmentComponent;
+import com.adriencadet.wanderer.ui.ActivityComponent;
+import com.adriencadet.wanderer.ui.ActivityModule;
 import com.adriencadet.wanderer.ui.components.Spinner;
-import com.adriencadet.wanderer.ui.events.PopupEvents;
 import com.adriencadet.wanderer.ui.events.SpinnerEvents;
-import com.adriencadet.wanderer.ui.routers.AppRouter;
+import com.adriencadet.wanderer.ui.routers.IRouter;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -18,25 +17,23 @@ import org.greenrobot.eventbus.ThreadMode;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import de.keyboardsurfer.android.widget.crouton.Crouton;
-import de.keyboardsurfer.android.widget.crouton.Style;
-
 /**
  * BaseActivity
  * <p>
  */
 public abstract class BaseActivity extends Activity {
-    private static BaseActivity       instance;
-    private        IFragmentComponent fragmentComponent;
+    private static BaseActivity      instance;
+    private        ActivityComponent activityComponent;
 
     private Spinner spinner;
 
     @Inject
-    AppRouter appRouter;
+    @Named("app")
+    IRouter appRouter;
 
     @Inject
     @Named("popup")
-    EventBus popupBus;
+    IRouter popupRouter;
 
     @Inject
     @Named("spinner")
@@ -48,10 +45,10 @@ public abstract class BaseActivity extends Activity {
 
         WandererApplication.getApplicationComponent().inject(this);
         instance = this;
-        fragmentComponent =
+        activityComponent =
             WandererApplication
                 .getApplicationComponent()
-                .fragmentComponent(new FragmentModule(this));
+                .fragmentComponent(new ActivityModule(this));
 
         spinner = new Spinner(this);
     }
@@ -60,7 +57,6 @@ public abstract class BaseActivity extends Activity {
     protected void onResume() {
         super.onResume();
 
-        popupBus.register(this);
         spinnerBus.register(this);
     }
 
@@ -68,46 +64,12 @@ public abstract class BaseActivity extends Activity {
     protected void onPause() {
         super.onPause();
 
-        popupBus.unregister(this);
         spinnerBus.unregister(this);
 
-        Crouton.cancelAllCroutons();
     }
 
     protected void showSpinnerImmediately() {
         spinner.show(false);
-    }
-
-    protected void alert(String message) {
-        Crouton.cancelAllCroutons();
-        Crouton.makeText(this, message, Style.ALERT).show();
-    }
-
-    @Override
-    public void onBackPressed() {
-        finish();
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onConfirmPopup(PopupEvents.Confirm e) {
-        Crouton.cancelAllCroutons();
-        Crouton.makeText(this, e.message, Style.CONFIRM).show();
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onInfoPopup(PopupEvents.Info e) {
-        Crouton.cancelAllCroutons();
-        Crouton.makeText(this, e.message, Style.INFO).show();
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onAlertPopup(PopupEvents.Alert e) {
-        alert(e.message);
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onHidePopup(PopupEvents.Hide e) {
-        Crouton.clearCroutonsForActivity(this);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -125,7 +87,7 @@ public abstract class BaseActivity extends Activity {
         spinner.hide();
     }
 
-    public static IFragmentComponent getFragmentComponent() {
-        return instance.fragmentComponent;
+    public static ActivityComponent getActivityComponent() {
+        return instance.activityComponent;
     }
 }

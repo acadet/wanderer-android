@@ -7,15 +7,20 @@ import dagger.Module;
 import dagger.Provides;
 
 /**
- * FragmentModule
+ * ActivityModule
  * <p>
  */
 @Module
-public class FragmentModule {
+public class ActivityModule {
     private Activity activity;
 
-    public FragmentModule(Activity activity) {
+    public ActivityModule(Activity activity) {
         this.activity = activity;
+    }
+
+    @Provides
+    public Activity provideActivity() {
+        return activity;
     }
 
     @Provides

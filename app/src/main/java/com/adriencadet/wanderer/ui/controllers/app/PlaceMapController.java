@@ -1,4 +1,4 @@
-package com.adriencadet.wanderer.ui.controllers;
+package com.adriencadet.wanderer.ui.controllers.app;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -8,7 +8,7 @@ import com.adriencadet.wanderer.models.bll.dto.PlaceBLLDTO;
 import com.adriencadet.wanderer.ui.activities.BaseActivity;
 import com.adriencadet.wanderer.ui.adapters.PlaceWindowAdapter;
 import com.adriencadet.wanderer.ui.events.SegueEvents;
-import com.adriencadet.wanderer.ui.screens.PlaceInsightScreen;
+import com.adriencadet.wanderer.ui.screens.app.PlaceInsightScreen;
 import com.annimon.stream.Stream;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMapOptions;
@@ -34,7 +34,7 @@ import rx.android.schedulers.AndroidSchedulers;
  * PlaceMapController
  * <p>
  */
-public class PlaceMapController extends BaseController implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener, GoogleMap.OnInfoWindowClickListener {
+public class PlaceMapController extends BaseAppController implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener, GoogleMap.OnInfoWindowClickListener {
     private Subscription listPlacesByVisitDateDescSubscription;
 
     private PlaceWindowAdapter       placeWindowAdapter;
@@ -56,7 +56,7 @@ public class PlaceMapController extends BaseController implements OnMapReadyCall
     public void onAttach() {
         super.onAttach();
 
-        BaseActivity.getFragmentComponent().inject(this);
+        BaseActivity.getActivityComponent().inject(this);
 
         showSpinner();
         GoogleMapOptions mapOptions = new GoogleMapOptions()

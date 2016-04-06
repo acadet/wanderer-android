@@ -2,6 +2,7 @@ package com.adriencadet.wanderer.ui.routers;
 
 import com.lyft.scoop.ScreenScooper;
 
+import javax.inject.Named;
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -15,8 +16,16 @@ import dagger.Provides;
 public class RouterFactory {
 
     @Provides
+    @Named("app")
     @Singleton
-    public AppRouter provideAppRouter() {
-        return new AppRouter(new ScreenScooper());
+    public IRouter provideAppRouter() {
+        return new BaseRouter(new ScreenScooper());
+    }
+
+    @Provides
+    @Named("popup")
+    @Singleton
+    public IRouter provideScopeRouter() {
+        return new BaseRouter(new ScreenScooper());
     }
 }

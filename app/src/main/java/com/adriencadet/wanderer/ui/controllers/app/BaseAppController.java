@@ -1,4 +1,4 @@
-package com.adriencadet.wanderer.ui.controllers;
+package com.adriencadet.wanderer.ui.controllers.app;
 
 import android.content.Context;
 
@@ -7,9 +7,11 @@ import com.adriencadet.wanderer.WandererApplication;
 import com.adriencadet.wanderer.models.bll.BLLErrors;
 import com.adriencadet.wanderer.models.bll.IDataReadingBLL;
 import com.adriencadet.wanderer.models.bll.IDataWritingBLL;
-import com.adriencadet.wanderer.ui.events.PopupEvents;
 import com.adriencadet.wanderer.ui.events.SpinnerEvents;
-import com.adriencadet.wanderer.ui.routers.AppRouter;
+import com.adriencadet.wanderer.ui.routers.IRouter;
+import com.adriencadet.wanderer.ui.screens.popup.AlertScreen;
+import com.adriencadet.wanderer.ui.screens.popup.ConfirmScreen;
+import com.adriencadet.wanderer.ui.screens.popup.InfoScreen;
 import com.lyft.scoop.ViewController;
 
 import org.greenrobot.eventbus.EventBus;
@@ -22,10 +24,10 @@ import rx.Subscriber;
 import timber.log.Timber;
 
 /**
- * BaseController
+ * BaseAppController
  * <p>
  */
-public abstract class BaseController extends ViewController {
+public abstract class BaseAppController extends ViewController {
     public abstract class BaseSubscriber<T> extends Subscriber<T> {
         @Override
         public void onError(Throwable e) {
@@ -44,11 +46,12 @@ public abstract class BaseController extends ViewController {
     Context context;
 
     @Inject
-    AppRouter appRouter;
+    @Named("app")
+    IRouter appRouter;
 
     @Inject
     @Named("popup")
-    EventBus popupBus;
+    IRouter popupRouter;
 
     @Inject
     @Named("spinner")
@@ -68,19 +71,15 @@ public abstract class BaseController extends ViewController {
     }
 
     public void inform(String message) {
-        popupBus.post(new PopupEvents.Info(message));
+        popupRouter.goTo(new InfoScreen(message));
     }
 
     public void confirm(String message) {
-        popupBus.post(new PopupEvents.Confirm(message));
+        popupRouter.goTo(new ConfirmScreen(message));
     }
 
     public void alert(String message) {
-        popupBus.post(new PopupEvents.Alert(message));
-    }
-
-    public void hideNotification() {
-        popupBus.post(new PopupEvents.Hide());
+        popupRouter.goTo(new AlertScreen(message));
     }
 
     public void showSpinner() {
