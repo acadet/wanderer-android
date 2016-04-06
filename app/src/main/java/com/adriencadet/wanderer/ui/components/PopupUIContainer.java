@@ -23,4 +23,11 @@ public class PopupUIContainer extends UiContainer {
         WandererApplication.getApplicationComponent().inject(this);
         popupRouter.observe(this::goTo);
     }
+
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        popupRouter.unobserve(this::goTo);
+    }
 }

@@ -8,7 +8,6 @@ import com.adriencadet.wanderer.R;
 import com.adriencadet.wanderer.WandererApplication;
 import com.adriencadet.wanderer.models.bll.IDataReadingBLL;
 import com.adriencadet.wanderer.ui.components.Footer;
-import com.adriencadet.wanderer.ui.components.MainUIContainer;
 import com.adriencadet.wanderer.ui.events.SegueEvents;
 import com.adriencadet.wanderer.ui.screens.app.PlaceInsightScreen;
 import com.adriencadet.wanderer.ui.screens.app.PlaceListScreen;
@@ -29,12 +28,10 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 
 public class MainActivity extends BaseActivity {
-    private Scoop        rootScoop;
+    private Scoop        appScoop;
+    private Scoop        popupScoop;
     private Footer       footer;
     private Subscription canUseRandomPlaceSubscription;
-
-    @Bind(R.id.main_ui_container)
-    MainUIContainer container;
 
     @Bind(R.id.footer)
     View footerView;
@@ -55,8 +52,11 @@ public class MainActivity extends BaseActivity {
 
         setContentView(R.layout.activity_main);
 
-        rootScoop = new Scoop.Builder("root").build();
-        rootScoop.inflate(R.layout.root_layout, (ViewGroup) findViewById(R.id.main_layout), true);
+        appScoop = new Scoop.Builder("app").build();
+        appScoop.inflate(R.layout.root_layout, (ViewGroup) findViewById(R.id.main_layout), true);
+        popupScoop = new Scoop.Builder("popup").build();
+        popupScoop.inflate(R.layout.root_layout, (ViewGroup) findViewById(R.id.popup_ui_container), true);
+
         ButterKnife.bind(this);
 
         footer = new Footer(footerView, segueBus);
@@ -83,6 +83,14 @@ public class MainActivity extends BaseActivity {
 
         segueBus.unregister(this);
         appRouter.unobserve(footer);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        appScoop.destroy();
+        popupScoop.destroy();
     }
 
     @Override

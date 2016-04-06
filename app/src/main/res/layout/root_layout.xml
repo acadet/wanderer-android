@@ -9,4 +9,10 @@
         style="@style/MatchParent"
         />
 
+    <com.adriencadet.wanderer.ui.components.PopupUIContainer
+        android:id="@+id/popup_ui_container"
+        android:visibility="gone"
+        style="@style/WrapContent"
+        />
+
 </FrameLayout>

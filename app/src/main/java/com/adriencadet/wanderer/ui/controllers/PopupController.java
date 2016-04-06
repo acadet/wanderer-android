@@ -20,7 +20,6 @@ import de.keyboardsurfer.android.widget.crouton.Style;
  * <p>
  */
 public class PopupController extends ViewController {
-
     @Inject
     Activity activity;
 
