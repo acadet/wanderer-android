@@ -1,9 +1,9 @@
 package com.adriencadet.wanderer.ui.controllers.spinner;
 
-import android.content.Context;
+import android.app.Activity;
 
 import com.adriencadet.wanderer.R;
-import com.adriencadet.wanderer.WandererApplication;
+import com.adriencadet.wanderer.ui.activities.BaseActivity;
 import com.adriencadet.wanderer.ui.components.Spinner;
 import com.adriencadet.wanderer.ui.screens.spinner.ShowSpinnerImmediatelyScreen;
 import com.adriencadet.wanderer.ui.screens.spinner.ShowSpinnerSreen;
@@ -21,7 +21,7 @@ public class SpinnerController extends ViewController {
     private Spinner spinner;
 
     @Inject
-    Context context;
+    Activity activity;
 
     @Override
     protected int layoutId() {
@@ -32,9 +32,9 @@ public class SpinnerController extends ViewController {
     public void onAttach() {
         super.onAttach();
 
-        WandererApplication.getApplicationComponent().inject(this);
+        BaseActivity.getActivityComponent().inject(this);
 
-        spinner = new Spinner(context);
+        spinner = new Spinner(activity);
 
         Screen screen = Screen.fromController(this);
 

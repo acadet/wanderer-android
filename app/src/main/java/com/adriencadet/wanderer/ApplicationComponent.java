@@ -18,7 +18,6 @@ import com.adriencadet.wanderer.ui.components.SpinnerUIContainer;
 import com.adriencadet.wanderer.ui.controllers.app.BaseAppController;
 import com.adriencadet.wanderer.ui.controllers.app.PlaceInsightController;
 import com.adriencadet.wanderer.ui.controllers.app.PlaceListController;
-import com.adriencadet.wanderer.ui.controllers.spinner.SpinnerController;
 import com.adriencadet.wanderer.ui.events.EventBusFactory;
 import com.adriencadet.wanderer.ui.routers.RouterFactory;
 
@@ -54,8 +53,6 @@ public interface ApplicationComponent {
 
     // Controllers
     void inject(BaseAppController baseAppController);
-
-    void inject(SpinnerController spinnerController);
 
     //TODO
     void inject(PlaceListController placeListController);
