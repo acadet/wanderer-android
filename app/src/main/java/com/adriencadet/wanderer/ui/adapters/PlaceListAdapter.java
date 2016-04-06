@@ -1,6 +1,7 @@
 package com.adriencadet.wanderer.ui.adapters;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -58,8 +59,15 @@ public class PlaceListAdapter extends BaseAdapter<PlaceBLLDTO> {
         ViewHolder holder;
         PlaceBLLDTO item = itemAt(position);
 
-        view = recycle(R.layout.adapter_place_list, convertView, parent);
-        holder = new ViewHolder(view);
+        if (convertView == null) {
+            view = LayoutInflater.from(getContext()).inflate(R.layout.adapter_place_list, parent, false);
+            holder = new ViewHolder(view);
+            view.setTag(holder);
+        } else {
+            view = convertView;
+            holder = (ViewHolder) convertView.getTag();
+            Picasso.with(getContext()).cancelRequest(holder.background);
+        }
 
         Picasso
             .with(getContext())
