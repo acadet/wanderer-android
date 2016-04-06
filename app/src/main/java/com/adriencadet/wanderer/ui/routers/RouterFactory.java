@@ -16,10 +16,24 @@ import dagger.Provides;
 public class RouterFactory {
 
     @Provides
+    @Named("body")
+    @Singleton
+    public IRouter provideBodyRouter() {
+        return new BaseRouter(new ScreenScooper());
+    }
+
+    @Provides
+    @Named("footer")
+    @Singleton
+    public IRouter provideFooterRouter() {
+        return new BaseRouter(new ScreenScooper());
+    }
+
+    @Provides
     @Named("app")
     @Singleton
-    public IRouter provideAppRouter() {
-        return new BaseRouter(new ScreenScooper());
+    public IRouter provideAppRouter(@Named("body") IRouter bodyRouter, @Named("footer") IRouter footerRouter) {
+        return new AppRouter(bodyRouter, footerRouter);
     }
 
     @Provides
