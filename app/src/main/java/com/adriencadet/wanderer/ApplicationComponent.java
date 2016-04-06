@@ -10,7 +10,6 @@ import com.adriencadet.wanderer.models.services.wanderer.jobs.WandererServerJobF
 import com.adriencadet.wanderer.ui.ActivityComponent;
 import com.adriencadet.wanderer.ui.ActivityModule;
 import com.adriencadet.wanderer.ui.activities.BaseActivity;
-import com.adriencadet.wanderer.ui.activities.MainActivity;
 import com.adriencadet.wanderer.ui.adapters.PlaceListAdapter;
 import com.adriencadet.wanderer.ui.components.BodyUIContainer;
 import com.adriencadet.wanderer.ui.components.FooterUIContainer;
@@ -49,8 +48,6 @@ public interface ApplicationComponent {
 
     // Activities
     void inject(BaseActivity baseActivity);
-
-    void inject(MainActivity mainActivity);
 
     // Controllers
     void inject(BaseAppController baseAppController);

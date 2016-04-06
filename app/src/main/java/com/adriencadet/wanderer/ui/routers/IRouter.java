@@ -11,7 +11,6 @@ public interface IRouter {
 
     boolean goBack();
 
-
     void observe(IRouterScoopChangedObserver observer);
 
     void unobserve(IRouterScoopChangedObserver observer);
