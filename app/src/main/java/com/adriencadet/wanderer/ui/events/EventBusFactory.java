@@ -33,13 +33,6 @@ public class EventBusFactory {
 
     @Provides
     @Singleton
-    @Named("popup")
-    public EventBus providePopupBus() {
-        return buildBus();
-    }
-
-    @Provides
-    @Singleton
     @Named("spinner")
     public EventBus provideSpinnerBus() {
         return buildBus();

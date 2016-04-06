@@ -1,4 +1,4 @@
-package com.adriencadet.wanderer.ui.controllers;
+package com.adriencadet.wanderer.ui.controllers.app;
 
 import android.graphics.drawable.Drawable;
 import android.support.v4.view.ViewPager;
@@ -37,7 +37,7 @@ import rx.android.schedulers.AndroidSchedulers;
  * PlaceInsightController
  * <p>
  */
-public class PlaceInsightController extends BaseController {
+public class PlaceInsightController extends BaseAppController {
     private PlaceBLLDTO  currentPlace;
     private Subscription listPicturesForPlaceSubscription;
     private Subscription randomPlaceSubscription;

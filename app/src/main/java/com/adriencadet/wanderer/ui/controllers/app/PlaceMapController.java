@@ -1,4 +1,4 @@
-package com.adriencadet.wanderer.ui.controllers;
+package com.adriencadet.wanderer.ui.controllers.app;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -34,7 +34,7 @@ import rx.android.schedulers.AndroidSchedulers;
  * PlaceMapController
  * <p>
  */
-public class PlaceMapController extends BaseController implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener, GoogleMap.OnInfoWindowClickListener {
+public class PlaceMapController extends BaseAppController implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener, GoogleMap.OnInfoWindowClickListener {
     private Subscription listPlacesByVisitDateDescSubscription;
 
     private PlaceWindowAdapter       placeWindowAdapter;

@@ -1,4 +1,4 @@
-package com.adriencadet.wanderer.ui.controllers;
+package com.adriencadet.wanderer.ui.controllers.app;
 
 import android.view.View;
 import android.widget.ListView;
@@ -30,7 +30,7 @@ import rx.android.schedulers.AndroidSchedulers;
  * PlaceListController
  * <p>
  */
-public class PlaceListController extends BaseController {
+public class PlaceListController extends BaseAppController {
     private Subscription listPlacesSubscription;
 
     @Inject

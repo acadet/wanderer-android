@@ -7,7 +7,6 @@ import com.adriencadet.wanderer.WandererApplication;
 import com.adriencadet.wanderer.ui.ActivityComponent;
 import com.adriencadet.wanderer.ui.ActivityModule;
 import com.adriencadet.wanderer.ui.components.Spinner;
-import com.adriencadet.wanderer.ui.events.PopupEvents;
 import com.adriencadet.wanderer.ui.events.SpinnerEvents;
 import com.adriencadet.wanderer.ui.routers.IRouter;
 
@@ -17,9 +16,6 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import javax.inject.Inject;
 import javax.inject.Named;
-
-import de.keyboardsurfer.android.widget.crouton.Crouton;
-import de.keyboardsurfer.android.widget.crouton.Style;
 
 /**
  * BaseActivity
@@ -38,10 +34,6 @@ public abstract class BaseActivity extends Activity {
     @Inject
     @Named("popup")
     IRouter popupRouter;
-
-    @Inject
-    @Named("popup")
-    EventBus popupBus;
 
     @Inject
     @Named("spinner")
@@ -65,7 +57,6 @@ public abstract class BaseActivity extends Activity {
     protected void onResume() {
         super.onResume();
 
-        popupBus.register(this);
         spinnerBus.register(this);
     }
 
@@ -73,46 +64,12 @@ public abstract class BaseActivity extends Activity {
     protected void onPause() {
         super.onPause();
 
-        popupBus.unregister(this);
         spinnerBus.unregister(this);
 
-        Crouton.cancelAllCroutons();
     }
 
     protected void showSpinnerImmediately() {
         spinner.show(false);
-    }
-
-    protected void alert(String message) {
-        Crouton.cancelAllCroutons();
-        Crouton.makeText(this, message, Style.ALERT).show();
-    }
-
-    @Override
-    public void onBackPressed() {
-        finish();
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onConfirmPopup(PopupEvents.Confirm e) {
-        Crouton.cancelAllCroutons();
-        Crouton.makeText(this, e.message, Style.CONFIRM).show();
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onInfoPopup(PopupEvents.Info e) {
-        Crouton.cancelAllCroutons();
-        Crouton.makeText(this, e.message, Style.INFO).show();
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onAlertPopup(PopupEvents.Alert e) {
-        alert(e.message);
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onHidePopup(PopupEvents.Hide e) {
-        Crouton.clearCroutonsForActivity(this);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

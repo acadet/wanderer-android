@@ -12,6 +12,7 @@ import com.adriencadet.wanderer.ui.events.SegueEvents;
 import com.adriencadet.wanderer.ui.screens.app.PlaceInsightScreen;
 import com.adriencadet.wanderer.ui.screens.app.PlaceListScreen;
 import com.adriencadet.wanderer.ui.screens.app.PlaceMapScreen;
+import com.adriencadet.wanderer.ui.screens.popup.AlertScreen;
 import com.lyft.scoop.Scoop;
 
 import org.greenrobot.eventbus.EventBus;
@@ -141,7 +142,7 @@ public class MainActivity extends BaseActivity {
                         footer.hide();
                         appRouter.goTo(new PlaceInsightScreen());
                     } else {
-                        alert(getString(R.string.cannot_use_random));
+                        popupRouter.goTo(new AlertScreen(getString(R.string.cannot_use_random)));
                     }
                 }
             });

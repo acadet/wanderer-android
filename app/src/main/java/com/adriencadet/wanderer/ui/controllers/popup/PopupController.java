@@ -1,4 +1,4 @@
-package com.adriencadet.wanderer.ui.controllers;
+package com.adriencadet.wanderer.ui.controllers.popup;
 
 import android.app.Activity;
 
@@ -54,5 +54,11 @@ public class PopupController extends ViewController {
 
         Crouton.cancelAllCroutons();
         Crouton.makeText(activity, message, style).show();
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        Crouton.cancelAllCroutons();
     }
 }

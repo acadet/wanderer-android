@@ -1,6 +1,6 @@
 package com.adriencadet.wanderer.ui.screens.popup;
 
-import com.adriencadet.wanderer.ui.controllers.PopupController;
+import com.adriencadet.wanderer.ui.controllers.popup.PopupController;
 import com.lyft.scoop.Controller;
 import com.lyft.scoop.Screen;
 

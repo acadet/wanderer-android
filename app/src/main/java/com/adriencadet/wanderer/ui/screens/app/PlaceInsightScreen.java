@@ -1,7 +1,7 @@
 package com.adriencadet.wanderer.ui.screens.app;
 
 import com.adriencadet.wanderer.models.bll.dto.PlaceBLLDTO;
-import com.adriencadet.wanderer.ui.controllers.PlaceInsightController;
+import com.adriencadet.wanderer.ui.controllers.app.PlaceInsightController;
 import com.lyft.scoop.Controller;
 import com.lyft.scoop.EnterTransition;
 import com.lyft.scoop.ExitTransition;
