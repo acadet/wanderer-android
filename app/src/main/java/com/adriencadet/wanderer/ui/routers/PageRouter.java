@@ -50,6 +50,10 @@ public class PageRouter extends BaseRouter {
     @Override
     public boolean goBack() {
         footerRouter.goBack();
-        return bodyRouter.goBack();
+        if (bodyRouter.goBack()) {
+            return true;
+        }
+
+        return super.goBack();
     }
 }

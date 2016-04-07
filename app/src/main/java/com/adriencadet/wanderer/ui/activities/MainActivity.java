@@ -42,7 +42,7 @@ public class MainActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
         if (!appRouter.goBack()) {
-            finish();
+            super.onBackPressed();
         }
     }
 }

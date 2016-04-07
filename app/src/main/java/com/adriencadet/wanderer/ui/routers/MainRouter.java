@@ -62,7 +62,11 @@ public class MainRouter extends BaseRouter {
             isInFullscreen = false;
             return pageRouter.hasActiveScreen();
         } else {
-            return pageRouter.goBack();
+            if (pageRouter.goBack()) {
+                return true;
+            }
+
+            return super.goBack();
         }
     }
 }
