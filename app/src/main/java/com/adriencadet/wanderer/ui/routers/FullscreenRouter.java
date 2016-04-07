@@ -2,6 +2,7 @@ package com.adriencadet.wanderer.ui.routers;
 
 import com.adriencadet.wanderer.WandererApplication;
 import com.adriencadet.wanderer.ui.screens.PlaceInsightScreen;
+import com.adriencadet.wanderer.ui.screens.fullscreen.HideFullscreenScreen;
 import com.adriencadet.wanderer.ui.screens.fullscreen.LandingFullscreenScreen;
 import com.lyft.scoop.Screen;
 import com.lyft.scoop.ScreenScooper;
@@ -31,7 +32,7 @@ public class FullscreenRouter extends BaseRouter {
         super.goTo(new LandingFullscreenScreen());
 
         if (screen instanceof PlaceInsightScreen) {
-            bodyRouter.goTo(new PlaceInsightScreen());
+            bodyRouter.goTo(screen);
         } else {
             Timber.e("Invalid screen");
         }
@@ -39,6 +40,12 @@ public class FullscreenRouter extends BaseRouter {
 
     @Override
     public boolean goBack() {
-        return bodyRouter.goBack();
+        if (bodyRouter.goBack()) {
+            return true;
+        }
+
+        replaceWith(new HideFullscreenScreen());
+
+        return false;
     }
 }

@@ -5,7 +5,6 @@ import com.adriencadet.wanderer.ui.screens.LandingScreen;
 import com.adriencadet.wanderer.ui.screens.PlaceInsightScreen;
 import com.adriencadet.wanderer.ui.screens.PlaceListScreen;
 import com.adriencadet.wanderer.ui.screens.PlaceMapScreen;
-import com.adriencadet.wanderer.ui.screens.main.SetFullscreenScreen;
 import com.lyft.scoop.Screen;
 import com.lyft.scoop.ScreenScooper;
 
@@ -46,7 +45,7 @@ public class MainRouter extends BaseRouter {
         } else if (screen instanceof PlaceMapScreen || screen instanceof PlaceListScreen) {
             pageRouter.goTo(screen);
         } else if (screen instanceof PlaceInsightScreen) {
-            super.goTo(new SetFullscreenScreen());
+            //super.goTo(new SetFullscreenScreen());
             isInFullscreen = true;
             fullscreenRouter.goTo(screen);
         } else {
@@ -57,9 +56,11 @@ public class MainRouter extends BaseRouter {
     @Override
     public boolean goBack() {
         if (isInFullscreen) {
+            if (fullscreenRouter.goBack()) {
+                return true;
+            }
             isInFullscreen = false;
-            fullscreenRouter.goBack();
-            return super.goBack();
+            return pageRouter.hasActiveScreen();
         } else {
             return pageRouter.goBack();
         }

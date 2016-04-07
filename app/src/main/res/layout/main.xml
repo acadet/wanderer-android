@@ -10,8 +10,6 @@
         />
 
     <com.adriencadet.wanderer.ui.components.FullscreenContainer
-        android:id="@+id/main_fullscreen"
-        android:visibility="gone"
         style="@style/MatchParent"
         />
 
