@@ -56,14 +56,4 @@ class AppRouter implements IRouter {
     public void unobserve(IRouterScoopChangedObserver observer) {
 
     }
-
-    @Override
-    public void observe(IRouterGoBackObserver observer) {
-
-    }
-
-    @Override
-    public void unobserve(IRouterGoBackObserver observer) {
-
-    }
 }
