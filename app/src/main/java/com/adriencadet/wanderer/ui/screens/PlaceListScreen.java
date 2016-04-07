@@ -1,6 +1,6 @@
-package com.adriencadet.wanderer.ui.screens.app;
+package com.adriencadet.wanderer.ui.screens;
 
-import com.adriencadet.wanderer.ui.controllers.app.PlaceListController;
+import com.adriencadet.wanderer.ui.controllers.body.PlaceListController;
 import com.lyft.scoop.Controller;
 import com.lyft.scoop.EnterTransition;
 import com.lyft.scoop.ExitTransition;

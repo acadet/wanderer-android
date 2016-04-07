@@ -1,6 +1,6 @@
 package com.adriencadet.wanderer.ui;
 
-import com.adriencadet.wanderer.ui.controllers.app.PlaceMapController;
+import com.adriencadet.wanderer.ui.controllers.body.PlaceMapController;
 import com.adriencadet.wanderer.ui.controllers.popup.PopupController;
 import com.adriencadet.wanderer.ui.controllers.spinner.SpinnerController;
 

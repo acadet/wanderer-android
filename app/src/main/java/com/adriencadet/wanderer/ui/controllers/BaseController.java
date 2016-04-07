@@ -1,4 +1,4 @@
-package com.adriencadet.wanderer.ui.controllers.app;
+package com.adriencadet.wanderer.ui.controllers;
 
 import android.content.Context;
 
@@ -23,10 +23,10 @@ import rx.Subscriber;
 import timber.log.Timber;
 
 /**
- * BaseAppController
+ * BaseController
  * <p>
  */
-public abstract class BaseAppController extends ViewController {
+public abstract class BaseController extends ViewController {
     public abstract class BaseSubscriber<T> extends Subscriber<T> {
         @Override
         public void onError(Throwable e) {
@@ -42,25 +42,25 @@ public abstract class BaseAppController extends ViewController {
     }
 
     @Inject
-    Context context;
+    public Context context;
 
     @Inject
-    @Named("app")
-    IRouter appRouter;
+    @Named("main")
+    public IRouter appRouter;
 
     @Inject
     @Named("popup")
-    IRouter popupRouter;
+    public IRouter popupRouter;
 
     @Inject
     @Named("spinner")
-    IRouter spinnerRouter;
+    public IRouter spinnerRouter;
 
     @Inject
-    IDataReadingBLL dataReadingBLL;
+    public IDataReadingBLL dataReadingBLL;
 
     @Inject
-    IDataWritingBLL dataWritingBLL;
+    public IDataWritingBLL dataWritingBLL;
 
     @Override
     public void onAttach() {

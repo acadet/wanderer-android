@@ -4,9 +4,8 @@ import android.os.Bundle;
 import android.view.ViewGroup;
 
 import com.adriencadet.wanderer.R;
-import com.adriencadet.wanderer.ui.controllers.app.FooterController;
-import com.adriencadet.wanderer.ui.screens.app.PlaceMapScreen;
-import com.adriencadet.wanderer.ui.screens.spinner.ShowSpinnerImmediatelyScreen;
+import com.adriencadet.wanderer.ui.controllers.footer.FooterController;
+import com.adriencadet.wanderer.ui.screens.LandingScreen;
 import com.lyft.scoop.Scoop;
 
 public class MainActivity extends BaseActivity {
@@ -22,9 +21,15 @@ public class MainActivity extends BaseActivity {
 
         rootScoop = new Scoop.Builder("root").build();
         rootScoop.inflate(R.layout.root_layout, (ViewGroup) findViewById(R.id.main_layout), true);
+    }
 
-        spinnerRouter.goTo(new ShowSpinnerImmediatelyScreen());
-        appRouter.goTo(new PlaceMapScreen());
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (!appRouter.hasActiveScreen()) {
+            appRouter.goTo(new LandingScreen());
+        }
     }
 
     @Override

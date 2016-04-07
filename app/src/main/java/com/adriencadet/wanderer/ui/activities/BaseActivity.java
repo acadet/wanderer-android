@@ -20,7 +20,7 @@ public abstract class BaseActivity extends Activity {
     private        ActivityComponent activityComponent;
 
     @Inject
-    @Named("app")
+    @Named("main")
     IRouter appRouter;
 
     @Inject

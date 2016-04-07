@@ -11,25 +11,24 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
- * PopupUIContainer
+ * FullscreenContainer
  * <p>
  */
-public class PopupUIContainer extends UiContainer {
+public class FullscreenContainer extends UiContainer {
     @Inject
-    @Named("popup")
-    IRouter popupRouter;
+    @Named("fullscreen")
+    IRouter router;
 
-    public PopupUIContainer(Context context, AttributeSet attrs) {
+    public FullscreenContainer(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         WandererApplication.getApplicationComponent().inject(this);
-        popupRouter.observe(this::goTo);
+        router.observe(this::goTo);
     }
-
 
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        popupRouter.stopObserving(this::goTo);
+        router.stopObserving(this::goTo);
     }
 }

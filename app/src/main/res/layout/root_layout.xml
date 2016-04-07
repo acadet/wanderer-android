@@ -4,19 +4,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     >
 
-    <LinearLayout
-        style="@style/MatchParent.Vertical"
-        >
-
-        <com.adriencadet.wanderer.ui.components.BodyUIContainer
-            style="@style/FullVerticalStretchable"
-            />
-
-        <com.adriencadet.wanderer.ui.components.FooterUIContainer
-            style="@style/MatchParentWrapContent"
-            />
-
-    </LinearLayout>
+    <com.adriencadet.wanderer.ui.components.MainUIContainer
+        style="@style/MatchParent"
+        />
 
     <com.adriencadet.wanderer.ui.components.PopupUIContainer
         android:visibility="gone"

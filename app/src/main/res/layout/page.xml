@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    style="@style/MatchParent.Vertical">
+
+
+    <com.adriencadet.wanderer.ui.components.PageBodyUIContainer
+        style="@style/FullVerticalStretchable"
+        />
+
+    <com.adriencadet.wanderer.ui.components.PageFooterUIContainer
+        style="@style/MatchParentWrapContent"
+        />
+
+</LinearLayout>

@@ -11,24 +11,24 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
- * FooterUIContainer
+ * MainUIContainer
  * <p>
  */
-public class FooterUIContainer extends UiContainer {
+public class MainUIContainer extends UiContainer {
     @Inject
-    @Named("footer")
-    IRouter footerRouter;
+    @Named("main")
+    IRouter router;
 
-    public FooterUIContainer(Context context, AttributeSet attrs) {
+    public MainUIContainer(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         WandererApplication.getApplicationComponent().inject(this);
-        footerRouter.observe(this::goTo);
+        router.observe(this::goTo);
     }
 
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        footerRouter.unobserve(this::goTo);
+        router.stopObserving(this::goTo);
     }
 }

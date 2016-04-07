@@ -30,6 +30,6 @@ public class SpinnerUIContainer extends UiContainer {
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        spinnerRouter.unobserve(this::goTo);
+        spinnerRouter.stopObserving(this::goTo);
     }
 }
