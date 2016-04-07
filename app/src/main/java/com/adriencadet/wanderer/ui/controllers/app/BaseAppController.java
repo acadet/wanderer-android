@@ -19,7 +19,6 @@ import com.lyft.scoop.ViewController;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import butterknife.ButterKnife;
 import rx.Subscriber;
 import timber.log.Timber;
 
@@ -67,7 +66,6 @@ public abstract class BaseAppController extends ViewController {
     public void onAttach() {
         super.onAttach();
         WandererApplication.getApplicationComponent().inject(this);
-        ButterKnife.bind(this, getView());
     }
 
     public void inform(String message) {
