@@ -74,16 +74,12 @@ public class FooterController extends BaseAppController {
 
     @OnClick(R.id.footer_map)
     public void onMap() {
-        if (!(Screen.fromController(this) instanceof PlaceMapFooterScreen)) {
-            appRouter.goTo(new PlaceMapScreen());
-        }
+        appRouter.goTo(new PlaceMapScreen());
     }
 
     @OnClick(R.id.footer_list)
     public void onList() {
-        if (!(Screen.fromController(this) instanceof PlaceListFooterScreen)) {
-            appRouter.goTo(new PlaceListScreen());
-        }
+        appRouter.goTo(new PlaceListScreen());
     }
 
     @OnClick(R.id.footer_random)
