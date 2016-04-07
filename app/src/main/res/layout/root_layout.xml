@@ -9,25 +9,21 @@
         >
 
         <com.adriencadet.wanderer.ui.components.BodyUIContainer
-            android:id="@+id/body_ui_container"
             style="@style/FullVerticalStretchable"
             />
 
         <com.adriencadet.wanderer.ui.components.FooterUIContainer
-            android:id="@+id/footer_ui_container"
             style="@style/MatchParentWrapContent"
             />
 
     </LinearLayout>
 
     <com.adriencadet.wanderer.ui.components.PopupUIContainer
-        android:id="@+id/popup_ui_container"
         android:visibility="gone"
         style="@style/WrapContent"
         />
 
     <com.adriencadet.wanderer.ui.components.SpinnerUIContainer
-        android:id="@+id/spinner_ui_container"
         android:visibility="gone"
         style="@style/WrapContent"
         />
