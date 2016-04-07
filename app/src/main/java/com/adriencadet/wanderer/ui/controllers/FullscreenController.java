@@ -4,6 +4,7 @@ import android.view.View;
 
 import com.adriencadet.wanderer.R;
 import com.adriencadet.wanderer.ui.screens.fullscreen.HideFullscreenScreen;
+import com.adriencadet.wanderer.ui.screens.fullscreen.LandingFullscreenScreen;
 import com.lyft.scoop.Screen;
 import com.lyft.scoop.ViewController;
 
@@ -25,7 +26,7 @@ public class FullscreenController extends ViewController {
         Screen screen = Screen.fromController(this);
         if (screen instanceof HideFullscreenScreen) {
             getView().setVisibility(View.GONE);
-        } else {
+        } else if (screen instanceof LandingFullscreenScreen) {
             getView().setVisibility(View.VISIBLE);
         }
     }

@@ -36,6 +36,7 @@ public class PageRouter extends BaseRouter {
     @Override
     public void goTo(Screen screen) {
         super.goTo(new LandingPageScreen());
+
         if (screen instanceof PlaceMapScreen) {
             bodyRouter.goTo(screen);
             footerRouter.goTo(new PlaceMapFooterScreen());

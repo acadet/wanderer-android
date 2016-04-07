@@ -57,7 +57,7 @@ public class PlaceMapController extends BaseController implements OnMapReadyCall
             .rotateGesturesEnabled(false);
         MapFragment fragment = MapFragment.newInstance(mapOptions);
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.add(R.id.place_map, fragment);
+        transaction.replace(R.id.place_map, fragment);
         transaction.commit();
         fragment.getMapAsync(this);
     }
