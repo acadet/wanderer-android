@@ -9,7 +9,7 @@
         style="@style/MatchParent"
         />
 
-    <com.adriencadet.wanderer.ui.components.FullscreenContainer
+    <com.adriencadet.wanderer.ui.components.FullscreenUIContainer
         style="@style/MatchParent"
         />
 

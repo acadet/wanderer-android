@@ -11,7 +11,7 @@ import com.adriencadet.wanderer.ui.ActivityComponent;
 import com.adriencadet.wanderer.ui.ActivityModule;
 import com.adriencadet.wanderer.ui.activities.BaseActivity;
 import com.adriencadet.wanderer.ui.components.FullscreenBodyUIContainer;
-import com.adriencadet.wanderer.ui.components.FullscreenContainer;
+import com.adriencadet.wanderer.ui.components.FullscreenUIContainer;
 import com.adriencadet.wanderer.ui.components.MainUIContainer;
 import com.adriencadet.wanderer.ui.components.PageBodyUIContainer;
 import com.adriencadet.wanderer.ui.components.PageFooterUIContainer;
@@ -59,7 +59,7 @@ public interface ApplicationComponent {
 
     void inject(PageUIContainer container);
 
-    void inject(FullscreenContainer container);
+    void inject(FullscreenUIContainer container);
 
     void inject(PageBodyUIContainer container);
 

@@ -11,15 +11,15 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
- * FullscreenContainer
+ * FullscreenUIContainer
  * <p>
  */
-public class FullscreenContainer extends UiContainer {
+public class FullscreenUIContainer extends UiContainer {
     @Inject
     @Named("fullscreen")
     IRouter router;
 
-    public FullscreenContainer(Context context, AttributeSet attrs) {
+    public FullscreenUIContainer(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         WandererApplication.getApplicationComponent().inject(this);
