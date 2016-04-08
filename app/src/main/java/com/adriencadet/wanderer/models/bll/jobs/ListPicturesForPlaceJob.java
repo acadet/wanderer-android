@@ -66,6 +66,11 @@ public class ListPicturesForPlaceJob extends BLLJob {
         pictureDAO.save(daos);
     }
 
+    private void useCache(PlaceBLLDTO place, Subscriber<? super List<PictureBLLDTO>> subscriber) {
+        subscriber.onNext(serializer.fromDAO(pictureDAO.listForPlace(place.getId())));
+        subscriber.onCompleted();
+    }
+
     public Observable<List<PictureBLLDTO>> create(PlaceBLLDTO place) {
         return Observable
             .create(new Observable.OnSubscribe<List<PictureBLLDTO>>() {
@@ -90,6 +95,7 @@ public class ListPicturesForPlaceJob extends BLLJob {
 
                                 @Override
                                 public void onError(Throwable e) {
+                                    useCache(place, subscriber);
                                     handleError(e, subscriber);
                                 }
 
@@ -106,8 +112,7 @@ public class ListPicturesForPlaceJob extends BLLJob {
                             listPicturesForPlaceJobSubscriptionMap.replace(key, formerSubscription, subscription);
                         }
                     } else {
-                        subscriber.onNext(serializer.fromDAO(pictureDAO.listForPlace(place.getId())));
-                        subscriber.onCompleted();
+                        useCache(place, subscriber);
                     }
                 }
             })

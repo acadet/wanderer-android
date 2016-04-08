@@ -73,6 +73,30 @@ public class ListPlacesByVisitDateDescJob extends BLLJob {
         }
     }
 
+    private boolean useCache(Subscriber<? super List<PlaceBLLDTO>> subscriber) {
+        List<PlaceBLLDTO> cachedList = placeSerializer.fromDAO(placeDAO.listPlacesByVisitDateDescJob());
+        boolean wasInterrupted = false;
+
+        for (PlaceBLLDTO p : cachedList) {
+            PictureDAODTO pic = pictureDAO.find(p.getMainPicture().getId());
+
+            if (pic != null) {
+                p.getMainPicture().setUrl(pic.getUrl());
+            } else {
+                // Missing picture in cache, server has to be fetched
+                wasInterrupted = true;
+                break;
+            }
+        }
+
+        if (!wasInterrupted) {
+            subscriber.onNext(cachedList);
+            subscriber.onCompleted();
+        }
+
+        return wasInterrupted;
+    }
+
     public Observable<List<PlaceBLLDTO>> create() {
         return Observable
             .create(new Observable.OnSubscribe<List<PlaceBLLDTO>>() {
@@ -82,25 +106,7 @@ public class ListPlacesByVisitDateDescJob extends BLLJob {
 
                     if (latestFetch != null
                         && latestFetch.plusMinutes(configuration.PLACE_CACHING_DURATION_MINS).isAfterNow()) {
-
-                        List<PlaceBLLDTO> cachedList = placeSerializer.fromDAO(placeDAO.listPlacesByVisitDateDescJob());
-                        boolean wasInterrupted = false;
-
-                        for (PlaceBLLDTO p : cachedList) {
-                            PictureDAODTO pic = pictureDAO.find(p.getMainPicture().getId());
-
-                            if (pic != null) {
-                                p.getMainPicture().setUrl(pic.getUrl());
-                            } else {
-                                // Missing picture in cache, server has to be fetched
-                                wasInterrupted = true;
-                                break;
-                            }
-                        }
-
-                        if (!wasInterrupted) {
-                            subscriber.onNext(cachedList);
-                            subscriber.onCompleted();
+                        if (!useCache(subscriber)) {
                             return;
                         }
                     }
@@ -118,12 +124,12 @@ public class ListPlacesByVisitDateDescJob extends BLLJob {
                             @Override
                             public void onCompleted() {
                                 subscriber.onCompleted();
-
                                 updateCache(list.get());
                             }
 
                             @Override
                             public void onError(Throwable e) {
+                                useCache(subscriber);
                                 handleError(e, subscriber);
                             }
 
