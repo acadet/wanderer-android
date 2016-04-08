@@ -1,5 +1,8 @@
 package com.adriencadet.wanderer.services.wanderer;
 
+import com.adriencadet.wanderer.beans.Picture;
+import com.adriencadet.wanderer.beans.Place;
+
 import java.util.List;
 
 import rx.Observable;
@@ -9,9 +12,9 @@ import rx.Observable;
  * <p>
  */
 public interface IWandererServer {
-    Observable<List<PlaceDTO>> listPlacesByVisitDateDescJob();
+    Observable<List<Place>> listPlacesByVisitDateDescJob();
 
-    Observable<List<PictureDTO>> listPicturesForPlaceJob(int placeID);
+    Observable<List<Picture>> listPicturesForPlaceJob(int placeID);
 
     Observable<Void> toggleLikeJob(int placeID);
 }
