@@ -36,6 +36,7 @@ dependencies {
     compile 'com.annimon:stream:1.0.6'
     compile 'io.reactivex:rxandroid:1.1.0'
     compile 'io.reactivex:rxjava:1.1.1'
+    compile project(':beans')
 }
 
 // Lambda functions

@@ -1,8 +1,8 @@
 package com.adriencadet.wanderer.models.bll.jobs;
 
 import com.adriencadet.wanderer.ApplicationConfiguration;
-import com.adriencadet.dao.IPictureDAO;
-import com.adriencadet.dao.IPlaceDAO;
+import com.adriencadet.wanderer.dao.IPictureDAO;
+import com.adriencadet.wanderer.dao.IPlaceDAO;
 import com.adriencadet.wanderer.models.serializers.IPictureSerializer;
 import com.adriencadet.wanderer.models.serializers.IPlaceSerializer;
 import com.adriencadet.wanderer.models.services.wanderer.IWandererServer;

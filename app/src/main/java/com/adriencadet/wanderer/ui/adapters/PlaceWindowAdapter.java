@@ -5,7 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
-import com.adriencadet.beans.Place;
+import com.adriencadet.wanderer.beans.beans.Place;
 import com.adriencadet.wanderer.R;
 import com.adriencadet.wanderer.ui.helpers.DateFormatterHelper;
 import com.google.android.gms.maps.GoogleMap;

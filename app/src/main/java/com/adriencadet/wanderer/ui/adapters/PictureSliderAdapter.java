@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.adriencadet.beans.Picture;
+import com.adriencadet.wanderer.beans.beans.Picture;
 import com.adriencadet.wanderer.R;
 import com.squareup.picasso.Picasso;
 

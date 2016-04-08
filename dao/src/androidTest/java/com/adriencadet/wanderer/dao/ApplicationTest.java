@@ -1,4 +1,4 @@
-package com.adriencadet.dao;
+package com.adriencadet.wanderer.dao;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

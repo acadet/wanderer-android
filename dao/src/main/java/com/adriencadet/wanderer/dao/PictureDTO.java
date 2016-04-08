@@ -1,4 +1,4 @@
-package com.adriencadet.dao;
+package com.adriencadet.wanderer.dao;
 
 import java.util.Date;
 
@@ -6,10 +6,10 @@ import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
 /**
- * PictureDAODTO
+ * PictureDTO
  * <p>
  */
-public class PictureDAODTO extends RealmObject implements ICachingDTO {
+public class PictureDTO extends RealmObject implements ICachingDTO {
     @PrimaryKey
     private int    id;
     private String url;

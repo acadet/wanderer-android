@@ -1,7 +1,7 @@
 package com.adriencadet.wanderer.models.bll.jobs;
 
-import com.adriencadet.beans.Place;
-import com.adriencadet.dao.IPlaceDAO;
+import com.adriencadet.wanderer.beans.beans.Place;
+import com.adriencadet.wanderer.dao.IPlaceDAO;
 import com.adriencadet.wanderer.models.serializers.IPlaceSerializer;
 import com.adriencadet.wanderer.models.services.ServiceErrors;
 import com.adriencadet.wanderer.models.services.wanderer.IWandererServer;

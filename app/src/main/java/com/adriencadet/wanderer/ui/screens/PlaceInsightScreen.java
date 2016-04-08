@@ -1,6 +1,6 @@
 package com.adriencadet.wanderer.ui.screens;
 
-import com.adriencadet.beans.Place;
+import com.adriencadet.wanderer.beans.beans.Place;
 import com.adriencadet.wanderer.ui.controllers.body.PlaceInsightController;
 import com.lyft.scoop.Controller;
 import com.lyft.scoop.Screen;

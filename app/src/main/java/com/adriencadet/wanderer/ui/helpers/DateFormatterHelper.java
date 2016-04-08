@@ -1,6 +1,6 @@
 package com.adriencadet.wanderer.ui.helpers;
 
-import com.adriencadet.beans.Place;
+import com.adriencadet.wanderer.beans.beans.Place;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

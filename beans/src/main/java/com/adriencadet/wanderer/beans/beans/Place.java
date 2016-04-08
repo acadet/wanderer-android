@@ -1,4 +1,4 @@
-package com.adriencadet.beans;
+package com.adriencadet.wanderer.beans.beans;
 
 import org.joda.time.DateTime;
 

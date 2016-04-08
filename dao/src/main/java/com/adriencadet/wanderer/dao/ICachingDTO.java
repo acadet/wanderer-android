@@ -1,4 +1,4 @@
-package com.adriencadet.dao;
+package com.adriencadet.wanderer.dao;
 
 import java.util.Date;
 
@@ -6,7 +6,7 @@ import java.util.Date;
  * ICachingDTO
  * <p>
  */
-public interface ICachingDTO {
+interface ICachingDTO {
     int getId();
 
     Date getUpdatedAt();

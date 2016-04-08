@@ -1,6 +1,6 @@
 package com.adriencadet.wanderer.models.bll;
 
-import com.adriencadet.beans.Place;
+import com.adriencadet.wanderer.beans.beans.Place;
 import com.adriencadet.wanderer.models.bll.jobs.ToggleLikeJob;
 
 import rx.Observable;

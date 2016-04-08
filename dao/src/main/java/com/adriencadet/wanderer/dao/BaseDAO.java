@@ -1,4 +1,4 @@
-package com.adriencadet.dao;
+package com.adriencadet.wanderer.dao;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;

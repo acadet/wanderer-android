@@ -1,6 +1,6 @@
 package com.adriencadet.wanderer.models.bll.jobs;
 
-import com.adriencadet.dao.IPlaceDAO;
+import com.adriencadet.wanderer.dao.IPlaceDAO;
 
 import rx.Observable;
 import rx.Subscriber;

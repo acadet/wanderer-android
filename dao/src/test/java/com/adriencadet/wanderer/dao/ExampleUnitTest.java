@@ -1,4 +1,4 @@
-package com.adriencadet.dao;
+package com.adriencadet.wanderer.dao;
 
 import org.junit.Test;
 

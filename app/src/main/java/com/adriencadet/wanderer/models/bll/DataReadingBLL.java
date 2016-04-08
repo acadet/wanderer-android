@@ -1,7 +1,7 @@
 package com.adriencadet.wanderer.models.bll;
 
-import com.adriencadet.beans.Picture;
-import com.adriencadet.beans.Place;
+import com.adriencadet.wanderer.beans.beans.Picture;
+import com.adriencadet.wanderer.beans.beans.Place;
 import com.adriencadet.wanderer.models.bll.jobs.CanUseRandomPlaceJob;
 import com.adriencadet.wanderer.models.bll.jobs.ListPicturesForPlaceJob;
 import com.adriencadet.wanderer.models.bll.jobs.ListPlacesByVisitDateDescJob;
