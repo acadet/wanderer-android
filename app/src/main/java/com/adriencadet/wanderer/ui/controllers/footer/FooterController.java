@@ -5,12 +5,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.adriencadet.wanderer.R;
-import com.adriencadet.wanderer.ui.controllers.BaseController;
+import com.adriencadet.wanderer.ui.controllers.ApplicationController;
 import com.adriencadet.wanderer.ui.screens.PlaceInsightScreen;
-import com.adriencadet.wanderer.ui.screens.footer.PlaceListFooterScreen;
 import com.adriencadet.wanderer.ui.screens.PlaceListScreen;
-import com.adriencadet.wanderer.ui.screens.footer.PlaceMapFooterScreen;
 import com.adriencadet.wanderer.ui.screens.PlaceMapScreen;
+import com.adriencadet.wanderer.ui.screens.footer.PlaceListFooterScreen;
+import com.adriencadet.wanderer.ui.screens.footer.PlaceMapFooterScreen;
 import com.adriencadet.wanderer.ui.screens.popup.AlertScreen;
 import com.lyft.scoop.Screen;
 
@@ -25,7 +25,7 @@ import rx.android.schedulers.AndroidSchedulers;
  * FooterController
  * <p>
  */
-public class FooterController extends BaseController {
+public class FooterController extends ApplicationController {
     private Subscription canUseRandomPlaceSubscription;
 
     @Bind(R.id.footer)

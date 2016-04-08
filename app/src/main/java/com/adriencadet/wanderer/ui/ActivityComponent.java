@@ -1,7 +1,6 @@
 package com.adriencadet.wanderer.ui;
 
 import com.adriencadet.wanderer.ui.controllers.body.PlaceMapController;
-import com.adriencadet.wanderer.ui.controllers.popup.PopupController;
 import com.adriencadet.wanderer.ui.controllers.spinner.SpinnerController;
 
 import dagger.Subcomponent;
@@ -14,8 +13,6 @@ import dagger.Subcomponent;
     ActivityModule.class
 })
 public interface ActivityComponent {
-    void inject(PopupController popupController);
-
     void inject(SpinnerController spinnerController);
 
     void inject(PlaceMapController placeMapController);

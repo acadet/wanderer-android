@@ -8,7 +8,7 @@ import com.adriencadet.wanderer.R;
 import com.adriencadet.wanderer.WandererApplication;
 import com.adriencadet.wanderer.models.bll.dto.PlaceBLLDTO;
 import com.adriencadet.wanderer.ui.adapters.PlaceListAdapter;
-import com.adriencadet.wanderer.ui.controllers.BaseController;
+import com.adriencadet.wanderer.ui.controllers.ApplicationController;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 
@@ -22,7 +22,7 @@ import rx.android.schedulers.AndroidSchedulers;
  * PlaceListController
  * <p>
  */
-public class PlaceListController extends BaseController {
+public class PlaceListController extends ApplicationController {
     private Subscription listPlacesSubscription;
 
     @Bind(R.id.place_list_menu_listview)

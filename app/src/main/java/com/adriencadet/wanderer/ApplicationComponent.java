@@ -19,6 +19,7 @@ import com.adriencadet.wanderer.ui.components.PageUIContainer;
 import com.adriencadet.wanderer.ui.components.PopupUIContainer;
 import com.adriencadet.wanderer.ui.components.SpinnerUIContainer;
 import com.adriencadet.wanderer.ui.controllers.BaseController;
+import com.adriencadet.wanderer.ui.controllers.ApplicationController;
 import com.adriencadet.wanderer.ui.routers.FullscreenRouter;
 import com.adriencadet.wanderer.ui.routers.MainRouter;
 import com.adriencadet.wanderer.ui.routers.PageRouter;
@@ -53,6 +54,8 @@ public interface ApplicationComponent {
 
     // Controllers
     void inject(BaseController baseController);
+
+    void inject(ApplicationController applicationController);
 
     // UIContainers
     void inject(MainUIContainer container);

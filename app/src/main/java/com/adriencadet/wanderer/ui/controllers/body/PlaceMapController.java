@@ -7,7 +7,7 @@ import com.adriencadet.wanderer.R;
 import com.adriencadet.wanderer.models.bll.dto.PlaceBLLDTO;
 import com.adriencadet.wanderer.ui.activities.BaseActivity;
 import com.adriencadet.wanderer.ui.adapters.PlaceWindowAdapter;
-import com.adriencadet.wanderer.ui.controllers.BaseController;
+import com.adriencadet.wanderer.ui.controllers.ApplicationController;
 import com.adriencadet.wanderer.ui.screens.PlaceInsightScreen;
 import com.annimon.stream.Stream;
 import com.google.android.gms.maps.GoogleMap;
@@ -31,7 +31,7 @@ import rx.android.schedulers.AndroidSchedulers;
  * PlaceMapController
  * <p>
  */
-public class PlaceMapController extends BaseController implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener, GoogleMap.OnInfoWindowClickListener {
+public class PlaceMapController extends ApplicationController implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener, GoogleMap.OnInfoWindowClickListener {
     private Subscription listPlacesByVisitDateDescSubscription;
 
     private PlaceWindowAdapter       placeWindowAdapter;
