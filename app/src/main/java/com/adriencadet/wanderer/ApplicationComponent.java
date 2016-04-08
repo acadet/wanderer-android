@@ -10,11 +10,18 @@ import com.adriencadet.wanderer.models.services.wanderer.jobs.WandererServerJobF
 import com.adriencadet.wanderer.ui.ActivityComponent;
 import com.adriencadet.wanderer.ui.ActivityModule;
 import com.adriencadet.wanderer.ui.activities.BaseActivity;
-import com.adriencadet.wanderer.ui.components.BodyUIContainer;
-import com.adriencadet.wanderer.ui.components.FooterUIContainer;
+import com.adriencadet.wanderer.ui.components.FullscreenBodyUIContainer;
+import com.adriencadet.wanderer.ui.components.FullscreenUIContainer;
+import com.adriencadet.wanderer.ui.components.MainUIContainer;
+import com.adriencadet.wanderer.ui.components.PageBodyUIContainer;
+import com.adriencadet.wanderer.ui.components.PageFooterUIContainer;
+import com.adriencadet.wanderer.ui.components.PageUIContainer;
 import com.adriencadet.wanderer.ui.components.PopupUIContainer;
 import com.adriencadet.wanderer.ui.components.SpinnerUIContainer;
-import com.adriencadet.wanderer.ui.controllers.app.BaseAppController;
+import com.adriencadet.wanderer.ui.controllers.BaseController;
+import com.adriencadet.wanderer.ui.routers.FullscreenRouter;
+import com.adriencadet.wanderer.ui.routers.MainRouter;
+import com.adriencadet.wanderer.ui.routers.PageRouter;
 import com.adriencadet.wanderer.ui.routers.RouterFactory;
 
 import javax.inject.Singleton;
@@ -45,14 +52,30 @@ public interface ApplicationComponent {
     void inject(BaseActivity baseActivity);
 
     // Controllers
-    void inject(BaseAppController baseAppController);
+    void inject(BaseController baseController);
 
     // UIContainers
-    void inject(BodyUIContainer container);
+    void inject(MainUIContainer container);
 
-    void inject(FooterUIContainer container);
+    void inject(PageUIContainer container);
+
+    void inject(FullscreenUIContainer container);
+
+    void inject(PageBodyUIContainer container);
+
+    void inject(PageFooterUIContainer container);
+
+    void inject(FullscreenBodyUIContainer container);
 
     void inject(PopupUIContainer container);
 
     void inject(SpinnerUIContainer container);
+
+    // Routers
+
+    void inject(MainRouter mainRouter);
+
+    void inject(PageRouter pageRouter);
+
+    void inject(FullscreenRouter fullscreenRouter);
 }

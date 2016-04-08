@@ -2,6 +2,9 @@ package com.adriencadet.wanderer;
 
 import android.app.Application;
 
+import com.adriencadet.wanderer.ui.helpers.ButterKnifeViewBinder;
+import com.lyft.scoop.Scoop;
+
 import timber.log.Timber;
 
 /**
@@ -17,6 +20,7 @@ public class WandererApplication extends Application {
         super.onCreate();
 
         instance = this;
+        Scoop.setViewBinder(new ButterKnifeViewBinder());
 
         applicationComponent = DaggerApplicationComponent
             .builder()

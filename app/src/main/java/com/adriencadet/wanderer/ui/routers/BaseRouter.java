@@ -15,7 +15,7 @@ import java.util.List;
 class BaseRouter extends Router implements IRouter {
     private List<IRouterScoopChangedObserver> routerScoopChangedObservers;
 
-    public BaseRouter(ScreenScooper screenScooper) {
+    BaseRouter(ScreenScooper screenScooper) {
         super(screenScooper);
 
         this.routerScoopChangedObservers = new ArrayList<>();
@@ -32,7 +32,7 @@ class BaseRouter extends Router implements IRouter {
     }
 
     @Override
-    public void unobserve(IRouterScoopChangedObserver observer) {
+    public void stopObserving(IRouterScoopChangedObserver observer) {
         routerScoopChangedObservers.remove(observer);
     }
 }

@@ -11,24 +11,24 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
- * FooterUIContainer
+ * FullscreenUIContainer
  * <p>
  */
-public class FooterUIContainer extends UiContainer {
+public class FullscreenUIContainer extends UiContainer {
     @Inject
-    @Named("footer")
-    IRouter footerRouter;
+    @Named("fullscreen")
+    IRouter router;
 
-    public FooterUIContainer(Context context, AttributeSet attrs) {
+    public FullscreenUIContainer(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         WandererApplication.getApplicationComponent().inject(this);
-        footerRouter.observe(this::goTo);
+        router.observe(this::goTo);
     }
 
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        footerRouter.unobserve(this::goTo);
+        router.stopObserving(this::goTo);
     }
 }

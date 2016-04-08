@@ -11,7 +11,7 @@ import com.adriencadet.wanderer.R;
 import com.adriencadet.wanderer.models.bll.dto.PlaceBLLDTO;
 import com.adriencadet.wanderer.ui.helpers.DateFormatterHelper;
 import com.adriencadet.wanderer.ui.routers.IRouter;
-import com.adriencadet.wanderer.ui.screens.app.PlaceInsightScreen;
+import com.adriencadet.wanderer.ui.screens.PlaceInsightScreen;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

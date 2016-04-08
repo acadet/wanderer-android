@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:visibility="gone"
+    style="@style/MatchParent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+
+    <com.adriencadet.wanderer.ui.components.FullscreenBodyUIContainer
+        style="@style/MatchParent"
+        />
+
+</RelativeLayout>

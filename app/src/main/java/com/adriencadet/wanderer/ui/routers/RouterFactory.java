@@ -16,24 +16,45 @@ import dagger.Provides;
 public class RouterFactory {
 
     @Provides
-    @Named("body")
+    @Named("pageBody")
     @Singleton
-    public IRouter provideBodyRouter() {
+    public IRouter providePageBodyRouter() {
         return new BaseRouter(new ScreenScooper());
     }
 
     @Provides
-    @Named("footer")
+    @Named("pageFooter")
     @Singleton
-    public IRouter provideFooterRouter() {
+    public IRouter providePageFooterRouter() {
         return new BaseRouter(new ScreenScooper());
     }
 
     @Provides
-    @Named("app")
+    @Named("fullscreenBody")
     @Singleton
-    public IRouter provideAppRouter(@Named("body") IRouter bodyRouter, @Named("footer") IRouter footerRouter) {
-        return new AppRouter(bodyRouter, footerRouter);
+    public IRouter provideFullscreenBodyRouter() {
+        return new BaseRouter(new ScreenScooper());
+    }
+
+    @Provides
+    @Named("fullscreen")
+    @Singleton
+    public IRouter provideFullScreenRouter() {
+        return new FullscreenRouter(new ScreenScooper());
+    }
+
+    @Provides
+    @Named("page")
+    @Singleton
+    public IRouter providePageRouter() {
+        return new PageRouter(new ScreenScooper());
+    }
+
+    @Provides
+    @Singleton
+    @Named("main")
+    public IRouter provideMainRouter() {
+        return new MainRouter(new ScreenScooper());
     }
 
     @Provides

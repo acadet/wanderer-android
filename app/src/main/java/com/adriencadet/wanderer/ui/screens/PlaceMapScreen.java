@@ -1,6 +1,6 @@
-package com.adriencadet.wanderer.ui.screens.app;
+package com.adriencadet.wanderer.ui.screens;
 
-import com.adriencadet.wanderer.ui.controllers.app.PlaceMapController;
+import com.adriencadet.wanderer.ui.controllers.body.PlaceMapController;
 import com.lyft.scoop.Controller;
 import com.lyft.scoop.Screen;
 

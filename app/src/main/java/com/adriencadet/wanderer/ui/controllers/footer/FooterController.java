@@ -1,15 +1,16 @@
-package com.adriencadet.wanderer.ui.controllers.app;
+package com.adriencadet.wanderer.ui.controllers.footer;
 
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.adriencadet.wanderer.R;
-import com.adriencadet.wanderer.ui.screens.app.PlaceInsightScreen;
-import com.adriencadet.wanderer.ui.screens.app.PlaceListFooterScreen;
-import com.adriencadet.wanderer.ui.screens.app.PlaceListScreen;
-import com.adriencadet.wanderer.ui.screens.app.PlaceMapFooterScreen;
-import com.adriencadet.wanderer.ui.screens.app.PlaceMapScreen;
+import com.adriencadet.wanderer.ui.controllers.BaseController;
+import com.adriencadet.wanderer.ui.screens.PlaceInsightScreen;
+import com.adriencadet.wanderer.ui.screens.footer.PlaceListFooterScreen;
+import com.adriencadet.wanderer.ui.screens.PlaceListScreen;
+import com.adriencadet.wanderer.ui.screens.footer.PlaceMapFooterScreen;
+import com.adriencadet.wanderer.ui.screens.PlaceMapScreen;
 import com.adriencadet.wanderer.ui.screens.popup.AlertScreen;
 import com.lyft.scoop.Screen;
 
@@ -24,7 +25,7 @@ import rx.android.schedulers.AndroidSchedulers;
  * FooterController
  * <p>
  */
-public class FooterController extends BaseAppController {
+public class FooterController extends BaseController {
     private Subscription canUseRandomPlaceSubscription;
 
     @Bind(R.id.footer)
@@ -74,16 +75,12 @@ public class FooterController extends BaseAppController {
 
     @OnClick(R.id.footer_map)
     public void onMap() {
-        if (!(Screen.fromController(this) instanceof PlaceMapFooterScreen)) {
-            appRouter.goTo(new PlaceMapScreen());
-        }
+        appRouter.goTo(new PlaceMapScreen());
     }
 
     @OnClick(R.id.footer_list)
     public void onList() {
-        if (!(Screen.fromController(this) instanceof PlaceListFooterScreen)) {
-            appRouter.goTo(new PlaceListScreen());
-        }
+        appRouter.goTo(new PlaceListScreen());
     }
 
     @OnClick(R.id.footer_random)

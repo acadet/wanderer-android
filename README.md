@@ -1,6 +1,6 @@
 # Wanderer
 
-An Android sample application using my latest skillset. Hooked with [this server](https://github.com/acadet/wanderer-server).
+An Android sample application using my latest skillset. Hooked up with [this server](https://github.com/acadet/wanderer-server).
 
 [Download the app from the store]().
 

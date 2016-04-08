@@ -1,4 +1,4 @@
-package com.adriencadet.wanderer.ui.controllers.app;
+package com.adriencadet.wanderer.ui.controllers.body;
 
 import android.graphics.drawable.Drawable;
 import android.support.v4.view.ViewPager;
@@ -11,9 +11,10 @@ import com.adriencadet.wanderer.WandererApplication;
 import com.adriencadet.wanderer.models.bll.dto.PictureBLLDTO;
 import com.adriencadet.wanderer.models.bll.dto.PlaceBLLDTO;
 import com.adriencadet.wanderer.ui.adapters.PictureSliderAdapter;
+import com.adriencadet.wanderer.ui.controllers.BaseController;
 import com.adriencadet.wanderer.ui.helpers.DateFormatterHelper;
 import com.adriencadet.wanderer.ui.helpers.IntFormatterHelper;
-import com.adriencadet.wanderer.ui.screens.app.PlaceInsightScreen;
+import com.adriencadet.wanderer.ui.screens.PlaceInsightScreen;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.lyft.scoop.Screen;
@@ -31,7 +32,7 @@ import rx.android.schedulers.AndroidSchedulers;
  * PlaceInsightController
  * <p>
  */
-public class PlaceInsightController extends BaseAppController {
+public class PlaceInsightController extends BaseController {
     private PlaceBLLDTO  currentPlace;
     private Subscription listPicturesForPlaceSubscription;
     private Subscription randomPlaceSubscription;
