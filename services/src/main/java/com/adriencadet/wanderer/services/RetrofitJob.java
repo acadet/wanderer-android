@@ -1,4 +1,4 @@
-package com.adriencadet.wanderer.models.services;
+package com.adriencadet.wanderer.services;
 
 import retrofit.RetrofitError;
 import rx.Subscriber;

@@ -1,8 +1,4 @@
-package com.adriencadet.wanderer.models.services.wanderer;
-
-import com.adriencadet.wanderer.models.services.wanderer.jobs.ListPicturesForPlaceJob;
-import com.adriencadet.wanderer.models.services.wanderer.jobs.ListPlacesByVisitDateDescJob;
-import com.adriencadet.wanderer.models.services.wanderer.jobs.ToggleLikeJob;
+package com.adriencadet.wanderer.services.wanderer;
 
 import javax.inject.Singleton;
 

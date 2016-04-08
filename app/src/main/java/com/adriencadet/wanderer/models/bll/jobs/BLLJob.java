@@ -1,7 +1,7 @@
 package com.adriencadet.wanderer.models.bll.jobs;
 
 import com.adriencadet.wanderer.models.bll.BLLErrors;
-import com.adriencadet.wanderer.models.services.ServiceErrors;
+import com.adriencadet.wanderer.services.ServiceErrors;
 
 import rx.Subscriber;
 

@@ -1,4 +1,4 @@
-package com.adriencadet.wanderer.models.structs;
+package com.adriencadet.wanderer.services;
 
 import android.os.Build;
 

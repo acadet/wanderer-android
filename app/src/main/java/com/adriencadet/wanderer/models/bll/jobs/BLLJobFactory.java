@@ -5,7 +5,7 @@ import com.adriencadet.wanderer.dao.IPictureDAO;
 import com.adriencadet.wanderer.dao.IPlaceDAO;
 import com.adriencadet.wanderer.models.serializers.IPictureSerializer;
 import com.adriencadet.wanderer.models.serializers.IPlaceSerializer;
-import com.adriencadet.wanderer.models.services.wanderer.IWandererServer;
+import com.adriencadet.wanderer.services.wanderer.IWandererServer;
 
 import javax.inject.Singleton;
 

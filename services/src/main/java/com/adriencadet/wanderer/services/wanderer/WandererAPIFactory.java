@@ -1,7 +1,7 @@
-package com.adriencadet.wanderer.models.services.wanderer.api;
+package com.adriencadet.wanderer.services.wanderer;
 
-import com.adriencadet.wanderer.ApplicationConfiguration;
-import com.adriencadet.wanderer.models.structs.AndroidDevice;
+import com.adriencadet.wanderer.services.AndroidDevice;
+import com.adriencadet.wanderer.services.Configuration;
 import com.google.gson.GsonBuilder;
 
 import dagger.Module;
@@ -18,7 +18,7 @@ import retrofit.converter.GsonConverter;
 public class WandererAPIFactory {
 
     @Provides
-    public RequestInterceptor provideRequestInterceptor(AndroidDevice device) {
+    RequestInterceptor provideRequestInterceptor(AndroidDevice device) {
         RequestInterceptor interceptor = new RequestInterceptor() {
             @Override
             public void intercept(RequestFacade request) {
@@ -30,7 +30,7 @@ public class WandererAPIFactory {
     }
 
     @Provides
-    public IWandererAPI provideAPI(ApplicationConfiguration configuration, RequestInterceptor requestInterceptor) {
+    IWandererAPI provideAPI(Configuration configuration, RequestInterceptor requestInterceptor) {
         return new RestAdapter
             .Builder()
             .setEndpoint(configuration.WANDERER_SERVER_ENDPOINT)

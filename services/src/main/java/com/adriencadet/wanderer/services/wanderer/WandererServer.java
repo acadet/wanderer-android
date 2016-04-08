@@ -1,10 +1,4 @@
-package com.adriencadet.wanderer.models.services.wanderer;
-
-import com.adriencadet.wanderer.models.services.wanderer.dto.PictureWandererServerDTO;
-import com.adriencadet.wanderer.models.services.wanderer.dto.PlaceWandererServerDTO;
-import com.adriencadet.wanderer.models.services.wanderer.jobs.ListPicturesForPlaceJob;
-import com.adriencadet.wanderer.models.services.wanderer.jobs.ListPlacesByVisitDateDescJob;
-import com.adriencadet.wanderer.models.services.wanderer.jobs.ToggleLikeJob;
+package com.adriencadet.wanderer.services.wanderer;
 
 import java.util.List;
 
@@ -30,12 +24,12 @@ class WandererServer implements IWandererServer {
     }
 
     @Override
-    public Observable<List<PlaceWandererServerDTO>> listPlacesByVisitDateDescJob() {
+    public Observable<List<PlaceDTO>> listPlacesByVisitDateDescJob() {
         return listPlacesByVisitDateDescJob.create();
     }
 
     @Override
-    public Observable<List<PictureWandererServerDTO>> listPicturesForPlaceJob(int placeID) {
+    public Observable<List<PictureDTO>> listPicturesForPlaceJob(int placeID) {
         return listPicturesForPlaceJob.create(placeID);
     }
 

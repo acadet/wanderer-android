@@ -1,8 +1,6 @@
-package com.adriencadet.wanderer.models.services.wanderer.jobs;
+package com.adriencadet.wanderer.services.wanderer;
 
-import com.adriencadet.wanderer.models.services.RetrofitJob;
-import com.adriencadet.wanderer.models.services.wanderer.api.IWandererAPI;
-import com.adriencadet.wanderer.models.services.wanderer.dto.PlaceWandererServerDTO;
+import com.adriencadet.wanderer.services.RetrofitJob;
 
 import java.util.List;
 
@@ -15,20 +13,20 @@ import rx.schedulers.Schedulers;
  * ListPlacesByVisitDateDescJob
  * <p>
  */
-public class ListPlacesByVisitDateDescJob extends RetrofitJob {
+class ListPlacesByVisitDateDescJob extends RetrofitJob {
     private IWandererAPI api;
 
     ListPlacesByVisitDateDescJob(IWandererAPI api) {
         this.api = api;
     }
 
-    public Observable<List<PlaceWandererServerDTO>> create() {
+    public Observable<List<PlaceDTO>> create() {
         return Observable
-            .create(new Observable.OnSubscribe<List<PlaceWandererServerDTO>>() {
+            .create(new Observable.OnSubscribe<List<PlaceDTO>>() {
                 @Override
-                public void call(Subscriber<? super List<PlaceWandererServerDTO>> subscriber) {
+                public void call(Subscriber<? super List<PlaceDTO>> subscriber) {
                     try {
-                        List<PlaceWandererServerDTO> outcome = api.listPlacesByVisitDateDesc();
+                        List<PlaceDTO> outcome = api.listPlacesByVisitDateDesc();
 
                         subscriber.onNext(outcome);
                         subscriber.onCompleted();

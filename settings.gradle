@@ -1,1 +1,1 @@
-include ':app', ':beans', ':dao'
+include ':app', ':beans', ':dao', ':services'

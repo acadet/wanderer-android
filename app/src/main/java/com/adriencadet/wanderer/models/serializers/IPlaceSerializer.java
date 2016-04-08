@@ -2,7 +2,7 @@ package com.adriencadet.wanderer.models.serializers;
 
 import com.adriencadet.wanderer.beans.beans.Place;
 import com.adriencadet.wanderer.dao.dto.PlaceDAODTO;
-import com.adriencadet.wanderer.models.services.wanderer.dto.PlaceWandererServerDTO;
+import com.adriencadet.wanderer.services.wanderer.PlaceWandererServerDTO;
 
 import java.util.List;
 

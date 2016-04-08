@@ -1,6 +1,4 @@
-package com.adriencadet.wanderer.models.services.wanderer.jobs;
-
-import com.adriencadet.wanderer.models.services.wanderer.api.IWandererAPI;
+package com.adriencadet.wanderer.services.wanderer;
 
 import javax.inject.Singleton;
 
@@ -15,19 +13,19 @@ import dagger.Provides;
 public class WandererServerJobFactory {
     @Provides
     @Singleton
-    public ListPlacesByVisitDateDescJob provideListPlacesByVisitDateDescJob(IWandererAPI api) {
+    ListPlacesByVisitDateDescJob provideListPlacesByVisitDateDescJob(IWandererAPI api) {
         return new ListPlacesByVisitDateDescJob(api);
     }
 
     @Provides
     @Singleton
-    public ListPicturesForPlaceJob provideListPicturesForPlaceJob(IWandererAPI api) {
+    ListPicturesForPlaceJob provideListPicturesForPlaceJob(IWandererAPI api) {
         return new ListPicturesForPlaceJob(api);
     }
 
     @Provides
     @Singleton
-    public ToggleLikeJob provideToggleLikeJob(IWandererAPI api) {
+    ToggleLikeJob provideToggleLikeJob(IWandererAPI api) {
         return new ToggleLikeJob(api);
     }
 }

@@ -6,8 +6,8 @@ import com.adriencadet.wanderer.ApplicationConfiguration;
 import com.adriencadet.wanderer.dao.IPictureDAO;
 import com.adriencadet.wanderer.dao.dto.PictureDAODTO;
 import com.adriencadet.wanderer.models.serializers.IPictureSerializer;
-import com.adriencadet.wanderer.models.services.wanderer.IWandererServer;
-import com.adriencadet.wanderer.models.services.wanderer.dto.PictureWandererServerDTO;
+import com.adriencadet.wanderer.services.wanderer.IWandererServer;
+import com.adriencadet.wanderer.services.wanderer.PictureWandererServerDTO;
 import com.adriencadet.wanderer.models.structs.FinalWrapper;
 import com.annimon.stream.Stream;
 

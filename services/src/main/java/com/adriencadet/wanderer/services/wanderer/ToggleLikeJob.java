@@ -1,7 +1,6 @@
-package com.adriencadet.wanderer.models.services.wanderer.jobs;
+package com.adriencadet.wanderer.services.wanderer;
 
-import com.adriencadet.wanderer.models.services.RetrofitJob;
-import com.adriencadet.wanderer.models.services.wanderer.api.IWandererAPI;
+import com.adriencadet.wanderer.services.RetrofitJob;
 
 import retrofit.RetrofitError;
 import rx.Observable;
@@ -12,7 +11,7 @@ import rx.schedulers.Schedulers;
  * ToggleLikeJob
  * <p>
  */
-public class ToggleLikeJob extends RetrofitJob {
+class ToggleLikeJob extends RetrofitJob {
     private IWandererAPI api;
 
     ToggleLikeJob(IWandererAPI api) {
