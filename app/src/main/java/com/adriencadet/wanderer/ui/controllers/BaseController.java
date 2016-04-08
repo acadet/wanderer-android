@@ -11,6 +11,7 @@ import com.adriencadet.wanderer.ui.routers.IRouter;
 import com.adriencadet.wanderer.ui.screens.popup.AlertScreen;
 import com.adriencadet.wanderer.ui.screens.popup.ConfirmScreen;
 import com.adriencadet.wanderer.ui.screens.popup.InfoScreen;
+import com.adriencadet.wanderer.ui.screens.popup.WarnScreen;
 import com.adriencadet.wanderer.ui.screens.spinner.HideSpinnerScreen;
 import com.adriencadet.wanderer.ui.screens.spinner.ShowSpinnerImmediatelyScreen;
 import com.adriencadet.wanderer.ui.screens.spinner.ShowSpinnerSreen;
@@ -31,9 +32,9 @@ public abstract class BaseController extends ViewController {
         @Override
         public void onError(Throwable e) {
             if (e instanceof BLLErrors.NoConnection) {
-                inform(context.getString(R.string.no_connection_error));
+                warn(context.getString(R.string.no_connection_error));
             } else if (e instanceof BLLErrors.ServiceError) {
-                inform(context.getString(R.string.internal_server_error));
+                warn(context.getString(R.string.internal_server_error));
             } else {
                 alert(e.getMessage());
                 Timber.e(e, "Unhandled error");
@@ -74,6 +75,10 @@ public abstract class BaseController extends ViewController {
 
     public void confirm(String message) {
         popupRouter.goTo(new ConfirmScreen(message));
+    }
+
+    public void warn(String message) {
+        popupRouter.goTo(new WarnScreen(message));
     }
 
     public void alert(String message) {

@@ -9,8 +9,7 @@
         />
 
     <com.adriencadet.wanderer.ui.components.PopupUIContainer
-        android:visibility="gone"
-        style="@style/WrapContent"
+        style="@style/MatchParentWrapContent"
         />
 
     <com.adriencadet.wanderer.ui.components.SpinnerUIContainer

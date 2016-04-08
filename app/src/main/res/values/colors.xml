@@ -5,4 +5,9 @@
     <color name="yellow">#F8C957</color>
     <color name="blue">#3498DB</color>
     <color name="grey">#ECF0F1</color>
+
+    <color name="alert">#F44336</color>
+    <color name="confirm">#8BC34A</color>
+    <color name="inform">#03A9F4</color>
+    <color name="warn">#FF9800</color>
 </resources>
