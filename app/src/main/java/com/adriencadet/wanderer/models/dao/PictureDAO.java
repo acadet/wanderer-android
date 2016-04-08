@@ -32,7 +32,7 @@ class PictureDAO extends BaseDAO implements IPictureDAO {
         PictureDAODTO outcome = realm.where(PictureDAODTO.class).equalTo("id", id).findFirst();
 
         if (mustClose) {
-            realm.close();
+            //realm.close();
         }
 
         return outcome;
@@ -48,8 +48,11 @@ class PictureDAO extends BaseDAO implements IPictureDAO {
         Realm realm = getRealm();
         List<PictureDAODTO> outcome;
 
-        outcome = realm.where(PictureDAODTO.class).equalTo("placeID", placeID).findAllSorted("id");
-        realm.close();
+        outcome =
+            Stream
+                .of(realm.where(PictureDAODTO.class).equalTo("placeID", placeID).findAllSorted("id"))
+                .collect(Collectors.toList());
+        //realm.close();
 
         return outcome;
     }

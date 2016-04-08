@@ -31,7 +31,7 @@ class PlaceDAO extends BaseDAO implements IPlaceDAO {
     private PlaceDAODTO find(Realm realm, int id, boolean mustClose) {
         PlaceDAODTO outcome = realm.where(PlaceDAODTO.class).equalTo("id", id).findFirst();
         if (mustClose) {
-            realm.close();
+            //realm.close();
         }
         return outcome;
     }
@@ -41,8 +41,12 @@ class PlaceDAO extends BaseDAO implements IPlaceDAO {
         Realm realm = getRealm();
         List<PlaceDAODTO> outcome;
 
-        outcome = realm.where(PlaceDAODTO.class).findAllSorted("visitDate", Sort.DESCENDING);
-        realm.close();
+        outcome =
+            Stream
+                .of(realm.where(PlaceDAODTO.class).findAllSorted("visitDate", Sort.DESCENDING))
+                .collect(Collectors.toList());
+
+        //realm.close();
 
         return outcome;
     }
@@ -90,8 +94,9 @@ class PlaceDAO extends BaseDAO implements IPlaceDAO {
     public PlaceDAODTO randomEntry() {
         Realm realm = getRealm();
         List<PlaceDAODTO> source = realm.allObjects(PlaceDAODTO.class);
+        PlaceDAODTO outcome = source.get((int) Math.round(Math.random() * (source.size() - 1)));
 
-        realm.close();
-        return source.get((int) Math.round(Math.random() * (source.size() - 1)));
+        //realm.close();
+        return outcome;
     }
 }
