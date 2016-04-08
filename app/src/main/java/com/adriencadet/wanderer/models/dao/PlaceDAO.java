@@ -1,7 +1,5 @@
 package com.adriencadet.wanderer.models.dao;
 
-import android.content.Context;
-
 import com.adriencadet.wanderer.ApplicationConfiguration;
 import com.adriencadet.wanderer.models.dao.dto.PlaceDAODTO;
 import com.annimon.stream.Collectors;
@@ -12,6 +10,7 @@ import org.joda.time.DateTime;
 import java.util.List;
 
 import io.realm.Realm;
+import io.realm.RealmConfiguration;
 import io.realm.Sort;
 
 /**
@@ -22,20 +21,30 @@ class PlaceDAO extends BaseDAO implements IPlaceDAO {
     private ApplicationConfiguration configuration;
     private CachingModule            cachingModule;
 
-    PlaceDAO(Context context, ApplicationConfiguration configuration, CachingModule cachingModule) {
-        super(context);
+    PlaceDAO(RealmConfiguration realmConfiguration, ApplicationConfiguration configuration, CachingModule cachingModule) {
+        super(realmConfiguration);
 
         this.configuration = configuration;
         this.cachingModule = cachingModule;
     }
 
-    private PlaceDAODTO find(Realm realm, int id) {
-        return realm.where(PlaceDAODTO.class).equalTo("id", id).findFirst();
+    private PlaceDAODTO find(Realm realm, int id, boolean mustClose) {
+        PlaceDAODTO outcome = realm.where(PlaceDAODTO.class).equalTo("id", id).findFirst();
+        if (mustClose) {
+            realm.close();
+        }
+        return outcome;
     }
 
     @Override
     public List<PlaceDAODTO> listPlacesByVisitDateDescJob() {
-        return getRealm().where(PlaceDAODTO.class).findAllSorted("visitDate", Sort.DESCENDING);
+        Realm realm = getRealm();
+        List<PlaceDAODTO> outcome;
+
+        outcome = realm.where(PlaceDAODTO.class).findAllSorted("visitDate", Sort.DESCENDING);
+        realm.close();
+
+        return outcome;
     }
 
     @Override
@@ -49,12 +58,14 @@ class PlaceDAO extends BaseDAO implements IPlaceDAO {
             (e) -> e,
             configuration.PLACE_MAX_CACHING_DURATION_MINS
         );
+
+        realm.close();
     }
 
     @Override
     public PlaceDAODTO toggleLike(int placeID) {
         Realm realm = getRealm();
-        PlaceDAODTO place = find(realm, placeID);
+        PlaceDAODTO place = find(realm, placeID, false);
 
         realm.beginTransaction();
         place.setLikes(place.isLiking() ? place.getLikes() - 1 : place.getLikes() + 1);
@@ -62,18 +73,25 @@ class PlaceDAO extends BaseDAO implements IPlaceDAO {
         place.setUpdatedAt(DateTime.now().toDate());
         realm.commitTransaction();
 
+        realm.close();
+
         return place;
     }
 
     @Override
     public boolean hasEntries() {
-        return getRealm().allObjects(PlaceDAODTO.class).size() > 0;
+        Realm realm = getRealm();
+        boolean outcome = realm.allObjects(PlaceDAODTO.class).size() > 0;
+        realm.close();
+        return outcome;
     }
 
     @Override
     public PlaceDAODTO randomEntry() {
-        List<PlaceDAODTO> source = getRealm().allObjects(PlaceDAODTO.class);
+        Realm realm = getRealm();
+        List<PlaceDAODTO> source = realm.allObjects(PlaceDAODTO.class);
 
+        realm.close();
         return source.get((int) Math.round(Math.random() * (source.size() - 1)));
     }
 }

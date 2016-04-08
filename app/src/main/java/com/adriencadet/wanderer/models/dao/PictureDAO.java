@@ -1,7 +1,5 @@
 package com.adriencadet.wanderer.models.dao;
 
-import android.content.Context;
-
 import com.adriencadet.wanderer.ApplicationConfiguration;
 import com.adriencadet.wanderer.models.dao.dto.PictureDAODTO;
 import com.annimon.stream.Collectors;
@@ -12,6 +10,7 @@ import org.joda.time.DateTime;
 import java.util.List;
 
 import io.realm.Realm;
+import io.realm.RealmConfiguration;
 import io.realm.Sort;
 
 /**
@@ -22,33 +21,43 @@ class PictureDAO extends BaseDAO implements IPictureDAO {
     private ApplicationConfiguration configuration;
     private CachingModule            cachingModule;
 
-    PictureDAO(Context context, ApplicationConfiguration configuration, CachingModule cachingModule) {
-        super(context);
+    PictureDAO(RealmConfiguration realmConfiguration, ApplicationConfiguration configuration, CachingModule cachingModule) {
+        super(realmConfiguration);
 
         this.configuration = configuration;
         this.cachingModule = cachingModule;
     }
 
-    private PictureDAODTO find(Realm realm, int id) {
-        return realm.where(PictureDAODTO.class).equalTo("id", id).findFirst();
+    private PictureDAODTO find(Realm realm, int id, boolean mustClose) {
+        PictureDAODTO outcome = realm.where(PictureDAODTO.class).equalTo("id", id).findFirst();
+
+        if (mustClose) {
+            realm.close();
+        }
+
+        return outcome;
     }
 
     @Override
     public PictureDAODTO find(int id) {
-        return find(getRealm(), id);
+        return find(getRealm(), id, true);
     }
 
     @Override
     public List<PictureDAODTO> listForPlace(int placeID) {
         Realm realm = getRealm();
+        List<PictureDAODTO> outcome;
 
-        return realm.where(PictureDAODTO.class).equalTo("placeID", placeID).findAllSorted("id");
+        outcome = realm.where(PictureDAODTO.class).equalTo("placeID", placeID).findAllSorted("id");
+        realm.close();
+
+        return outcome;
     }
 
     @Override
     public void save(PictureDAODTO picture) {
         Realm realm = getRealm();
-        PictureDAODTO existingEntry = find(realm, picture.getId());
+        PictureDAODTO existingEntry = find(realm, picture.getId(), false);
 
         realm.beginTransaction();
         if (existingEntry != null) {
@@ -57,6 +66,7 @@ class PictureDAO extends BaseDAO implements IPictureDAO {
         picture.setUpdatedAt(DateTime.now().toDate());
         realm.copyToRealm(picture);
         realm.commitTransaction();
+        realm.close();
     }
 
     @Override
@@ -70,5 +80,7 @@ class PictureDAO extends BaseDAO implements IPictureDAO {
             (e) -> e,
             configuration.PICTURE_MAX_CACHING_DURATION_MINS
         );
+
+        realm.close();
     }
 }
