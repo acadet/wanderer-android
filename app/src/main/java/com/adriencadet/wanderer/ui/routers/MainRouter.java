@@ -45,7 +45,6 @@ public class MainRouter extends BaseRouter {
         } else if (screen instanceof PlaceMapScreen || screen instanceof PlaceListScreen) {
             pageRouter.goTo(screen);
         } else if (screen instanceof PlaceInsightScreen) {
-            //super.goTo(new SetFullscreenScreen());
             isInFullscreen = true;
             fullscreenRouter.goTo(screen);
         } else {
