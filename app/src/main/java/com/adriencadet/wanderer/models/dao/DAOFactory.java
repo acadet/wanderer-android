@@ -8,6 +8,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import io.realm.RealmConfiguration;
 
 /**
  * DAOFactory
@@ -18,19 +19,28 @@ public class DAOFactory {
 
     @Provides
     @Singleton
+    RealmConfiguration provideRealmConfiguration(Context context) {
+        return new RealmConfiguration.Builder(context)
+            .name("wanderer.realm")
+            .schemaVersion(1)
+            .build();
+    }
+
+    @Provides
+    @Singleton
     CachingModule provideCachingModule() {
         return new CachingModule();
     }
 
     @Provides
     @Singleton
-    public IPictureDAO providePictureDAO(Context context, ApplicationConfiguration configuration, CachingModule cachingModule) {
-        return new PictureDAO(context, configuration, cachingModule);
+    public IPictureDAO providePictureDAO(RealmConfiguration realmConfiguration, ApplicationConfiguration configuration, CachingModule cachingModule) {
+        return new PictureDAO(realmConfiguration, configuration, cachingModule);
     }
 
     @Provides
     @Singleton
-    public IPlaceDAO providePlaceDAO(Context context, ApplicationConfiguration configuration, CachingModule cachingModule) {
-        return new PlaceDAO(context, configuration, cachingModule);
+    public IPlaceDAO providePlaceDAO(RealmConfiguration realmConfiguration, ApplicationConfiguration configuration, CachingModule cachingModule) {
+        return new PlaceDAO(realmConfiguration, configuration, cachingModule);
     }
 }

@@ -1,22 +1,21 @@
 package com.adriencadet.wanderer.models.dao;
 
-import android.content.Context;
-
 import io.realm.Realm;
+import io.realm.RealmConfiguration;
 
 /**
  * BaseDAO
  * <p>
  */
 abstract class BaseDAO {
-    private Context context;
+    private RealmConfiguration realmConfiguration;
 
-    BaseDAO(Context context) {
-        this.context = context;
+    BaseDAO(RealmConfiguration realmConfiguration) {
+        this.realmConfiguration = realmConfiguration;
     }
 
     Realm getRealm() {
-        Realm r = Realm.getInstance(context);
+        Realm r = Realm.getInstance(realmConfiguration);
         r.refresh();
         return r;
     }
