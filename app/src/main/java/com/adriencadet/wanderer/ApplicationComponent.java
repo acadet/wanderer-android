@@ -2,7 +2,7 @@ package com.adriencadet.wanderer;
 
 import com.adriencadet.wanderer.models.bll.BLLFactory;
 import com.adriencadet.wanderer.models.bll.jobs.BLLJobFactory;
-import com.adriencadet.wanderer.models.dao.DAOFactory;
+import com.adriencadet.dao.DAOFactory;
 import com.adriencadet.wanderer.models.serializers.SerializerFactory;
 import com.adriencadet.wanderer.models.services.wanderer.WandererServiceFactory;
 import com.adriencadet.wanderer.models.services.wanderer.api.WandererAPIFactory;

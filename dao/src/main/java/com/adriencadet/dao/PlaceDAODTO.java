@@ -1,4 +1,4 @@
-package com.adriencadet.wanderer.models.dao.dto;
+package com.adriencadet.dao;
 
 import java.util.Date;
 

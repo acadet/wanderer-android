@@ -1,8 +1,6 @@
-package com.adriencadet.wanderer.models.dao;
+package com.adriencadet.dao;
 
 import android.content.Context;
-
-import com.adriencadet.wanderer.ApplicationConfiguration;
 
 import javax.inject.Singleton;
 
@@ -16,6 +14,12 @@ import io.realm.RealmConfiguration;
  */
 @Module
 public class DAOFactory {
+
+    @Provides
+    @Singleton
+    Configuration provideConfiguration() {
+        return new Configuration();
+    }
 
     @Provides
     @Singleton
@@ -34,13 +38,13 @@ public class DAOFactory {
 
     @Provides
     @Singleton
-    public IPictureDAO providePictureDAO(RealmConfiguration realmConfiguration, ApplicationConfiguration configuration, CachingModule cachingModule) {
+    public IPictureDAO providePictureDAO(RealmConfiguration realmConfiguration, Configuration configuration, CachingModule cachingModule) {
         return new PictureDAO(realmConfiguration, configuration, cachingModule);
     }
 
     @Provides
     @Singleton
-    public IPlaceDAO providePlaceDAO(RealmConfiguration realmConfiguration, ApplicationConfiguration configuration, CachingModule cachingModule) {
+    public IPlaceDAO providePlaceDAO(RealmConfiguration realmConfiguration, Configuration configuration, CachingModule cachingModule) {
         return new PlaceDAO(realmConfiguration, configuration, cachingModule);
     }
 }

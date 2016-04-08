@@ -1,7 +1,7 @@
 package com.adriencadet.wanderer.models.serializers;
 
 import com.adriencadet.beans.Picture;
-import com.adriencadet.wanderer.models.dao.dto.PictureDAODTO;
+import com.adriencadet.dao.dto.PictureDAODTO;
 import com.adriencadet.wanderer.models.services.wanderer.dto.PictureWandererServerDTO;
 
 import java.util.List;

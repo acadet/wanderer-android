@@ -1,6 +1,4 @@
-package com.adriencadet.wanderer.models.dao;
-
-import com.adriencadet.wanderer.models.dao.dto.PlaceDAODTO;
+package com.adriencadet.dao;
 
 import java.util.List;
 

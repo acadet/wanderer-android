@@ -1,7 +1,5 @@
-package com.adriencadet.wanderer.models.dao;
+package com.adriencadet.dao;
 
-import com.adriencadet.wanderer.ApplicationConfiguration;
-import com.adriencadet.wanderer.models.dao.dto.PictureDAODTO;
 import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
 
@@ -18,10 +16,10 @@ import io.realm.Sort;
  * <p>
  */
 class PictureDAO extends BaseDAO implements IPictureDAO {
-    private ApplicationConfiguration configuration;
-    private CachingModule            cachingModule;
+    private Configuration configuration;
+    private CachingModule cachingModule;
 
-    PictureDAO(RealmConfiguration realmConfiguration, ApplicationConfiguration configuration, CachingModule cachingModule) {
+    PictureDAO(RealmConfiguration realmConfiguration, Configuration configuration, CachingModule cachingModule) {
         super(realmConfiguration);
 
         this.configuration = configuration;

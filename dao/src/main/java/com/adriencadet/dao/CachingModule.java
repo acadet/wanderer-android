@@ -1,6 +1,5 @@
-package com.adriencadet.wanderer.models.dao;
+package com.adriencadet.dao;
 
-import com.adriencadet.wanderer.models.dao.dto.ICachingDTO;
 import com.annimon.stream.Stream;
 
 import org.joda.time.DateTime;

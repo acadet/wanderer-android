@@ -2,7 +2,7 @@ package com.adriencadet.wanderer.models.serializers;
 
 import com.adriencadet.beans.Picture;
 import com.adriencadet.beans.Place;
-import com.adriencadet.wanderer.models.dao.dto.PlaceDAODTO;
+import com.adriencadet.dao.dto.PlaceDAODTO;
 import com.adriencadet.wanderer.models.services.wanderer.dto.PlaceWandererServerDTO;
 import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
