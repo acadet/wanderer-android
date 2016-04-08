@@ -1,28 +1,28 @@
-package com.adriencadet.wanderer.models.bll.dto;
+package com.adriencadet.beans;
 
 import org.joda.time.DateTime;
 
 /**
- * PlaceBLLDTO
+ * Place
  * <p>
  */
-public class PlaceBLLDTO {
-    private int           id;
-    private String        name;
-    private String        country;
-    private double        latitude;
-    private double        longitude;
-    private String        description;
-    private DateTime      visitDate;
-    private boolean       isLiking;
-    private int           likes;
-    private PictureBLLDTO mainPicture;
+public class Place {
+    private int      id;
+    private String   name;
+    private String   country;
+    private double   latitude;
+    private double   longitude;
+    private String   description;
+    private DateTime visitDate;
+    private boolean  isLiking;
+    private int      likes;
+    private Picture  mainPicture;
 
     public int getId() {
         return id;
     }
 
-    public PlaceBLLDTO setId(int id) {
+    public Place setId(int id) {
         this.id = id;
         return this;
     }
@@ -31,7 +31,7 @@ public class PlaceBLLDTO {
         return name;
     }
 
-    public PlaceBLLDTO setName(String name) {
+    public Place setName(String name) {
         this.name = name;
         return this;
     }
@@ -40,7 +40,7 @@ public class PlaceBLLDTO {
         return country;
     }
 
-    public PlaceBLLDTO setCountry(String country) {
+    public Place setCountry(String country) {
         this.country = country;
         return this;
     }
@@ -49,7 +49,7 @@ public class PlaceBLLDTO {
         return latitude;
     }
 
-    public PlaceBLLDTO setLatitude(double latitude) {
+    public Place setLatitude(double latitude) {
         this.latitude = latitude;
         return this;
     }
@@ -58,7 +58,7 @@ public class PlaceBLLDTO {
         return longitude;
     }
 
-    public PlaceBLLDTO setLongitude(double longitude) {
+    public Place setLongitude(double longitude) {
         this.longitude = longitude;
         return this;
     }
@@ -67,7 +67,7 @@ public class PlaceBLLDTO {
         return description;
     }
 
-    public PlaceBLLDTO setDescription(String description) {
+    public Place setDescription(String description) {
         this.description = description;
         return this;
     }
@@ -76,7 +76,7 @@ public class PlaceBLLDTO {
         return visitDate;
     }
 
-    public PlaceBLLDTO setVisitDate(DateTime visitDate) {
+    public Place setVisitDate(DateTime visitDate) {
         this.visitDate = visitDate;
         return this;
     }
@@ -85,7 +85,7 @@ public class PlaceBLLDTO {
         return isLiking;
     }
 
-    public PlaceBLLDTO setLiking(boolean liking) {
+    public Place setLiking(boolean liking) {
         isLiking = liking;
         return this;
     }
@@ -94,16 +94,16 @@ public class PlaceBLLDTO {
         return likes;
     }
 
-    public PlaceBLLDTO setLikes(int likes) {
+    public Place setLikes(int likes) {
         this.likes = likes;
         return this;
     }
 
-    public PictureBLLDTO getMainPicture() {
+    public Picture getMainPicture() {
         return mainPicture;
     }
 
-    public PlaceBLLDTO setMainPicture(PictureBLLDTO mainPicture) {
+    public Place setMainPicture(Picture mainPicture) {
         this.mainPicture = mainPicture;
         return this;
     }

@@ -1,7 +1,7 @@
 package com.adriencadet.wanderer.models.bll;
 
-import com.adriencadet.wanderer.models.bll.dto.PictureBLLDTO;
-import com.adriencadet.wanderer.models.bll.dto.PlaceBLLDTO;
+import com.adriencadet.beans.Picture;
+import com.adriencadet.beans.Place;
 import com.adriencadet.wanderer.models.bll.jobs.CanUseRandomPlaceJob;
 import com.adriencadet.wanderer.models.bll.jobs.ListPicturesForPlaceJob;
 import com.adriencadet.wanderer.models.bll.jobs.ListPlacesByVisitDateDescJob;
@@ -31,12 +31,12 @@ class DataReadingBLL implements IDataReadingBLL {
     }
 
     @Override
-    public Observable<List<PlaceBLLDTO>> listPlacesByVisitDateDesc() {
+    public Observable<List<Place>> listPlacesByVisitDateDesc() {
         return listPlacesByVisitDateDescJob.create();
     }
 
     @Override
-    public Observable<List<PictureBLLDTO>> listPicturesForPlace(PlaceBLLDTO place) {
+    public Observable<List<Picture>> listPicturesForPlace(Place place) {
         return listPicturesForPlaceJob.create(place);
     }
 
@@ -46,7 +46,7 @@ class DataReadingBLL implements IDataReadingBLL {
     }
 
     @Override
-    public Observable<PlaceBLLDTO> randomPlace() {
+    public Observable<Place> randomPlace() {
         return randomPlaceJob.create();
     }
 }

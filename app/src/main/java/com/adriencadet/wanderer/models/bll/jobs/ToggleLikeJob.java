@@ -1,6 +1,6 @@
 package com.adriencadet.wanderer.models.bll.jobs;
 
-import com.adriencadet.wanderer.models.bll.dto.PlaceBLLDTO;
+import com.adriencadet.beans.Place;
 import com.adriencadet.wanderer.models.dao.IPlaceDAO;
 import com.adriencadet.wanderer.models.serializers.IPlaceSerializer;
 import com.adriencadet.wanderer.models.services.ServiceErrors;
@@ -34,11 +34,11 @@ public class ToggleLikeJob extends BLLJob {
         this.pendingTransactions = new ConcurrentLinkedQueue<>();
     }
 
-    public Observable<PlaceBLLDTO> create(PlaceBLLDTO place) {
+    public Observable<Place> create(Place place) {
         return Observable
-            .create(new Observable.OnSubscribe<PlaceBLLDTO>() {
+            .create(new Observable.OnSubscribe<Place>() {
                 @Override
-                public void call(Subscriber<? super PlaceBLLDTO> subscriber) {
+                public void call(Subscriber<? super Place> subscriber) {
                     Action1<Integer> pushToServer = (id) -> {
                         server
                             .toggleLikeJob(id)
@@ -65,7 +65,7 @@ public class ToggleLikeJob extends BLLJob {
                             });
                     };
 
-                    PlaceBLLDTO updatedPlace = placeSerializer.fromDAO(placeDAO.toggleLike(place.getId()));
+                    Place updatedPlace = placeSerializer.fromDAO(placeDAO.toggleLike(place.getId()));
 
                     subscriber.onNext(updatedPlace);
                     subscriber.onCompleted();

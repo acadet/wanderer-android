@@ -1,7 +1,7 @@
 package com.adriencadet.wanderer.models.bll.jobs;
 
+import com.adriencadet.beans.Place;
 import com.adriencadet.wanderer.ApplicationConfiguration;
-import com.adriencadet.wanderer.models.bll.dto.PlaceBLLDTO;
 import com.adriencadet.wanderer.models.dao.IPictureDAO;
 import com.adriencadet.wanderer.models.dao.IPlaceDAO;
 import com.adriencadet.wanderer.models.dao.dto.PictureDAODTO;
@@ -53,7 +53,7 @@ public class ListPlacesByVisitDateDescJob extends BLLJob {
         this.pictureDAO = pictureDAO;
     }
 
-    private void updateCache(List<PlaceBLLDTO> places) {
+    private void updateCache(List<Place> places) {
         DateTime fetchDate = DateTime.now();
 
         if (latestFetch != null && latestFetch.isAfter(fetchDate)) {
@@ -73,11 +73,11 @@ public class ListPlacesByVisitDateDescJob extends BLLJob {
         }
     }
 
-    private boolean useCache(Subscriber<? super List<PlaceBLLDTO>> subscriber) {
-        List<PlaceBLLDTO> cachedList = placeSerializer.fromDAO(placeDAO.listPlacesByVisitDateDescJob());
+    private boolean useCache(Subscriber<? super List<Place>> subscriber) {
+        List<Place> cachedList = placeSerializer.fromDAO(placeDAO.listPlacesByVisitDateDescJob());
         boolean wasInterrupted = false;
 
-        for (PlaceBLLDTO p : cachedList) {
+        for (Place p : cachedList) {
             PictureDAODTO pic = pictureDAO.find(p.getMainPicture().getId());
 
             if (pic != null) {
@@ -97,12 +97,12 @@ public class ListPlacesByVisitDateDescJob extends BLLJob {
         return wasInterrupted;
     }
 
-    public Observable<List<PlaceBLLDTO>> create() {
+    public Observable<List<Place>> create() {
         return Observable
-            .create(new Observable.OnSubscribe<List<PlaceBLLDTO>>() {
+            .create(new Observable.OnSubscribe<List<Place>>() {
                 @Override
-                public void call(Subscriber<? super List<PlaceBLLDTO>> subscriber) {
-                    FinalWrapper<List<PlaceBLLDTO>> list;
+                public void call(Subscriber<? super List<Place>> subscriber) {
+                    FinalWrapper<List<Place>> list;
 
                     if (latestFetch != null
                         && latestFetch.plusMinutes(configuration.PLACE_CACHING_DURATION_MINS).isAfterNow()) {

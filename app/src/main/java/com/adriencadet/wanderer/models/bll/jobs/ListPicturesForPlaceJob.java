@@ -1,8 +1,8 @@
 package com.adriencadet.wanderer.models.bll.jobs;
 
+import com.adriencadet.beans.Picture;
+import com.adriencadet.beans.Place;
 import com.adriencadet.wanderer.ApplicationConfiguration;
-import com.adriencadet.wanderer.models.bll.dto.PictureBLLDTO;
-import com.adriencadet.wanderer.models.bll.dto.PlaceBLLDTO;
 import com.adriencadet.wanderer.models.dao.IPictureDAO;
 import com.adriencadet.wanderer.models.dao.dto.PictureDAODTO;
 import com.adriencadet.wanderer.models.serializers.IPictureSerializer;
@@ -44,7 +44,7 @@ public class ListPicturesForPlaceJob extends BLLJob {
         this.listPicturesForPlaceJobSubscriptionMap = new ConcurrentHashMap<>();
     }
 
-    private void updateCache(PlaceBLLDTO place, List<PictureBLLDTO> pictures) {
+    private void updateCache(Place place, List<Picture> pictures) {
         int key = place.getId();
         DateTime fetchDate = DateTime.now();
         List<PictureDAODTO> daos;
@@ -66,19 +66,19 @@ public class ListPicturesForPlaceJob extends BLLJob {
         pictureDAO.save(daos);
     }
 
-    private void useCache(PlaceBLLDTO place, Subscriber<? super List<PictureBLLDTO>> subscriber) {
+    private void useCache(Place place, Subscriber<? super List<Picture>> subscriber) {
         subscriber.onNext(serializer.fromDAO(pictureDAO.listForPlace(place.getId())));
         subscriber.onCompleted();
     }
 
-    public Observable<List<PictureBLLDTO>> create(PlaceBLLDTO place) {
+    public Observable<List<Picture>> create(Place place) {
         return Observable
-            .create(new Observable.OnSubscribe<List<PictureBLLDTO>>() {
+            .create(new Observable.OnSubscribe<List<Picture>>() {
                 @Override
-                public void call(Subscriber<? super List<PictureBLLDTO>> subscriber) {
+                public void call(Subscriber<? super List<Picture>> subscriber) {
                     if (!latestFetchMap.containsKey(place.getId())
                         || latestFetchMap.get(place.getId()).plusMinutes(configuration.PICTURE_CACHING_DURATION_MINS).isBeforeNow()) {
-                        final FinalWrapper<List<PictureBLLDTO>> list = new FinalWrapper<>();
+                        final FinalWrapper<List<Picture>> list = new FinalWrapper<>();
                         Subscription subscription;
                         int key = place.getId();
 

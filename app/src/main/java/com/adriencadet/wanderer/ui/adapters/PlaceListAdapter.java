@@ -7,8 +7,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.adriencadet.beans.Place;
 import com.adriencadet.wanderer.R;
-import com.adriencadet.wanderer.models.bll.dto.PlaceBLLDTO;
 import com.adriencadet.wanderer.ui.helpers.DateFormatterHelper;
 import com.adriencadet.wanderer.ui.routers.IRouter;
 import com.adriencadet.wanderer.ui.screens.PlaceInsightScreen;
@@ -23,7 +23,7 @@ import butterknife.ButterKnife;
  * PlaceListAdapter
  * <p>
  */
-public class PlaceListAdapter extends BaseAdapter<PlaceBLLDTO> {
+public class PlaceListAdapter extends BaseAdapter<Place> {
     static class ViewHolder {
         @Bind(R.id.adapter_place_list_background)
         ImageView background;
@@ -47,7 +47,7 @@ public class PlaceListAdapter extends BaseAdapter<PlaceBLLDTO> {
 
     private IRouter appRouter;
 
-    public PlaceListAdapter(Context context, List<PlaceBLLDTO> items, IRouter appRouter) {
+    public PlaceListAdapter(Context context, List<Place> items, IRouter appRouter) {
         super(context, items);
 
         this.appRouter = appRouter;
@@ -57,7 +57,7 @@ public class PlaceListAdapter extends BaseAdapter<PlaceBLLDTO> {
     public View getView(int position, View convertView, ViewGroup parent) {
         View view;
         ViewHolder holder;
-        PlaceBLLDTO item = itemAt(position);
+        Place item = itemAt(position);
 
         if (convertView == null) {
             view = LayoutInflater.from(getContext()).inflate(R.layout.adapter_place_list, parent, false);

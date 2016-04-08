@@ -1,7 +1,7 @@
 package com.adriencadet.wanderer.models.serializers;
 
-import com.adriencadet.wanderer.models.bll.dto.PictureBLLDTO;
-import com.adriencadet.wanderer.models.bll.dto.PlaceBLLDTO;
+import com.adriencadet.beans.Picture;
+import com.adriencadet.beans.Place;
 import com.adriencadet.wanderer.models.dao.dto.PlaceDAODTO;
 import com.adriencadet.wanderer.models.services.wanderer.dto.PlaceWandererServerDTO;
 import com.annimon.stream.Collectors;
@@ -23,8 +23,8 @@ class PlaceSerializer implements IPlaceSerializer {
     }
 
     @Override
-    public PlaceBLLDTO fromWandererServer(PlaceWandererServerDTO source) {
-        return new PlaceBLLDTO()
+    public Place fromWandererServer(PlaceWandererServerDTO source) {
+        return new Place()
             .setId(source.id)
             .setCountry(source.country)
             .setDescription(source.description)
@@ -38,15 +38,15 @@ class PlaceSerializer implements IPlaceSerializer {
     }
 
     @Override
-    public List<PlaceBLLDTO> fromWandererServer(List<PlaceWandererServerDTO> source) {
+    public List<Place> fromWandererServer(List<PlaceWandererServerDTO> source) {
         return Stream.of(source).map(this::fromWandererServer).collect(Collectors.toList());
     }
 
     @Override
-    public PlaceBLLDTO fromDAO(PlaceDAODTO source) {
-        return new PlaceBLLDTO()
+    public Place fromDAO(PlaceDAODTO source) {
+        return new Place()
             .setId(source.getId())
-            .setMainPicture(new PictureBLLDTO().setId(source.getId()))
+            .setMainPicture(new Picture().setId(source.getId()))
             .setLatitude(source.getLatitude())
             .setLongitude(source.getLongitude())
             .setDescription(source.getDescription())
@@ -58,12 +58,12 @@ class PlaceSerializer implements IPlaceSerializer {
     }
 
     @Override
-    public List<PlaceBLLDTO> fromDAO(List<PlaceDAODTO> source) {
+    public List<Place> fromDAO(List<PlaceDAODTO> source) {
         return Stream.of(source).map(this::fromDAO).collect(Collectors.toList());
     }
 
     @Override
-    public PlaceDAODTO toDAO(PlaceBLLDTO source) {
+    public PlaceDAODTO toDAO(Place source) {
         PlaceDAODTO outcome = new PlaceDAODTO();
 
         outcome.setId(source.getId());
@@ -81,7 +81,7 @@ class PlaceSerializer implements IPlaceSerializer {
     }
 
     @Override
-    public List<PlaceDAODTO> toDAO(List<PlaceBLLDTO> source) {
+    public List<PlaceDAODTO> toDAO(List<Place> source) {
         return Stream.of(source).map(this::toDAO).collect(Collectors.toList());
     }
 }

@@ -1,6 +1,6 @@
 package com.adriencadet.wanderer.ui.helpers;
 
-import com.adriencadet.wanderer.models.bll.dto.PlaceBLLDTO;
+import com.adriencadet.beans.Place;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -10,7 +10,7 @@ import java.text.SimpleDateFormat;
  * <p>
  */
 public class DateFormatterHelper {
-    public static String userFriendy(PlaceBLLDTO place) {
+    public static String userFriendy(Place place) {
         DateFormat format;
 
         format = new SimpleDateFormat("MMM yyyy");

@@ -3,8 +3,8 @@ package com.adriencadet.wanderer.ui.controllers.body;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 
+import com.adriencadet.beans.Place;
 import com.adriencadet.wanderer.R;
-import com.adriencadet.wanderer.models.bll.dto.PlaceBLLDTO;
 import com.adriencadet.wanderer.ui.activities.BaseActivity;
 import com.adriencadet.wanderer.ui.adapters.PlaceWindowAdapter;
 import com.adriencadet.wanderer.ui.controllers.ApplicationController;
@@ -34,8 +34,8 @@ import rx.android.schedulers.AndroidSchedulers;
 public class PlaceMapController extends ApplicationController implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener, GoogleMap.OnInfoWindowClickListener {
     private Subscription listPlacesByVisitDateDescSubscription;
 
-    private PlaceWindowAdapter       placeWindowAdapter;
-    private Map<Marker, PlaceBLLDTO> markerPlaceHash;
+    private PlaceWindowAdapter placeWindowAdapter;
+    private Map<Marker, Place> markerPlaceHash;
 
     @Inject
     FragmentManager fragmentManager;
@@ -82,7 +82,7 @@ public class PlaceMapController extends ApplicationController implements OnMapRe
         listPlacesByVisitDateDescSubscription = dataReadingBLL
             .listPlacesByVisitDateDesc()
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(new BaseSubscriber<List<PlaceBLLDTO>>() {
+            .subscribe(new BaseSubscriber<List<Place>>() {
                 @Override
                 public void onCompleted() {
                     hideSpinner();
@@ -95,7 +95,7 @@ public class PlaceMapController extends ApplicationController implements OnMapRe
                 }
 
                 @Override
-                public void onNext(List<PlaceBLLDTO> placeBLLDTOs) {
+                public void onNext(List<Place> placeBLLDTOs) {
                     markerPlaceHash = new HashMap<>();
 
                     Stream
@@ -121,7 +121,7 @@ public class PlaceMapController extends ApplicationController implements OnMapRe
 
     @Override
     public void onInfoWindowClick(Marker marker) {
-        PlaceBLLDTO place = markerPlaceHash.get(marker);
+        Place place = markerPlaceHash.get(marker);
 
         appRouter.goTo(new PlaceInsightScreen(place));
     }

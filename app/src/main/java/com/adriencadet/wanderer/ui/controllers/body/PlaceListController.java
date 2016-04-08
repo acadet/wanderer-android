@@ -4,9 +4,9 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.adriencadet.beans.Place;
 import com.adriencadet.wanderer.R;
 import com.adriencadet.wanderer.WandererApplication;
-import com.adriencadet.wanderer.models.bll.dto.PlaceBLLDTO;
 import com.adriencadet.wanderer.ui.adapters.PlaceListAdapter;
 import com.adriencadet.wanderer.ui.controllers.ApplicationController;
 import com.daimajia.androidanimations.library.Techniques;
@@ -54,7 +54,7 @@ public class PlaceListController extends ApplicationController {
         listPlacesSubscription = dataReadingBLL
             .listPlacesByVisitDateDesc()
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(new BaseSubscriber<List<PlaceBLLDTO>>() {
+            .subscribe(new BaseSubscriber<List<Place>>() {
                 @Override
                 public void onCompleted() {
                     hideSpinner();
@@ -70,7 +70,7 @@ public class PlaceListController extends ApplicationController {
                 }
 
                 @Override
-                public void onNext(List<PlaceBLLDTO> placeBLLDTOs) {
+                public void onNext(List<Place> placeBLLDTOs) {
 
                     if (placeBLLDTOs.isEmpty()) {
                         listView.setVisibility(View.GONE);

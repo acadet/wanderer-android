@@ -1,10 +1,10 @@
-package com.adriencadet.wanderer.models.bll.dto;
+package com.adriencadet.beans;
 
 /**
- * PictureBLLDTO
+ * Picture
  * <p>
  */
-public class PictureBLLDTO {
+public class Picture {
     private int    id;
     private String url;
 
@@ -12,7 +12,7 @@ public class PictureBLLDTO {
         return id;
     }
 
-    public PictureBLLDTO setId(int id) {
+    public Picture setId(int id) {
         this.id = id;
         return this;
     }
@@ -21,7 +21,7 @@ public class PictureBLLDTO {
         return url;
     }
 
-    public PictureBLLDTO setUrl(String url) {
+    public Picture setUrl(String url) {
         this.url = url;
         return this;
     }

@@ -1,6 +1,6 @@
 package com.adriencadet.wanderer.models.bll;
 
-import com.adriencadet.wanderer.models.bll.dto.PlaceBLLDTO;
+import com.adriencadet.beans.Place;
 
 import rx.Observable;
 
@@ -9,5 +9,5 @@ import rx.Observable;
  * <p>
  */
 public interface IDataWritingBLL {
-    Observable<PlaceBLLDTO> toggleLike(PlaceBLLDTO place);
+    Observable<Place> toggleLike(Place place);
 }

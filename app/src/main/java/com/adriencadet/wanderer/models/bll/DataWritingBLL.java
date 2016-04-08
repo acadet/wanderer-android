@@ -1,6 +1,6 @@
 package com.adriencadet.wanderer.models.bll;
 
-import com.adriencadet.wanderer.models.bll.dto.PlaceBLLDTO;
+import com.adriencadet.beans.Place;
 import com.adriencadet.wanderer.models.bll.jobs.ToggleLikeJob;
 
 import rx.Observable;
@@ -17,7 +17,7 @@ class DataWritingBLL implements IDataWritingBLL {
     }
 
     @Override
-    public Observable<PlaceBLLDTO> toggleLike(PlaceBLLDTO place) {
+    public Observable<Place> toggleLike(Place place) {
         return toggleLikeJob.create(place);
     }
 }

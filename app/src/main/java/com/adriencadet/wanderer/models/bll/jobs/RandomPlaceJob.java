@@ -1,6 +1,6 @@
 package com.adriencadet.wanderer.models.bll.jobs;
 
-import com.adriencadet.wanderer.models.bll.dto.PlaceBLLDTO;
+import com.adriencadet.beans.Place;
 import com.adriencadet.wanderer.models.dao.IPlaceDAO;
 import com.adriencadet.wanderer.models.serializers.IPlaceSerializer;
 
@@ -21,12 +21,12 @@ public class RandomPlaceJob {
         this.placeDAO = placeDAO;
     }
 
-    public Observable<PlaceBLLDTO> create() {
+    public Observable<Place> create() {
         return Observable
-            .create(new Observable.OnSubscribe<PlaceBLLDTO>() {
+            .create(new Observable.OnSubscribe<Place>() {
                 @Override
-                public void call(Subscriber<? super PlaceBLLDTO> subscriber) {
-                    PlaceBLLDTO place = placeSerializer.fromDAO(placeDAO.randomEntry());
+                public void call(Subscriber<? super Place> subscriber) {
+                    Place place = placeSerializer.fromDAO(placeDAO.randomEntry());
 
                     subscriber.onNext(place);
                     subscriber.onCompleted();

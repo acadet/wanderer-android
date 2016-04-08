@@ -1,6 +1,6 @@
 package com.adriencadet.wanderer.models.serializers;
 
-import com.adriencadet.wanderer.models.bll.dto.PlaceBLLDTO;
+import com.adriencadet.beans.Place;
 import com.adriencadet.wanderer.models.dao.dto.PlaceDAODTO;
 import com.adriencadet.wanderer.models.services.wanderer.dto.PlaceWandererServerDTO;
 
@@ -11,15 +11,15 @@ import java.util.List;
  * <p>
  */
 public interface IPlaceSerializer {
-    PlaceBLLDTO fromWandererServer(PlaceWandererServerDTO source);
+    Place fromWandererServer(PlaceWandererServerDTO source);
 
-    List<PlaceBLLDTO> fromWandererServer(List<PlaceWandererServerDTO> source);
+    List<Place> fromWandererServer(List<PlaceWandererServerDTO> source);
 
-    PlaceBLLDTO fromDAO(PlaceDAODTO source);
+    Place fromDAO(PlaceDAODTO source);
 
-    List<PlaceBLLDTO> fromDAO(List<PlaceDAODTO> source);
+    List<Place> fromDAO(List<PlaceDAODTO> source);
 
-    PlaceDAODTO toDAO(PlaceBLLDTO source);
+    PlaceDAODTO toDAO(Place source);
 
-    List<PlaceDAODTO> toDAO(List<PlaceBLLDTO> source);
+    List<PlaceDAODTO> toDAO(List<Place> source);
 }

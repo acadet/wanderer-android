@@ -5,8 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
+import com.adriencadet.beans.Place;
 import com.adriencadet.wanderer.R;
-import com.adriencadet.wanderer.models.bll.dto.PlaceBLLDTO;
 import com.adriencadet.wanderer.ui.helpers.DateFormatterHelper;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.Marker;
@@ -19,8 +19,8 @@ import butterknife.ButterKnife;
  * <p>
  */
 public class PlaceWindowAdapter implements GoogleMap.InfoWindowAdapter {
-    private Context     context;
-    private PlaceBLLDTO item;
+    private Context context;
+    private Place   item;
 
     static class ViewHolder {
         @Bind(R.id.adapter_place_window_name)
@@ -53,7 +53,7 @@ public class PlaceWindowAdapter implements GoogleMap.InfoWindowAdapter {
         return view;
     }
 
-    public void setItem(PlaceBLLDTO item) {
+    public void setItem(Place item) {
         this.item = item;
     }
 }
