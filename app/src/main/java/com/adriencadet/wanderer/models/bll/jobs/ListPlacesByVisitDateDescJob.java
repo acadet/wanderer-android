@@ -19,6 +19,7 @@ import java.util.List;
 import rx.Observable;
 import rx.Observer;
 import rx.Subscriber;
+import rx.Subscription;
 import rx.schedulers.Schedulers;
 
 /**
@@ -28,7 +29,9 @@ import rx.schedulers.Schedulers;
 public class ListPlacesByVisitDateDescJob extends BLLJob {
     private static final Object latestFetchLock = new Object();
 
-    private DateTime                 latestFetch;
+    private DateTime     latestFetch;
+    private Subscription listPlacesByVisitDateDescJobSubscription;
+
     private ApplicationConfiguration configuration;
     private IWandererServer          wandererServer;
     private IPlaceSerializer         placeSerializer;
@@ -75,13 +78,15 @@ public class ListPlacesByVisitDateDescJob extends BLLJob {
             .create(new Observable.OnSubscribe<List<PlaceBLLDTO>>() {
                 @Override
                 public void call(Subscriber<? super List<PlaceBLLDTO>> subscriber) {
+                    FinalWrapper<List<PlaceBLLDTO>> list;
+
                     if (latestFetch != null
                         && latestFetch.plusMinutes(configuration.PLACE_CACHING_DURATION_MINS).isAfterNow()) {
 
-                        List<PlaceBLLDTO> list = placeSerializer.fromDAO(placeDAO.listPlacesByVisitDateDescJob());
+                        List<PlaceBLLDTO> cachedList = placeSerializer.fromDAO(placeDAO.listPlacesByVisitDateDescJob());
                         boolean wasInterrupted = false;
 
-                        for (PlaceBLLDTO p : list) {
+                        for (PlaceBLLDTO p : cachedList) {
                             PictureDAODTO pic = pictureDAO.find(p.getMainPicture().getId());
 
                             if (pic != null) {
@@ -94,15 +99,19 @@ public class ListPlacesByVisitDateDescJob extends BLLJob {
                         }
 
                         if (!wasInterrupted) {
-                            subscriber.onNext(list);
+                            subscriber.onNext(cachedList);
                             subscriber.onCompleted();
                             return;
                         }
                     }
 
-                    FinalWrapper<List<PlaceBLLDTO>> list = new FinalWrapper<>();
+                    list = new FinalWrapper<>();
 
-                    wandererServer
+                    if (listPlacesByVisitDateDescJobSubscription != null) {
+                        listPlacesByVisitDateDescJobSubscription.unsubscribe();
+                    }
+
+                    listPlacesByVisitDateDescJobSubscription = wandererServer
                         .listPlacesByVisitDateDescJob()
                         .observeOn(Schedulers.newThread())
                         .subscribe(new Observer<List<PlaceWandererServerDTO>>() {
