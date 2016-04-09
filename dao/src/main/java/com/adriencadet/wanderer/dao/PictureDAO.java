@@ -37,8 +37,14 @@ class PictureDAO extends BaseDAO implements IPictureDAO {
     @Override
     public Picture find(int id) {
         Realm realm = getRealm();
-        PictureDTO picture = find(realm, id);
-        Picture outcome = pictureSerializer.fromDAO(picture);
+        PictureDTO picture;
+        Picture outcome = null;
+
+        picture = find(realm, id);
+
+        if (picture != null) {
+            outcome = pictureSerializer.fromDAO(picture);
+        }
 
         realm.close();
 
