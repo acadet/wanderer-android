@@ -3,8 +3,8 @@ package com.adriencadet.wanderer.ui.controllers.body;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 
-import com.adriencadet.wanderer.beans.beans.Place;
 import com.adriencadet.wanderer.R;
+import com.adriencadet.wanderer.beans.Place;
 import com.adriencadet.wanderer.ui.activities.BaseActivity;
 import com.adriencadet.wanderer.ui.adapters.PlaceWindowAdapter;
 import com.adriencadet.wanderer.ui.controllers.ApplicationController;

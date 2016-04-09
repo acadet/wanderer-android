@@ -64,8 +64,7 @@ dependencies {
     compile 'io.saeid:fab-loading:0.6.0'
     compile 'com.github.JakeWharton:ViewPagerIndicator:2.4.1'
     compile project(':beans')
-    compile project(':dao')
-    compile project(':services')
+    compile project(':bll')
 }
 
 // Lambda functions

@@ -4,9 +4,9 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.adriencadet.wanderer.beans.beans.Place;
 import com.adriencadet.wanderer.R;
 import com.adriencadet.wanderer.WandererApplication;
+import com.adriencadet.wanderer.beans.Place;
 import com.adriencadet.wanderer.ui.adapters.PlaceListAdapter;
 import com.adriencadet.wanderer.ui.controllers.ApplicationController;
 import com.daimajia.androidanimations.library.Techniques;

@@ -1,9 +1,7 @@
 package com.adriencadet.wanderer;
 
+import com.adriencadet.wanderer.bll.BLLFactory;
 import com.adriencadet.wanderer.dao.DAOFactory;
-import com.adriencadet.wanderer.models.bll.BLLFactory;
-import com.adriencadet.wanderer.models.bll.jobs.BLLJobFactory;
-import com.adriencadet.wanderer.models.serializers.SerializerFactory;
 import com.adriencadet.wanderer.services.wanderer.WandererServiceFactory;
 import com.adriencadet.wanderer.ui.ActivityComponent;
 import com.adriencadet.wanderer.ui.ActivityModule;
@@ -35,9 +33,7 @@ import dagger.Component;
 @Component(modules = {
     ApplicationModule.class,
     WandererServiceFactory.class,
-    SerializerFactory.class,
     DAOFactory.class,
-    BLLJobFactory.class,
     BLLFactory.class,
     RouterFactory.class
 })

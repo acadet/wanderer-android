@@ -2,9 +2,9 @@ package com.adriencadet.wanderer.ui.controllers;
 
 import com.adriencadet.wanderer.R;
 import com.adriencadet.wanderer.WandererApplication;
-import com.adriencadet.wanderer.models.bll.BLLErrors;
-import com.adriencadet.wanderer.models.bll.IDataReadingBLL;
-import com.adriencadet.wanderer.models.bll.IDataWritingBLL;
+import com.adriencadet.wanderer.bll.BLLErrors;
+import com.adriencadet.wanderer.bll.IDataReadingBLL;
+import com.adriencadet.wanderer.bll.IDataWritingBLL;
 import com.adriencadet.wanderer.ui.routers.IRouter;
 import com.adriencadet.wanderer.ui.screens.popup.AlertScreen;
 import com.adriencadet.wanderer.ui.screens.popup.ConfirmScreen;

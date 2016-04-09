@@ -7,8 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.adriencadet.wanderer.beans.beans.Picture;
 import com.adriencadet.wanderer.R;
+import com.adriencadet.wanderer.beans.Picture;
 import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;

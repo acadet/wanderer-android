@@ -1,6 +1,7 @@
 package com.adriencadet.wanderer.dao;
 
 import com.adriencadet.wanderer.beans.Picture;
+import com.adriencadet.wanderer.beans.Place;
 import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
 
@@ -57,7 +58,7 @@ class PictureDAO extends BaseDAO implements IPictureDAO {
     }
 
     @Override
-    public void save(Picture picture) {
+    public void save(Place relatedPlace, Picture picture) {
         Realm realm = getRealm();
         PictureDTO existingEntry = find(realm, picture.getId());
         PictureDTO newEntry = pictureSerializer.toDAO(picture);
@@ -66,6 +67,7 @@ class PictureDAO extends BaseDAO implements IPictureDAO {
         if (existingEntry != null) {
             existingEntry.removeFromRealm();
         }
+        newEntry.setPlaceID(relatedPlace.getId());
         newEntry.setUpdatedAt(DateTime.now().toDate());
         realm.copyToRealm(newEntry);
         realm.commitTransaction();
@@ -73,12 +75,20 @@ class PictureDAO extends BaseDAO implements IPictureDAO {
     }
 
     @Override
-    public void save(List<Picture> pictures) {
+    public void save(Place relatedPlace, List<Picture> pictures) {
         Realm realm = getRealm();
 
+        //TODO: refactor
         cachingModule.merge(
             realm,
-            (List<PictureDTO>) Stream.of(pictureSerializer.toDAO(pictures)).sortBy(PictureDTO::getId).collect(Collectors.toList()),
+            (List<PictureDTO>) Stream
+                .of(pictureSerializer.toDAO(pictures))
+                .map((e) -> {
+                    e.setPlaceID(relatedPlace.getId());
+                    return e;
+                })
+                .sortBy(PictureDTO::getId)
+                .collect(Collectors.toList()),
             realm.allObjectsSorted(PictureDTO.class, "id", Sort.ASCENDING),
             (e) -> e,
             configuration.PICTURE_MAX_CACHING_DURATION_MINS

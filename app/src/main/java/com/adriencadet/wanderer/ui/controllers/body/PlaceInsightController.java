@@ -6,10 +6,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.adriencadet.wanderer.beans.beans.Picture;
-import com.adriencadet.wanderer.beans.beans.Place;
 import com.adriencadet.wanderer.R;
 import com.adriencadet.wanderer.WandererApplication;
+import com.adriencadet.wanderer.beans.Picture;
+import com.adriencadet.wanderer.beans.Place;
 import com.adriencadet.wanderer.ui.adapters.PictureSliderAdapter;
 import com.adriencadet.wanderer.ui.controllers.ApplicationController;
 import com.adriencadet.wanderer.ui.helpers.DateFormatterHelper;

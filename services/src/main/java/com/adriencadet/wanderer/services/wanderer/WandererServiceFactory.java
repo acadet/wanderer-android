@@ -19,6 +19,18 @@ import retrofit.converter.GsonConverter;
 @Module
 public class WandererServiceFactory {
     @Provides
+    @Singleton
+    Configuration provideConfiguration() {
+        return new Configuration();
+    }
+
+    @Provides
+    @Singleton
+    AndroidDevice provideAndroidDevice() {
+        return new AndroidDevice();
+    }
+
+    @Provides
     RequestInterceptor provideRequestInterceptor(AndroidDevice device) {
         RequestInterceptor interceptor = new RequestInterceptor() {
             @Override

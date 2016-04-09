@@ -7,8 +7,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.adriencadet.wanderer.beans.beans.Place;
 import com.adriencadet.wanderer.R;
+import com.adriencadet.wanderer.beans.Place;
 import com.adriencadet.wanderer.ui.helpers.DateFormatterHelper;
 import com.adriencadet.wanderer.ui.routers.IRouter;
 import com.adriencadet.wanderer.ui.screens.PlaceInsightScreen;
