@@ -4,14 +4,12 @@ import android.os.Bundle;
 import android.view.ViewGroup;
 
 import com.adriencadet.wanderer.R;
-import com.adriencadet.wanderer.ui.controllers.footer.FooterController;
 import com.adriencadet.wanderer.ui.screens.LandingScreen;
+import com.adriencadet.wanderer.ui.screens.spinner.ShowSpinnerImmediatelyScreen;
 import com.lyft.scoop.Scoop;
 
 public class MainActivity extends BaseActivity {
     private Scoop rootScoop;
-
-    private FooterController footer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +26,7 @@ public class MainActivity extends BaseActivity {
         super.onResume();
 
         if (!appRouter.hasActiveScreen()) {
+            spinnerRouter.goTo(new ShowSpinnerImmediatelyScreen());
             appRouter.goTo(new LandingScreen());
         }
     }

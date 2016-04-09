@@ -1,7 +1,5 @@
 package com.adriencadet.wanderer.ui.controllers.spinner;
 
-import android.app.Activity;
-
 import com.adriencadet.wanderer.R;
 import com.adriencadet.wanderer.ui.activities.BaseActivity;
 import com.adriencadet.wanderer.ui.components.Spinner;
@@ -18,10 +16,8 @@ import javax.inject.Inject;
  */
 public class SpinnerController extends ViewController {
 
-    private Spinner spinner;
-
     @Inject
-    Activity activity;
+    Spinner spinner;
 
     @Override
     protected int layoutId() {
@@ -33,8 +29,6 @@ public class SpinnerController extends ViewController {
         super.onAttach();
 
         BaseActivity.getActivityComponent().inject(this);
-
-        spinner = new Spinner(activity);
 
         Screen screen = Screen.fromController(this);
 

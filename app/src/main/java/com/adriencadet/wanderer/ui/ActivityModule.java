@@ -3,6 +3,10 @@ package com.adriencadet.wanderer.ui;
 import android.app.Activity;
 import android.app.FragmentManager;
 
+import com.adriencadet.wanderer.ui.components.Spinner;
+
+import javax.inject.Singleton;
+
 import dagger.Module;
 import dagger.Provides;
 
@@ -16,6 +20,12 @@ public class ActivityModule {
 
     public ActivityModule(Activity activity) {
         this.activity = activity;
+    }
+
+    @Provides
+    @Singleton
+    public Spinner provideSpinner(Activity activity) {
+        return new Spinner(activity);
     }
 
     @Provides
