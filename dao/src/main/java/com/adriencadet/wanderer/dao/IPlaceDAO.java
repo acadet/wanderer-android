@@ -13,7 +13,7 @@ public interface IPlaceDAO {
 
     void save(List<Place> places);
 
-    Place toggleLike(int placeID);
+    Place toggleLike(Place place);
 
     boolean hasEntries();
 

@@ -59,19 +59,24 @@ class PlaceDAO extends BaseDAO implements IPlaceDAO {
     }
 
     @Override
-    public Place toggleLike(int placeID) {
+    public Place toggleLike(Place place) {
         Realm realm = getRealm();
-        PlaceDTO place = find(realm, placeID);
+        PlaceDTO entry = placeSerializer.toDAO(place);
+        Place outcome;
 
         realm.beginTransaction();
-        place.setLikes(place.isLiking() ? place.getLikes() - 1 : place.getLikes() + 1);
-        place.setLiking(!place.isLiking());
-        place.setUpdatedAt(DateTime.now().toDate());
+
+        entry.setLikes(place.isLiking() ? place.getLikes() - 1 : place.getLikes() + 1);
+        entry.setLiking(!place.isLiking());
+        entry.setUpdatedAt(DateTime.now().toDate());
+
         realm.commitTransaction();
+
+        outcome = placeSerializer.fromDAO(entry);
 
         realm.close();
 
-        return placeSerializer.fromDAO(place);
+        return outcome;
     }
 
     @Override

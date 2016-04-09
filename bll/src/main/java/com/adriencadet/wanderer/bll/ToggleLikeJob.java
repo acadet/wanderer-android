@@ -2,10 +2,8 @@ package com.adriencadet.wanderer.bll;
 
 import com.adriencadet.wanderer.beans.Place;
 import com.adriencadet.wanderer.dao.IPlaceDAO;
-import com.adriencadet.wanderer.services.ServiceErrors;
 import com.adriencadet.wanderer.services.wanderer.IWandererServer;
 
-import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import rx.Observable;
@@ -23,7 +21,7 @@ public class ToggleLikeJob extends BLLJob {
     private IWandererServer server;
     private IPlaceDAO       placeDAO;
 
-    private Queue<Integer> pendingTransactions;
+    private ConcurrentLinkedQueue<Integer> pendingTransactions;
 
     ToggleLikeJob(IWandererServer server, IPlaceDAO placeDAO) {
         this.server = server;
@@ -48,11 +46,8 @@ public class ToggleLikeJob extends BLLJob {
 
                                 @Override
                                 public void onError(Throwable e) {
-                                    if (e instanceof ServiceErrors.NoConnection) {
-                                        pendingTransactions.add(id);
-                                    } else {
-                                        Timber.e(e, "Failed to toggle like");
-                                    }
+                                    pendingTransactions.add(id);
+                                    Timber.e(e, "Failed to toggle like");
                                 }
 
                                 @Override
@@ -62,7 +57,7 @@ public class ToggleLikeJob extends BLLJob {
                             });
                     };
 
-                    Place updatedPlace = placeDAO.toggleLike(place.getId());
+                    Place updatedPlace = placeDAO.toggleLike(place);
 
                     subscriber.onNext(updatedPlace);
                     subscriber.onCompleted();
