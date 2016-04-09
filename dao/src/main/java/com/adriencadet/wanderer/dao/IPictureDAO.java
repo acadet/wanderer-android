@@ -1,6 +1,7 @@
 package com.adriencadet.wanderer.dao;
 
 import com.adriencadet.wanderer.beans.Picture;
+import com.adriencadet.wanderer.beans.Place;
 
 import java.util.List;
 
@@ -13,7 +14,7 @@ public interface IPictureDAO {
 
     List<Picture> listForPlace(int placeID);
 
-    void save(Picture picture);
+    void save(Place relatedPlace, Picture picture);
 
-    void save(List<Picture> pictures);
+    void save(Place relatedPlace, List<Picture> pictures);
 }
