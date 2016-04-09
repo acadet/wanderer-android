@@ -1,6 +1,8 @@
 package com.adriencadet.wanderer.ui.routers;
 
 import com.adriencadet.wanderer.WandererApplication;
+import com.adriencadet.wanderer.ui.screens.HideScreen;
+import com.adriencadet.wanderer.ui.screens.PlaceInsightScreen;
 import com.adriencadet.wanderer.ui.screens.PlaceListScreen;
 import com.adriencadet.wanderer.ui.screens.PlaceMapScreen;
 import com.adriencadet.wanderer.ui.screens.footer.PlaceListFooterScreen;
@@ -35,6 +37,12 @@ public class PageRouter extends BaseRouter {
 
     @Override
     public void goTo(Screen screen) {
+        if (screen instanceof PlaceInsightScreen) {
+            bodyRouter.goTo(new HideScreen());
+            footerRouter.goTo(new HideScreen());
+            return;
+        }
+
         super.goTo(new LandingPageScreen());
 
         if (screen instanceof PlaceMapScreen) {
