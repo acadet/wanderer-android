@@ -42,6 +42,8 @@ public class ListPicturesForPlaceJob extends BLLJob {
         DateTime latestFetch;
 
         if (!latestFetchMap.containsKey(key)) {
+            latestFetchMap.put(key, fetchDate);
+            pictureDAO.save(place, pictures);
             return;
         }
 
@@ -99,6 +101,8 @@ public class ListPicturesForPlaceJob extends BLLJob {
                             Subscription formerSubscription = listPicturesForPlaceJobSubscriptionMap.get(key);
                             formerSubscription.unsubscribe();
                             listPicturesForPlaceJobSubscriptionMap.replace(key, formerSubscription, subscription);
+                        } else {
+                            listPicturesForPlaceJobSubscriptionMap.put(key, subscription);
                         }
                     } else {
                         useCache(place, subscriber);
