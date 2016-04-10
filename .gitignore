@@ -12,3 +12,5 @@ app/src/main/java/com/adriencadet/wanderer/SecretApplicationConfiguration.java
 app/src/release/res/values/secrets.xml
 
 app/src/debug/res/values/secrets.xml
+
+*.apk
