@@ -6,9 +6,10 @@ import android.widget.TextView;
 
 import com.adriencadet.wanderer.R;
 import com.adriencadet.wanderer.WandererApplication;
-import com.adriencadet.wanderer.models.bll.dto.PlaceBLLDTO;
+import com.adriencadet.wanderer.beans.Place;
+import com.adriencadet.wanderer.bll.BLLErrors;
 import com.adriencadet.wanderer.ui.adapters.PlaceListAdapter;
-import com.adriencadet.wanderer.ui.controllers.BaseController;
+import com.adriencadet.wanderer.ui.controllers.ApplicationController;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 
@@ -22,8 +23,9 @@ import rx.android.schedulers.AndroidSchedulers;
  * PlaceListController
  * <p>
  */
-public class PlaceListController extends BaseController {
+public class PlaceListController extends ApplicationController {
     private Subscription listPlacesSubscription;
+    private List<Place>  placeListBuffer;
 
     @Bind(R.id.place_list_menu_listview)
     ListView listView;
@@ -54,9 +56,17 @@ public class PlaceListController extends BaseController {
         listPlacesSubscription = dataReadingBLL
             .listPlacesByVisitDateDesc()
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(new BaseSubscriber<List<PlaceBLLDTO>>() {
+            .subscribe(new BaseSubscriber<List<Place>>() {
                 @Override
                 public void onCompleted() {
+                    if (placeListBuffer.isEmpty()) {
+                        listView.setVisibility(View.GONE);
+                        fadeIn(noContentLabelView);
+                    } else {
+                        listView.setAdapter(new PlaceListAdapter(context, placeListBuffer, appRouter));
+                        noContentLabelView.setVisibility(View.GONE);
+                        fadeIn(listView);
+                    }
                     hideSpinner();
                 }
 
@@ -64,22 +74,23 @@ public class PlaceListController extends BaseController {
                 public void onError(Throwable e) {
                     super.onError(e);
 
-                    hideSpinner();
-                    listView.setVisibility(View.GONE);
-                    fadeIn(noContentLabelView);
-                }
-
-                @Override
-                public void onNext(List<PlaceBLLDTO> placeBLLDTOs) {
-
-                    if (placeBLLDTOs.isEmpty()) {
+                    if (placeListBuffer.isEmpty()) {
                         listView.setVisibility(View.GONE);
                         fadeIn(noContentLabelView);
                     } else {
-                        listView.setAdapter(new PlaceListAdapter(context, placeBLLDTOs, appRouter));
+                        boolean mustLoadPictures = !(e instanceof BLLErrors.NoConnection);
+
+                        listView.setAdapter(new PlaceListAdapter(context, placeListBuffer, appRouter, mustLoadPictures));
                         noContentLabelView.setVisibility(View.GONE);
                         fadeIn(listView);
                     }
+
+                    hideSpinner();
+                }
+
+                @Override
+                public void onNext(List<Place> places) {
+                    placeListBuffer = places;
                 }
             });
     }

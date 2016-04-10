@@ -8,10 +8,10 @@ import android.widget.TextView;
 
 import com.adriencadet.wanderer.R;
 import com.adriencadet.wanderer.WandererApplication;
-import com.adriencadet.wanderer.models.bll.dto.PictureBLLDTO;
-import com.adriencadet.wanderer.models.bll.dto.PlaceBLLDTO;
+import com.adriencadet.wanderer.beans.Picture;
+import com.adriencadet.wanderer.beans.Place;
 import com.adriencadet.wanderer.ui.adapters.PictureSliderAdapter;
-import com.adriencadet.wanderer.ui.controllers.BaseController;
+import com.adriencadet.wanderer.ui.controllers.ApplicationController;
 import com.adriencadet.wanderer.ui.helpers.DateFormatterHelper;
 import com.adriencadet.wanderer.ui.helpers.IntFormatterHelper;
 import com.adriencadet.wanderer.ui.screens.PlaceInsightScreen;
@@ -32,8 +32,8 @@ import rx.android.schedulers.AndroidSchedulers;
  * PlaceInsightController
  * <p>
  */
-public class PlaceInsightController extends BaseController {
-    private PlaceBLLDTO  currentPlace;
+public class PlaceInsightController extends ApplicationController {
+    private Place        currentPlace;
     private Subscription listPicturesForPlaceSubscription;
     private Subscription randomPlaceSubscription;
     private Subscription toggleLikeSubscription;
@@ -80,7 +80,7 @@ public class PlaceInsightController extends BaseController {
         likeLabelView.setText(IntFormatterHelper.userFriendly(currentPlace.getLikes()));
     }
 
-    private void setContent(PlaceBLLDTO place, boolean mustHideSpinner) {
+    private void setContent(Place place, boolean mustHideSpinner) {
         currentPlace = place;
 
         nameView.setText(place.getName());
@@ -96,7 +96,7 @@ public class PlaceInsightController extends BaseController {
         listPicturesForPlaceSubscription = dataReadingBLL
             .listPicturesForPlace(place)
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(new BaseSubscriber<List<PictureBLLDTO>>() {
+            .subscribe(new BaseSubscriber<List<Picture>>() {
                 @Override
                 public void onCompleted() {
                     if (mustHideSpinner) {
@@ -113,7 +113,7 @@ public class PlaceInsightController extends BaseController {
                 }
 
                 @Override
-                public void onNext(List<PictureBLLDTO> pictureBLLDTOs) {
+                public void onNext(List<Picture> pictureBLLDTOs) {
                     sliderView.setAdapter(new PictureSliderAdapter(context, pictureBLLDTOs));
                     pageIndicatorView.setViewPager(sliderView);
                 }
@@ -130,7 +130,7 @@ public class PlaceInsightController extends BaseController {
         randomPlaceSubscription = dataReadingBLL
             .randomPlace()
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(new BaseSubscriber<PlaceBLLDTO>() {
+            .subscribe(new BaseSubscriber<Place>() {
                 @Override
                 public void onCompleted() {
 
@@ -143,7 +143,7 @@ public class PlaceInsightController extends BaseController {
                 }
 
                 @Override
-                public void onNext(PlaceBLLDTO placeBLLDTO) {
+                public void onNext(Place placeBLLDTO) {
                     setContent(placeBLLDTO, true);
 
                     if (mustPlayAnimation) {
@@ -214,14 +214,14 @@ public class PlaceInsightController extends BaseController {
             dataWritingBLL
                 .toggleLike(currentPlace)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseSubscriber<PlaceBLLDTO>() {
+                .subscribe(new BaseSubscriber<Place>() {
                     @Override
                     public void onCompleted() {
                         toggleLikeButton();
                     }
 
                     @Override
-                    public void onNext(PlaceBLLDTO placeBLLDTO) {
+                    public void onNext(Place placeBLLDTO) {
                         currentPlace = placeBLLDTO;
                     }
                 });

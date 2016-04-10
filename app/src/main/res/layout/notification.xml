@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    style="@style/Notification"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <TextView
+        android:id="@+id/notification_content"
+        style="@style/NotificationContent"
+        tools:background="@color/black"
+        tools:text="Attention please"
+        />
+
+</FrameLayout>

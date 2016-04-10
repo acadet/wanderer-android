@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.adriencadet.wanderer.R;
-import com.adriencadet.wanderer.models.bll.dto.PictureBLLDTO;
+import com.adriencadet.wanderer.beans.Picture;
 import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
@@ -32,11 +32,11 @@ public class PictureSliderAdapter extends PagerAdapter {
         }
     }
 
-    private Context             context;
-    private List<PictureBLLDTO> items;
-    private Map<Integer, View>  inflatedViews;
+    private Context            context;
+    private List<Picture>      items;
+    private Map<Integer, View> inflatedViews;
 
-    public PictureSliderAdapter(Context context, List<PictureBLLDTO> items) {
+    public PictureSliderAdapter(Context context, List<Picture> items) {
         this.context = context;
         this.items = items;
         this.inflatedViews = new HashMap<>();
@@ -51,7 +51,7 @@ public class PictureSliderAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup container, int position) {
         View view;
         ViewHolder holder;
-        PictureBLLDTO item = items.get(position);
+        Picture item = items.get(position);
 
         if (inflatedViews.containsKey(position)) {
             view = inflatedViews.get(position);

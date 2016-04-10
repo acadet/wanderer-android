@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    style="@style/MatchParent"
+    style="@style/PlaceInsight"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     >
 
     <ScrollView
-        style="@style/PlaceInsight"
+        style="@style/PlaceInsightScrollView"
         >
 
         <LinearLayout

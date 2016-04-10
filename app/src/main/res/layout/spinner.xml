@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout android:background="@color/grey"
-             style="@style/MatchParent"
-             xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout
+    android:id="@+id/spinner"
+    android:background="@color/grey"
+    style="@style/MatchParent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     >
 
-    <io.saeid.fabloading.LoadingView
-        android:id="@+id/spinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <com.eftimoff.androipathview.PathView
+        android:id="@+id/spinner_content"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
         android:layout_gravity="center"
-        android:scaleX="3"
-        android:scaleY="3"
-        android:visibility="invisible"
-        app:mfl_duration="1000"
-        app:mfl_repeat="10000"
+        app:pathColor="@color/white"
+        app:pathWidth="5dp"
         />
+
 
 </FrameLayout>

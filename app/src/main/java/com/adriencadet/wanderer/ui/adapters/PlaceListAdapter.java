@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.adriencadet.wanderer.R;
-import com.adriencadet.wanderer.models.bll.dto.PlaceBLLDTO;
+import com.adriencadet.wanderer.beans.Place;
 import com.adriencadet.wanderer.ui.helpers.DateFormatterHelper;
 import com.adriencadet.wanderer.ui.routers.IRouter;
 import com.adriencadet.wanderer.ui.screens.PlaceInsightScreen;
@@ -23,7 +23,7 @@ import butterknife.ButterKnife;
  * PlaceListAdapter
  * <p>
  */
-public class PlaceListAdapter extends BaseAdapter<PlaceBLLDTO> {
+public class PlaceListAdapter extends BaseAdapter<Place> {
     static class ViewHolder {
         @Bind(R.id.adapter_place_list_background)
         ImageView background;
@@ -46,18 +46,24 @@ public class PlaceListAdapter extends BaseAdapter<PlaceBLLDTO> {
     }
 
     private IRouter appRouter;
+    private boolean mustLoadPictures;
 
-    public PlaceListAdapter(Context context, List<PlaceBLLDTO> items, IRouter appRouter) {
+    public PlaceListAdapter(Context context, List<Place> items, IRouter appRouter) {
+        this(context, items, appRouter, true);
+    }
+
+    public PlaceListAdapter(Context context, List<Place> items, IRouter appRouter, boolean mustLoadPictures) {
         super(context, items);
 
         this.appRouter = appRouter;
+        this.mustLoadPictures = mustLoadPictures;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View view;
         ViewHolder holder;
-        PlaceBLLDTO item = itemAt(position);
+        Place item = itemAt(position);
 
         if (convertView == null) {
             view = LayoutInflater.from(getContext()).inflate(R.layout.adapter_place_list, parent, false);
@@ -69,10 +75,16 @@ public class PlaceListAdapter extends BaseAdapter<PlaceBLLDTO> {
             Picasso.with(getContext()).cancelRequest(holder.background);
         }
 
-        Picasso
-            .with(getContext())
-            .load(item.getMainPicture().getUrl())
-            .into(holder.background);
+        if (mustLoadPictures) {
+            holder.background.setAlpha(0.5f);
+            Picasso
+                .with(getContext())
+                .load(item.getMainPicture().getUrl())
+                .into(holder.background);
+        } else {
+            holder.background.setAlpha(1f);
+            holder.background.setImageDrawable(null);
+        }
 
         holder.name.setText(item.getName());
         holder.country.setText(item.getCountry());
