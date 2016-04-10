@@ -46,7 +46,7 @@ public class Spinner {
         this.items = Arrays.asList(
             new Item("#F06868", R.raw.plane),
             new Item("#FAB57A", R.raw.backpack),
-            new Item("#FAB57A", R.raw.camera),
+            new Item("#8DED8E", R.raw.camera),
             new Item("#80D6FF", R.raw.map)
         );
     }
