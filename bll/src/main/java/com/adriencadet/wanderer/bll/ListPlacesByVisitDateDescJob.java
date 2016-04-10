@@ -4,6 +4,7 @@ import com.adriencadet.wanderer.beans.Picture;
 import com.adriencadet.wanderer.beans.Place;
 import com.adriencadet.wanderer.dao.IPictureDAO;
 import com.adriencadet.wanderer.dao.IPlaceDAO;
+import com.adriencadet.wanderer.services.ServiceErrors;
 import com.adriencadet.wanderer.services.wanderer.IWandererServer;
 import com.annimon.stream.Stream;
 
@@ -89,7 +90,7 @@ public class ListPlacesByVisitDateDescJob extends BLLJob {
         }
     }
 
-    private void useCache(Subscriber<? super List<Place>> subscriber) {
+    private List<Place> useCache() {
         List<Place> cachedList = placeDAO.listPlacesByVisitDateDescJob();
         List<Place> outcome = new ArrayList<>();
 
@@ -102,8 +103,7 @@ public class ListPlacesByVisitDateDescJob extends BLLJob {
             }
         }
 
-        subscriber.onNext(outcome);
-        subscriber.onCompleted();
+        return outcome;
     }
 
     public Observable<List<Place>> create() {
@@ -138,7 +138,11 @@ public class ListPlacesByVisitDateDescJob extends BLLJob {
 
                             @Override
                             public void onError(Throwable e) {
-                                useCache(subscriber);
+                                if (e instanceof ServiceErrors.NoConnection) {
+                                    subscriber.onNext(placeDAO.listPlacesByVisitDateDescJob());
+                                } else if (e instanceof ServiceErrors.ServerError) {
+                                    subscriber.onNext(useCache());
+                                }
                                 handleError(e, subscriber);
                             }
 

@@ -46,11 +46,17 @@ public class PlaceListAdapter extends BaseAdapter<Place> {
     }
 
     private IRouter appRouter;
+    private boolean mustLoadPictures;
 
     public PlaceListAdapter(Context context, List<Place> items, IRouter appRouter) {
+        this(context, items, appRouter, true);
+    }
+
+    public PlaceListAdapter(Context context, List<Place> items, IRouter appRouter, boolean mustLoadPictures) {
         super(context, items);
 
         this.appRouter = appRouter;
+        this.mustLoadPictures = mustLoadPictures;
     }
 
     @Override
@@ -69,10 +75,16 @@ public class PlaceListAdapter extends BaseAdapter<Place> {
             Picasso.with(getContext()).cancelRequest(holder.background);
         }
 
-        Picasso
-            .with(getContext())
-            .load(item.getMainPicture().getUrl())
-            .into(holder.background);
+        if (mustLoadPictures) {
+            holder.background.setAlpha(0.5f);
+            Picasso
+                .with(getContext())
+                .load(item.getMainPicture().getUrl())
+                .into(holder.background);
+        } else {
+            holder.background.setAlpha(1f);
+            holder.background.setImageDrawable(null);
+        }
 
         holder.name.setText(item.getName());
         holder.country.setText(item.getCountry());
