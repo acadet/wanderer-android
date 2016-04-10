@@ -9,6 +9,7 @@ import com.annimon.stream.Stream;
 
 import org.joda.time.DateTime;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import rx.Observable;
@@ -63,7 +64,7 @@ public class ListPlacesByVisitDateDescJob extends BLLJob {
         }
     }
 
-    private boolean useCache(Subscriber<? super List<Place>> subscriber) {
+    private boolean tryToUseCache(Subscriber<? super List<Place>> subscriber) {
         List<Place> cachedList = placeDAO.listPlacesByVisitDateDescJob();
         boolean wasInterrupted = false;
 
@@ -82,9 +83,27 @@ public class ListPlacesByVisitDateDescJob extends BLLJob {
         if (!wasInterrupted) {
             subscriber.onNext(cachedList);
             subscriber.onCompleted();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private void useCache(Subscriber<? super List<Place>> subscriber) {
+        List<Place> cachedList = placeDAO.listPlacesByVisitDateDescJob();
+        List<Place> outcome = new ArrayList<>();
+
+        for (Place p : cachedList) {
+            Picture pic = pictureDAO.find(p.getMainPicture().getId());
+
+            if (pic != null) {
+                p.getMainPicture().setUrl(pic.getUrl());
+                outcome.add(p);
+            }
         }
 
-        return wasInterrupted;
+        subscriber.onNext(outcome);
+        subscriber.onCompleted();
     }
 
     public Observable<List<Place>> create() {
@@ -96,7 +115,7 @@ public class ListPlacesByVisitDateDescJob extends BLLJob {
 
                     if (latestFetch != null
                         && latestFetch.plusMinutes(configuration.PLACE_CACHING_DURATION_MINS).isAfterNow()) {
-                        if (!useCache(subscriber)) {
+                        if (tryToUseCache(subscriber)) {
                             return;
                         }
                     }
