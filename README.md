@@ -2,7 +2,7 @@
 
 An Android sample application using my latest skillset. Hooked up with [this server](https://github.com/acadet/wanderer-server).
 
-[Download the app from the store]().
+[Download the app from the store](https://play.google.com/store/apps/details?id=com.adriencadet.wanderer).
 
 <img src="https://raw.githubusercontent.com/acadet/wanderer-android/master/screenshots/map.png" alt="map.png" width="350px">
 
@@ -30,4 +30,4 @@ An Android sample application using my latest skillset. Hooked up with [this ser
 
 ## Credits
 
-Icons from the Noun Project and IconMonstr.
+Icons from the Noun Project and IconMonstr. Some pictures are mines, others are from Unsplash.
