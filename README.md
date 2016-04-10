@@ -4,6 +4,12 @@ An Android sample application using my latest skillset. Hooked up with [this ser
 
 [Download the app from the store]().
 
+<img src="https://raw.githubusercontent.com/acadet/wanderer-android/master/screenshots/map.png" alt="map.png" width="350px">
+
+<img src="https://raw.githubusercontent.com/acadet/wanderer-android/master/screenshots/list.png" alt="list.png" width="350px">
+
+<img src="https://raw.githubusercontent.com/acadet/wanderer-android/master/screenshots/insight.png" alt="insight.png" width="350px">
+
 ## Stack
 
 * [AndroidViewAnimations](https://github.com/daimajia/AndroidViewAnimations)
