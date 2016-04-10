@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <style name="PlaceInsight" parent="MatchParent">
+        <item name="android:background">@color/black</item>
+    </style>
+
     <style name="PlaceInsightSlider">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">300dp</item>
@@ -14,15 +18,12 @@
         <item name="strokeWidth">2dp</item>
     </style>
 
-    <style name="PlaceInsight" parent="MatchParent">
-        <item name="android:background">@color/black</item>
+    <style name="PlaceInsightScrollView" parent="MatchParent">
+        <item name="android:layout_marginBottom">32dp</item>
     </style>
 
     <style name="PlaceInsightContentWrapper" parent="MatchParentWrapContent.Vertical">
-        <item name="android:layout_marginTop">@dimen/layout_margin</item>
-        <item name="android:layout_marginRight">@dimen/layout_margin</item>
-        <item name="android:layout_marginBottom">32dp</item>
-        <item name="android:layout_marginLeft">@dimen/layout_margin</item>
+        <item name="android:layout_margin">@dimen/layout_margin</item>
     </style>
 
     <style name="PlaceInsightName" parent="MatchParentWrapContent">
