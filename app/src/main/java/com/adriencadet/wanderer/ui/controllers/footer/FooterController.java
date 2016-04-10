@@ -1,6 +1,5 @@
 package com.adriencadet.wanderer.ui.controllers.footer;
 
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
@@ -15,7 +14,6 @@ import com.adriencadet.wanderer.ui.screens.popup.AlertScreen;
 import com.lyft.scoop.Screen;
 
 import butterknife.Bind;
-import butterknife.BindColor;
 import butterknife.OnClick;
 import rx.Observer;
 import rx.Subscription;
@@ -31,18 +29,12 @@ public class FooterController extends ApplicationController {
     @Bind(R.id.footer)
     ViewGroup root;
 
-    @BindColor(R.color.blue)
-    int primaryColor;
-
-    @BindColor(R.color.white)
-    int whiteColor;
-
-    private void setSelection(int wrapperID, int primaryDrawable, int whiteDrawable) {
+    private void setSelection(int wrapperID, int whiteDrawable) {
         ViewGroup group = (ViewGroup) root.findViewById(wrapperID);
         ImageView img = (ImageView) group.getChildAt(0);
 
         img.setImageResource(whiteDrawable);
-        group.setBackgroundColor(primaryColor);
+        group.setBackgroundColor(context.getResources().getColor(R.color.blue));
     }
 
     @Override
@@ -56,11 +48,9 @@ public class FooterController extends ApplicationController {
 
         Screen screen = Screen.fromController(this);
         if (screen instanceof PlaceMapFooterScreen) {
-            setSelection(R.id.footer_map, R.drawable.ic_globe_primary, R.drawable.ic_globe_white);
+            setSelection(R.id.footer_map, R.drawable.ic_globe_white);
         } else if (screen instanceof PlaceListFooterScreen) {
-            setSelection(R.id.footer_list, R.drawable.ic_list_primary, R.drawable.ic_list_white);
-        } else {
-            root.setVisibility(View.GONE);
+            setSelection(R.id.footer_list, R.drawable.ic_list_white);
         }
     }
 
