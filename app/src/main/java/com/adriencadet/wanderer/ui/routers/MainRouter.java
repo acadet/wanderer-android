@@ -47,7 +47,6 @@ public class MainRouter extends BaseRouter {
         } else if (screen instanceof PlaceInsightScreen) {
             isInFullscreen = true;
             fullscreenRouter.goTo(screen);
-            pageRouter.goTo(screen);
         } else {
             Timber.e("Invalid screen");
         }
@@ -62,12 +61,7 @@ public class MainRouter extends BaseRouter {
 
             isInFullscreen = false;
 
-            if (pageRouter.hasActiveScreen()) {
-                pageRouter.goBack();
-                return true;
-            }
-
-            return super.goBack();
+            return pageRouter.hasActiveScreen();
         } else {
             if (pageRouter.goBack()) {
                 return true;

@@ -63,6 +63,7 @@
         <item name="android:layout_marginTop">@dimen/layout_margin</item>
         <item name="android:textColor">@color/grey</item>
         <item name="android:textSize">@dimen/body</item>
+        <item name="android:lineSpacingExtra">3dp</item>
     </style>
 
     <style name="PlaceInsightLikeWrapper" parent="WrapContent.Horizontal">
