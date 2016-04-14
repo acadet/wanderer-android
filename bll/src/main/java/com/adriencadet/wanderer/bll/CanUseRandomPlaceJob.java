@@ -22,7 +22,6 @@ public class CanUseRandomPlaceJob {
             .create(new Observable.OnSubscribe<Boolean>() {
                 @Override
                 public void call(Subscriber<? super Boolean> subscriber) {
-                    //TODO check pic as well
                     subscriber.onNext(placeDAO.hasEntries());
                     subscriber.onCompleted();
                 }
