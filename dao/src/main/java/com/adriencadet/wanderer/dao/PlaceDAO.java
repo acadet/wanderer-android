@@ -1,11 +1,15 @@
 package com.adriencadet.wanderer.dao;
 
+import android.content.SharedPreferences;
+
 import com.adriencadet.wanderer.beans.Place;
 import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
 
 import org.joda.time.DateTime;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import io.realm.Realm;
@@ -17,14 +21,20 @@ import io.realm.Sort;
  * <p>
  */
 class PlaceDAO extends BaseDAO implements IPlaceDAO {
-    private Configuration    configuration;
-    private CachingModule    cachingModule;
-    private IPlaceSerializer placeSerializer;
+    private static final String PENDING_LIKES_KEY = "pending_likes";
 
-    PlaceDAO(RealmConfiguration realmConfiguration, Configuration configuration, CachingModule cachingModule, IPlaceSerializer placeSerializer) {
+    private Configuration     configuration;
+    private SharedPreferences store;
+    private CachingModule     cachingModule;
+    private IPlaceSerializer  placeSerializer;
+
+    PlaceDAO(RealmConfiguration realmConfiguration, Configuration configuration,
+             SharedPreferences store, CachingModule cachingModule,
+             IPlaceSerializer placeSerializer) {
         super(realmConfiguration);
 
         this.configuration = configuration;
+        this.store = store;
         this.cachingModule = cachingModule;
         this.placeSerializer = placeSerializer;
     }
@@ -77,6 +87,55 @@ class PlaceDAO extends BaseDAO implements IPlaceDAO {
         realm.close();
 
         return outcome;
+    }
+
+    @Override
+    public void getPendingLikes(Collection<Integer> collectionToHydrate) {
+        String serializedIntegers = store.getString(PENDING_LIKES_KEY, null);
+        String[] ids;
+
+        if (serializedIntegers == null) {
+            return;
+        }
+
+        ids = serializedIntegers.split(":");
+
+        for (int i = 0; i < ids.length; i++) {
+            collectionToHydrate.add(Integer.getInteger(ids[i]));
+        }
+    }
+
+    @Override
+    public void savePendingLike(Integer placeID) {
+        String data, existingEntries;
+
+        existingEntries = store.getString(PENDING_LIKES_KEY, null);
+        if (existingEntries != null) {
+            data = existingEntries + ":" + placeID.toString();
+        } else {
+            data = placeID.toString();
+        }
+
+        store.edit().putString(PENDING_LIKES_KEY, data).commit();
+    }
+
+    @Override
+    public void removePendingLike(Integer placeID) {
+        List<Integer> entries = new ArrayList<>();
+
+        getPendingLikes(entries);
+        clearPendingLikes();
+
+        for (Integer e : entries) {
+            if (e != placeID) {
+                savePendingLike(placeID);
+            }
+        }
+    }
+
+    @Override
+    public void clearPendingLikes() {
+        store.edit().remove(PENDING_LIKES_KEY).commit();
     }
 
     @Override

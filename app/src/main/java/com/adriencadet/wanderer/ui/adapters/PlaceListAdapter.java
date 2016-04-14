@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.adriencadet.wanderer.R;
 import com.adriencadet.wanderer.beans.Place;
+import com.adriencadet.wanderer.ui.controllers.body.IPlaceUpdateObserver;
 import com.adriencadet.wanderer.ui.helpers.DateFormatterHelper;
 import com.adriencadet.wanderer.ui.routers.IRouter;
 import com.adriencadet.wanderer.ui.screens.PlaceInsightScreen;
@@ -23,7 +24,7 @@ import butterknife.ButterKnife;
  * PlaceListAdapter
  * <p>
  */
-public class PlaceListAdapter extends BaseAdapter<Place> {
+public class PlaceListAdapter extends BaseAdapter<Place> implements IPlaceUpdateObserver {
     static class ViewHolder {
         @Bind(R.id.adapter_place_list_background)
         ImageView background;
@@ -97,9 +98,14 @@ public class PlaceListAdapter extends BaseAdapter<Place> {
         }
 
         view.setOnClickListener((v) -> {
-            appRouter.goTo(new PlaceInsightScreen(item));
+            appRouter.goTo(new PlaceInsightScreen(item, this));
         });
 
         return view;
+    }
+
+    @Override
+    public void onUpdate(Place updatedPlace) {
+        swap(updatedPlace, (a, b) -> a.getId() == b.getId());
     }
 }

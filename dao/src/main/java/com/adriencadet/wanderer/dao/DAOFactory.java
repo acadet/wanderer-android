@@ -1,7 +1,9 @@
 package com.adriencadet.wanderer.dao;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 
+import javax.inject.Named;
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -32,6 +34,13 @@ public class DAOFactory {
 
     @Provides
     @Singleton
+    @Named("places")
+    SharedPreferences providePlaceStore(Context context) {
+        return context.getSharedPreferences("places", Context.MODE_PRIVATE);
+    }
+
+    @Provides
+    @Singleton
     CachingModule provideCachingModule() {
         return new CachingModule();
     }
@@ -56,7 +65,7 @@ public class DAOFactory {
 
     @Provides
     @Singleton
-    public IPlaceDAO providePlaceDAO(RealmConfiguration realmConfiguration, Configuration configuration, CachingModule cachingModule, IPlaceSerializer placeSerializer) {
-        return new PlaceDAO(realmConfiguration, configuration, cachingModule, placeSerializer);
+    public IPlaceDAO providePlaceDAO(RealmConfiguration realmConfiguration, Configuration configuration, @Named("places") SharedPreferences store, CachingModule cachingModule, IPlaceSerializer placeSerializer) {
+        return new PlaceDAO(realmConfiguration, configuration, store, cachingModule, placeSerializer);
     }
 }

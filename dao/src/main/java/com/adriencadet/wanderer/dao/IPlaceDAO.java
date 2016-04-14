@@ -2,6 +2,7 @@ package com.adriencadet.wanderer.dao;
 
 import com.adriencadet.wanderer.beans.Place;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -14,6 +15,14 @@ public interface IPlaceDAO {
     void save(List<Place> places);
 
     Place toggleLike(Place place);
+
+    void getPendingLikes(Collection<Integer> collectionToHydrate);
+
+    void savePendingLike(Integer placeID);
+
+    void removePendingLike(Integer placeID);
+
+    void clearPendingLikes();
 
     boolean hasEntries();
 

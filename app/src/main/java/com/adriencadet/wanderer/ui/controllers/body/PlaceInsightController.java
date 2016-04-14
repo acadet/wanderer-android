@@ -33,10 +33,11 @@ import rx.android.schedulers.AndroidSchedulers;
  * <p>
  */
 public class PlaceInsightController extends ApplicationController {
-    private Place        currentPlace;
-    private Subscription listPicturesForPlaceSubscription;
-    private Subscription randomPlaceSubscription;
-    private Subscription toggleLikeSubscription;
+    private Place                currentPlace;
+    private Subscription         listPicturesForPlaceSubscription;
+    private Subscription         randomPlaceSubscription;
+    private Subscription         toggleLikeSubscription;
+    private IPlaceUpdateObserver placeUpdateObserver;
 
     @Bind(R.id.place_insight_slider)
     ViewPager sliderView;
@@ -168,6 +169,8 @@ public class PlaceInsightController extends ApplicationController {
         WandererApplication.getApplicationComponent().inject(this);
         PlaceInsightScreen screen = Screen.fromController(this);
 
+        placeUpdateObserver = screen.observer;
+
         if (screen.hasPlace()) {
             showSpinner();
             setContent(screen.place, true);
@@ -218,6 +221,7 @@ public class PlaceInsightController extends ApplicationController {
                     @Override
                     public void onCompleted() {
                         toggleLikeButton();
+                        placeUpdateObserver.onUpdate(currentPlace);
                     }
 
                     @Override
