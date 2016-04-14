@@ -9,6 +9,8 @@ import com.annimon.stream.Stream;
 
 import java.util.List;
 
+import rx.functions.Func2;
+
 /**
  * BaseAdapter
  * <p>
@@ -61,5 +63,18 @@ abstract class BaseAdapter<T> extends android.widget.BaseAdapter {
 
     public void addItem(T item) {
         items.add(item);
+    }
+
+    public void swap(T newValue, Func2<T, T, Boolean> comparator) {
+        int i = 0;
+        for (T t : items) {
+            if (comparator.call(t, newValue)) {
+                items.remove(i);
+                items.add(i, newValue);
+                notifyDataSetChanged();
+                break;
+            }
+            i++;
+        }
     }
 }
