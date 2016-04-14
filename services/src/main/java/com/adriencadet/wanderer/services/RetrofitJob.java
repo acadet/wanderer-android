@@ -11,7 +11,7 @@ import timber.log.Timber;
 public abstract class RetrofitJob {
     public <T> void handleError(RetrofitError e, Subscriber<T> subscriber) {
         if ((e.getKind() == RetrofitError.Kind.NETWORK && e.getResponse() == null)
-            || (e.getResponse() != null) && e.getResponse().getStatus() == 502) {
+            || (e.getResponse() != null && e.getResponse().getStatus() == 502)) {
             subscriber.onError(new ServiceErrors.NoConnection());
         } else {
             subscriber.onError(new ServiceErrors.ServerError());
