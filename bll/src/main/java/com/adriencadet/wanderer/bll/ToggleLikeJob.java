@@ -9,7 +9,6 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import rx.Observable;
 import rx.Observer;
 import rx.Subscriber;
-import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 import timber.log.Timber;
 
@@ -29,44 +28,49 @@ public class ToggleLikeJob extends BLLJob {
         this.pendingTransactions = new ConcurrentLinkedQueue<>();
     }
 
+    private void pushToServer() {
+        int id;
+
+        if (pendingTransactions.isEmpty()) {
+            return;
+        }
+
+        id = pendingTransactions.peek();
+        server
+            .toggleLikeJob(id)
+            .observeOn(Schedulers.newThread())
+            .subscribe(new Observer<Void>() {
+                @Override
+                public void onCompleted() {
+                    pendingTransactions.poll();
+                    pushToServer(); // Keep iterating on the queue
+                }
+
+                @Override
+                public void onError(Throwable e) {
+                    // Stop and wait for next toggling
+                    Timber.e(e, "Failed to toggle like");
+                }
+
+                @Override
+                public void onNext(Void aVoid) {
+
+                }
+            });
+    }
+
     public Observable<Place> create(Place place) {
         return Observable
             .create(new Observable.OnSubscribe<Place>() {
                 @Override
                 public void call(Subscriber<? super Place> subscriber) {
-                    Action1<Integer> pushToServer = (id) -> {
-                        server
-                            .toggleLikeJob(id)
-                            .observeOn(Schedulers.newThread())
-                            .subscribe(new Observer<Void>() {
-                                @Override
-                                public void onCompleted() {
-
-                                }
-
-                                @Override
-                                public void onError(Throwable e) {
-                                    pendingTransactions.add(id);
-                                    Timber.e(e, "Failed to toggle like");
-                                }
-
-                                @Override
-                                public void onNext(Void aVoid) {
-
-                                }
-                            });
-                    };
-
                     Place updatedPlace = placeDAO.toggleLike(place);
 
                     subscriber.onNext(updatedPlace);
                     subscriber.onCompleted();
 
-                    while (!pendingTransactions.isEmpty()) {
-                        pushToServer.call(pendingTransactions.poll());
-                    }
-
-                    pushToServer.call(place.getId());
+                    pendingTransactions.add(place.getId());
+                    pushToServer();
                 }
             })
             .subscribeOn(Schedulers.newThread());
