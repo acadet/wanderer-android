@@ -17,6 +17,9 @@ import timber.log.Timber;
  * <p>
  */
 public class ToggleLikeJob extends BLLJob {
+    private final Object pushToServerLock = new Object();
+
+    private boolean         isPushingToServer;
     private IWandererServer server;
     private IPlaceDAO       placeDAO;
 
@@ -26,12 +29,15 @@ public class ToggleLikeJob extends BLLJob {
         this.server = server;
         this.placeDAO = placeDAO;
         this.pendingTransactions = new ConcurrentLinkedQueue<>();
+        this.isPushingToServer = false;
     }
 
-    private void pushToServer() {
+    private void pushToServerAux() {
         int id;
 
         if (pendingTransactions.isEmpty()) {
+            placeDAO.savePendingLikes(pendingTransactions);
+            isPushingToServer = false;
             return;
         }
 
@@ -43,12 +49,14 @@ public class ToggleLikeJob extends BLLJob {
                 @Override
                 public void onCompleted() {
                     pendingTransactions.poll();
-                    pushToServer(); // Keep iterating on the queue
+                    pushToServerAux(); // Keep iterating on the queue
                 }
 
                 @Override
                 public void onError(Throwable e) {
                     // Stop and wait for next toggling
+                    placeDAO.savePendingLikes(pendingTransactions);
+                    isPushingToServer = false;
                     Timber.e(e, "Failed to toggle like");
                 }
 
@@ -57,6 +65,23 @@ public class ToggleLikeJob extends BLLJob {
 
                 }
             });
+    }
+
+    private void pushToServer(int id) {
+        if (!isPushingToServer) {
+            synchronized (pushToServerLock) {
+                if (!isPushingToServer) {
+                    isPushingToServer = true;
+                    pendingTransactions.clear();
+                    placeDAO.getPendingLikes(pendingTransactions);
+                    pushToServerAux();
+                    return;
+                }
+            }
+        }
+
+        pendingTransactions.add(id);
+        placeDAO.savePendingLikes(pendingTransactions);
     }
 
     public Observable<Place> create(Place place) {
@@ -69,8 +94,7 @@ public class ToggleLikeJob extends BLLJob {
                     subscriber.onNext(updatedPlace);
                     subscriber.onCompleted();
 
-                    pendingTransactions.add(place.getId());
-                    pushToServer();
+                    pushToServer(place.getId());
                 }
             })
             .subscribeOn(Schedulers.newThread());

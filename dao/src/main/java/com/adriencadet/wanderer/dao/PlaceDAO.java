@@ -1,11 +1,14 @@
 package com.adriencadet.wanderer.dao;
 
+import android.content.SharedPreferences;
+
 import com.adriencadet.wanderer.beans.Place;
 import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
 
 import org.joda.time.DateTime;
 
+import java.util.Collection;
 import java.util.List;
 
 import io.realm.Realm;
@@ -17,14 +20,20 @@ import io.realm.Sort;
  * <p>
  */
 class PlaceDAO extends BaseDAO implements IPlaceDAO {
-    private Configuration    configuration;
-    private CachingModule    cachingModule;
-    private IPlaceSerializer placeSerializer;
+    private static final String PENDING_LIKES_KEY = "pending_likes";
 
-    PlaceDAO(RealmConfiguration realmConfiguration, Configuration configuration, CachingModule cachingModule, IPlaceSerializer placeSerializer) {
+    private Configuration     configuration;
+    private SharedPreferences store;
+    private CachingModule     cachingModule;
+    private IPlaceSerializer  placeSerializer;
+
+    PlaceDAO(RealmConfiguration realmConfiguration, Configuration configuration,
+             SharedPreferences store, CachingModule cachingModule,
+             IPlaceSerializer placeSerializer) {
         super(realmConfiguration);
 
         this.configuration = configuration;
+        this.store = store;
         this.cachingModule = cachingModule;
         this.placeSerializer = placeSerializer;
     }
@@ -77,6 +86,34 @@ class PlaceDAO extends BaseDAO implements IPlaceDAO {
         realm.close();
 
         return outcome;
+    }
+
+    @Override
+    public void getPendingLikes(Collection<Integer> collectionToHydrate) {
+        String serializedIntegers = store.getString(PENDING_LIKES_KEY, null);
+        String[] ids;
+
+        if (serializedIntegers == null) {
+            return;
+        }
+
+        ids = serializedIntegers.split(":");
+
+        for (int i = 0; i < ids.length; i++) {
+            collectionToHydrate.add(Integer.getInteger(ids[i]));
+        }
+    }
+
+    @Override
+    public void savePendingLikes(Collection<Integer> placeIds) {
+        if (placeIds.isEmpty()) {
+            store.edit().remove(PENDING_LIKES_KEY).commit();
+        } else {
+            String serializedIntegers;
+            serializedIntegers = Stream.of(placeIds).map((e) -> e.toString()).collect(Collectors.joining(":"));
+
+            store.edit().putString(PENDING_LIKES_KEY, serializedIntegers).commit();
+        }
     }
 
     @Override
