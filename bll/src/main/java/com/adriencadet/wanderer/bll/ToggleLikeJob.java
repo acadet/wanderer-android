@@ -1,6 +1,8 @@
 package com.adriencadet.wanderer.bll;
 
+import com.adriencadet.wanderer.beans.Picture;
 import com.adriencadet.wanderer.beans.Place;
+import com.adriencadet.wanderer.dao.IPictureDAO;
 import com.adriencadet.wanderer.dao.IPlaceDAO;
 import com.adriencadet.wanderer.services.wanderer.IWandererServer;
 
@@ -22,12 +24,14 @@ public class ToggleLikeJob extends BLLJob {
     private boolean         isPushingToServer;
     private IWandererServer server;
     private IPlaceDAO       placeDAO;
+    private IPictureDAO     pictureDAO;
 
     private ConcurrentLinkedQueue<Integer> pendingTransactions;
 
-    ToggleLikeJob(IWandererServer server, IPlaceDAO placeDAO) {
+    ToggleLikeJob(IWandererServer server, IPlaceDAO placeDAO, IPictureDAO pictureDAO) {
         this.server = server;
         this.placeDAO = placeDAO;
+        this.pictureDAO = pictureDAO;
         this.pendingTransactions = new ConcurrentLinkedQueue<>();
         this.isPushingToServer = false;
     }
@@ -36,7 +40,7 @@ public class ToggleLikeJob extends BLLJob {
         int id;
 
         if (pendingTransactions.isEmpty()) {
-            placeDAO.savePendingLikes(pendingTransactions);
+            placeDAO.clearPendingLikes();
             isPushingToServer = false;
             return;
         }
@@ -48,14 +52,13 @@ public class ToggleLikeJob extends BLLJob {
             .subscribe(new Observer<Void>() {
                 @Override
                 public void onCompleted() {
-                    pendingTransactions.poll();
+                    placeDAO.removePendingLike(pendingTransactions.poll());
                     pushToServerAux(); // Keep iterating on the queue
                 }
 
                 @Override
                 public void onError(Throwable e) {
                     // Stop and wait for next toggling
-                    placeDAO.savePendingLikes(pendingTransactions);
                     isPushingToServer = false;
                     Timber.e(e, "Failed to toggle like");
                 }
@@ -74,6 +77,8 @@ public class ToggleLikeJob extends BLLJob {
                     isPushingToServer = true;
                     pendingTransactions.clear();
                     placeDAO.getPendingLikes(pendingTransactions);
+                    pendingTransactions.add(id);
+                    placeDAO.savePendingLike(id);
                     pushToServerAux();
                     return;
                 }
@@ -81,7 +86,7 @@ public class ToggleLikeJob extends BLLJob {
         }
 
         pendingTransactions.add(id);
-        placeDAO.savePendingLikes(pendingTransactions);
+        placeDAO.savePendingLike(id);
     }
 
     public Observable<Place> create(Place place) {
@@ -90,6 +95,11 @@ public class ToggleLikeJob extends BLLJob {
                 @Override
                 public void call(Subscriber<? super Place> subscriber) {
                     Place updatedPlace = placeDAO.toggleLike(place);
+                    Picture mainPicture = pictureDAO.find(updatedPlace.getMainPicture().getId());
+
+                    if (mainPicture != null) {
+                        updatedPlace.setMainPicture(mainPicture);
+                    }
 
                     subscriber.onNext(updatedPlace);
                     subscriber.onCompleted();

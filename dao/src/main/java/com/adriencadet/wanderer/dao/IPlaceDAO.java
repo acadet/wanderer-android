@@ -18,7 +18,11 @@ public interface IPlaceDAO {
 
     void getPendingLikes(Collection<Integer> collectionToHydrate);
 
-    void savePendingLikes(Collection<Integer> placeIds);
+    void savePendingLike(Integer placeID);
+
+    void removePendingLike(Integer placeID);
+
+    void clearPendingLikes();
 
     boolean hasEntries();
 

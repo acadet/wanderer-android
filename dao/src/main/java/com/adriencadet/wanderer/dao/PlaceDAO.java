@@ -8,6 +8,7 @@ import com.annimon.stream.Stream;
 
 import org.joda.time.DateTime;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -105,15 +106,36 @@ class PlaceDAO extends BaseDAO implements IPlaceDAO {
     }
 
     @Override
-    public void savePendingLikes(Collection<Integer> placeIds) {
-        if (placeIds.isEmpty()) {
-            store.edit().remove(PENDING_LIKES_KEY).commit();
-        } else {
-            String serializedIntegers;
-            serializedIntegers = Stream.of(placeIds).map((e) -> e.toString()).collect(Collectors.joining(":"));
+    public void savePendingLike(Integer placeID) {
+        String data, existingEntries;
 
-            store.edit().putString(PENDING_LIKES_KEY, serializedIntegers).commit();
+        existingEntries = store.getString(PENDING_LIKES_KEY, null);
+        if (existingEntries != null) {
+            data = existingEntries + ":" + placeID.toString();
+        } else {
+            data = placeID.toString();
         }
+
+        store.edit().putString(PENDING_LIKES_KEY, data).commit();
+    }
+
+    @Override
+    public void removePendingLike(Integer placeID) {
+        List<Integer> entries = new ArrayList<>();
+
+        getPendingLikes(entries);
+        clearPendingLikes();
+
+        for (Integer e : entries) {
+            if (e != placeID) {
+                savePendingLike(placeID);
+            }
+        }
+    }
+
+    @Override
+    public void clearPendingLikes() {
+        store.edit().remove(PENDING_LIKES_KEY).commit();
     }
 
     @Override

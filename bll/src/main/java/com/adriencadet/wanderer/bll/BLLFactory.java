@@ -48,8 +48,8 @@ public class BLLFactory {
 
     @Provides
     @Singleton
-    ToggleLikeJob provideToggleLikeJob(IWandererServer server, IPlaceDAO placeDAO) {
-        return new ToggleLikeJob(server, placeDAO);
+    ToggleLikeJob provideToggleLikeJob(IWandererServer server, IPlaceDAO placeDAO, IPictureDAO pictureDAO) {
+        return new ToggleLikeJob(server, placeDAO, pictureDAO);
     }
 
     @Provides
