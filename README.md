@@ -14,9 +14,7 @@ An Android sample application using my latest skillset. Hooked up with [this ser
 
 * [AndroidViewAnimations](https://github.com/daimajia/AndroidViewAnimations)
 * [ButterKnife](http://jakewharton.github.io/butterknife/)
-* [Crouton](https://github.com/keyboardsurfer/Crouton)
 * [Dagger 2.0](https://github.com/google/dagger)
-* [EventBus](https://github.com/greenrobot/EventBus)
 * [JodaTime](http://www.joda.org/joda-time/)
 * [PathView](https://github.com/geftimov/android-pathview)
 * [RetroFit](http://square.github.io/retrofit/)
